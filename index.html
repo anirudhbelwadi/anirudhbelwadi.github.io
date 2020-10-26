@@ -1,181 +1,469 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anirudh Belwadi</title>
-    <link rel="shortcut icon" href="anirudhbelwadi.jpg">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark" style="position: fixed; background-color: rgba(0, 0, 0, 0.664); width: 100%">
-        <img src="anirudhbelwadi.jpg" class="navbar-brand" width=100 style="border-radius: 50px;">
-        <h1 style="color: white; font-size: 150%;">Anirudh Belwadi</h1>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navmenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navmenu" style="font-size: 130%">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="#about" class="nav-link" style="color: white;">
-                        <center>
-                            About
-                        </center>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Anirudh Belwadi</title>
+        <link rel="shorcut icon" href="assets/img/AnirudhBelwadi.jpg">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+        <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+        <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+        <link rel="stylesheet" href="assets/css/styles.min.css">
+    </head>
+    <body id="page-top">
+        <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">ANIRUDH BELWADI</a>
+                <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a></li>
+                       <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#experience">Experience</a></li>
+                        <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#education">Education</a></li>
+                        <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#skills">Skills</a></li>
+                        <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="assets/img/ani.png">
+                <h1>Anirudh Belwadi</h1>
+                <hr class="star-light">
+                <h2 class="font-weight-light mb-0">Full Stack Developer - Musician - Photographer</h2>
+            </div>
+        </header>
+        <!--<section id="portfolio" class="portfolio">
+            <div class="container">
+                <h2 class="text-uppercase text-center text-secondary">Portfolio</h2>
+                <hr class="star-dark mb-5">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <a class="d-block mx-auto portfolio-item" data-toggle="modal" href="#portfolio-modal-1">
+                            <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                                <div class="my-auto portfolio-item-caption-content w-100 text-center text-white"><i class="fa fa-search-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/cabin.png"></a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a class="d-block mx-auto portfolio-item" data-toggle="modal" href="#portfolio-modal-2">
+                            <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                                <div class="my-auto portfolio-item-caption-content w-100 text-center text-white"><i class="fa fa-search-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/cake.png"></a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a class="d-block mx-auto portfolio-item" data-toggle="modal" href="#portfolio-modal-3">
+                            <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                                <div class="my-auto portfolio-item-caption-content w-100 text-center text-white"><i class="fa fa-search-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/circus.png"></a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a class="d-block mx-auto portfolio-item" data-toggle="modal" href="#portfolio-modal-4">
+                            <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                                <div class="my-auto portfolio-item-caption-content w-100 text-center text-white"><i class="fa fa-search-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/game.png"></a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a class="d-block mx-auto portfolio-item" data-toggle="modal" href="#portfolio-modal-5">
+                            <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                                <div class="my-auto portfolio-item-caption-content w-100 text-center text-white"><i class="fa fa-search-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/safe.png"></a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a class="d-block mx-auto portfolio-item" data-toggle="modal" href="#portfolio-modal-6">
+                            <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                                <div class="my-auto portfolio-item-caption-content w-100 text-center text-white"><i class="fa fa-search-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/submarine.png"></a>
+                    </div>
+                </div>
+            </div>
+        </section>-->
+        <section id="about" class="bg-primary text-white mb-0" style="background-color: white !important;">
+            <div class="container">
+                <h2 class="text-uppercase text-center text-dark">About</h2>
+                <hr class="star-dark mb-5">
+                <div class="row">
+                    <div class="col-lg-4 ml-auto col-lg-6">
+                        <p class="lead" style="font-size: 26px;text-align: center; color: black;">An extrovert, who loves building web applications, a developer and musician by passion, an engineer by profession and a photographer by interest.</p>
+                    </div>
+                    <div class="col-lg-4 mr-auto col-lg-6">
+                        <p class="lead" style="font-size: 26px;text-align: center; color: black;">The raison d'être of my life is to be determined towards the software world and its development for the betterment in the standard of living of the society.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a class="btn btn-outline-dark btn-xl" role="button" href="assets/docs/Resume.pdf">
+                        <i class="far fa-address-card mr-2"></i>
+                        <span>Download Resume!</span>
                     </a>
-                </li>&nbsp;&nbsp;
-                <li class="nav-item">
-                    <a href="#experience" class="nav-link" style="color: white;">
-                        <center>
-                            Experience
-                        </center>
-                    </a>
-                </li>&nbsp;&nbsp;
-                <li class="nav-item">
-                    <a href="#education" class="nav-link" style="color: white;">
-                           <center>
-                            Education
-                        </center>
-                    </a>
-                </li>&nbsp;&nbsp;
-                <li class="nav-item">
-                    <a href="#hobbies" class="nav-link" style="color: white;">
-                        <center>
-                            Hobbies
-                        </center>
-                    </a>
-                </li>&nbsp;&nbsp;
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link" style="color: white;">
-                        <center>
-                            Contact
-                        </center>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <br>
-    <img src="Youtuve cover photo.png" width="98%" style="margin-top: 130px;">
-    <br><br>
-    <h1 style="text-align: center;" id="about">About</h1>
-    <hr width="20%" style="border: 1px solid rgba(0, 0, 0, 0.363);"><br>
-    <h4 style="text-align: center; width: 90%; margin-left: 5%">The raison d'être of my life is to be determined towards the software world and its development for the betterment in the standard of living of the society.<br><br>Music has been a part my of life since childhood and will be swan song. It has edified me and gifted me a 'Never Give Up!' attitude in life. I have learnt to play several instruments of which I have mastered Keyboard and Guitar. I still stay motivated to achieve a good command on new instruments.<br><br>Additionally, I possess a good experience in Python, JAVA, JS, HTML, CSS, SQL.</h4><br><br><br>
-    <h1 style="text-align: center;" id="hobbies">Hobbies</h1>
-    <hr width="20%" style="border: 1px solid rgba(0, 0, 0, 0.363);"><br>
-    <h4 style="text-align: center;">
-        Music - Playing Piano, Guitar and Singing<br>
-        Photography<br>
-        Sports - Tug of War, Shot Put and Discuss Throw<br>
-    </h4><br><br><br>
-    <h1 style="text-align: center;" id="experience">Expierence</h1>
-    <hr width="20%" style="border: 1px solid rgba(0, 0, 0, 0.363);"><br>
-    <div style="width: 100%; padding-left: 11%; padding-right: 10%;">
-        <div style="width: 100%; border-left: 4px solid black; padding: 1%;">
-            <div style="width: 100%; font-size: 170%; background-color: rgba(0, 0, 0, 0.205); padding: 1%;">
-                <a href="http://www.hale-ai.com" style="text-decoration: none;"><h1 style="color: #1356cf;">HaleAI</h1></a>
-                <h4>Full Stack Developer</h4>
-                <h5>March 2020 - Present (6 months)</h5>
-                <h5 style="font-weight: normal;">In these times, health is a major issue and quality healthcare isn't available to all. We, at HaleAI, aim at providing support to healthcare professionals using artificial intelligence. It can help in diagnosis as well as prognosis of various diseases that can sometimes be overlooked or not have obvious symptoms. Hence, the company provides a platform for faster detection of diseases using technology that will benefit the doctors, as more optimum solutions can be found. Our mission is to help healthcare professionals and transform the healthcare industry. Ultimately, it is the life that wins.</h5>
+                </div>
+            </div>
+        </section>
+        <section id="experience" style="background-color: rgb(24,188,156) !important;">
+            <div class="timeline">
+                <h2 class="text-uppercase text-center text-light">Experience</h2>
+                <hr class="star-light mb-5">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-lg-7 mx-auto">
+                            <!-- Timeline -->
+                            <ul class="timeline">
+                                <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                                    <div class="timeline-arrow"></div>
+                                    <h2 class="h3 mb-1">HaleAI</h2>
+                                    <h4 class="h6 mb-0">Full Stack Developer</h4>
+                                    <span class="small text-gray">
+                                        <i class="fa fa-clock-o mr-1"></i>March 2020 - Present
+                                    </span>
+                                    <p class="text-small mt-2 font-weight-light">HaleAI aims to provide assistance for faster and more accurate diagnosis in the healthcare industry using artificial intelligence. The mission is to help healthcare professionals and transform the healthcare industry.</p>
+                                </li>
+                                <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                                    <div class="timeline-arrow"></div>
+                                    <h2 class="h3 mb-1">Google DSC SIESGST</h2><h4 class="h6 mb-0">Administrator</h4><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>August 2020 - Present</span>
+                                    <p class="text-small mt-2 font-weight-light">The main motto of DSC, SIESGST is to inculcate into students a sense of technical knowledge, a team wherein students could come and make their ideas turn into a reality with the help of others.</p>
+                                </li>
+                                <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                                    <div class="timeline-arrow"></div>
+                                    <h2 class="h3 mb-1">IETE SIESGST</h2>
+                                    <h4 class="h6 mb-0">Technical Coordinator</h4>
+                                    <span class="small text-gray">
+                                        <i class="fa fa-clock-o mr-1"></i>July 2019 - October 2020
+                                    </span>
+                                    <p class="text-small mt-2 font-weight-light">Aims and objectives :
+                                        <br>‣To plan, organize Technical Programs, Special Lectures, Workshops, Seminars Symposia, exhibitions for the benefit of students.
+                                        <br>‣To provide a common platform for students to exchange ideas in technical topics of interest, e.g., curriculum, employment, higher educational opportunities, emerging trends, etc.
+                                        <br>‣To facilitate technical visits, project works, employment, contact with industries and academic institutions.
+                                        <br>‣Encourage team spirit and self-reliance among student members. </p>
+                                </li>
+                                <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                                    <div class="timeline-arrow"></div>
+                                    <h2 class="h3 mb-1">Media Team SIESGST</h2>
+                                    <h4 class="h6 mb-0">Media Volunteer</h4>
+                                    <span class="small text-gray">
+                                        <i class="fa fa-clock-o mr-1"></i>September 2020 - Present
+                                    </span>
+                                    <p class="text-small mt-2 font-weight-light">Voice of a beautiful mind combined with the willingness to inspire. Isn't that all we need to inspire people to look at the world differently. Hence TEDx SIESGST provided a platform for people with innovative thoughts who could inspire masses to tackle hurdles from various walks of their respective lives.</p>
+                                </li>
+                                <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                                    <div class="timeline-arrow"></div>
+                                    <h2 class="h3 mb-1">TEDx SIESGST</h2>
+                                    <h4 class="h6 mb-0">Core Team Member</h4>
+                                    <span class="small text-gray">
+                                        <i class="fa fa-clock-o mr-1"></i>July 2019 - October 2020
+                                    </span>
+                                    <p class="text-small mt-2 font-weight-light">Voice of a beautiful mind combined with the willingness to inspire. Isn't that all we need to inspire people to look at the world differently. Hence TEDx SIESGST provided a platform for people with innovative thoughts who could inspire masses to tackle hurdles from various walks of their respective lives.</p>
+                                </li>
+                            </ul><!-- End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="education">
+            <div class="container">
+                <h2 class="text-uppercase text-center text-black">Education</h2>
+                <hr class="star-dark mb-5">
+	            <div class="row">
+		            <div class="timeline-centered">
+                        <article class="timeline-entry">
+		                    <div class="timeline-entry-inner">
+			                    <div class="timeline-time">
+                                    <span>2022</span>
+                                    <span>Present</span>
+                               </div>
+	    		                <div class="timeline-icon bg-warning">
+		    		                <i class="entypo-feather"></i>
+			                    </div>
+			                    <div class="timeline-label">
+                                    <h2>
+                                        <a href="http://www.siesgst.edu.in/">SIES Graduate School Of Technology</a>
+                                    </h2>
+                                    <p>
+                                        <strong>Second Year</strong> : 8.25 CGPA
+                                    </p>
+                                    <p>
+                                        <strong>First Year</strong> : 8.11 CGPA
+                                    </p>
+                                    <br>
+				                    <img src="assets/img/SIES.jpg" class="img-responsive img-rounded full-width">
+			                    </div>
+    		                </div>
+	    	            </article>
+	                    <article class="timeline-entry left-aligned">
+		                    <div class="timeline-entry-inner">
+			                    <div class="timeline-time">
+                                    <span>2018</span>
+                                    <span></span>
+                                </div>
+    			                <div class="timeline-icon bg-success">
+	    			                <i class="entypo-suitcase"></i>
+		    	                </div>
+			                    <div class="timeline-label">
+				                    <h2>
+                                        <a href="http://vvhs.edu.in/">Vasant Vihar High School and Junior College</a>
+                                    </h2>
+                                    <p>
+                                        <strong>HSC</strong> : 78.77 %
+                                    </p>
+                                    <br>
+                                    <img src="assets/img/vvhs.jpg" class="img-responsive img-rounded full-width">
+			                    </div>
+		                    </div>
+		                </article>
+    	                <article class="timeline-entry">
+	    	                <div class="timeline-entry-inner">
+		    	                <div class="timeline-time">
+                                    <span>2016</span>
+                                    <span></span>
+                                </div>
+			                    <div class="timeline-icon bg-success">
+				                    <i class="entypo-camera"></i>
+    			                </div>
+	    		                <div class="timeline-label">
+		    		                <h2>
+                                        <a href="https://kaveri.edu.in/khsg/">Dr Kalmadi Shamarao High School</a>
+                                    </h2>
+                                    <p>
+                                        <strong>SSC</strong> : 87 %
+                                    </p>
+                                    <img src="assets/img/KHS.png" class="img-responsive img-rounded full-width">
+    			                </div>
+	    	                </div>
+		                </article>
+	                    <article class="timeline-entry begin">
+	                        <div class="timeline-entry-inner">
+			                    <div class="timeline-icon" style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);">
+				                    <i class="entypo-flight"></i>
+    			                </div>	
+	    	                </div>
+		                </article>
+	                </div>
+    	        </div>
+            </div>
+        </section>
+        <section id="skills" style="background-color: rgb(24,188,156) !important;">
+            <h2 class="text-uppercase text-center text-light">Skills</h2>
+            <hr class="star-light mb-5">
+            <div class="container">
+                <div class="progress-div">
+                    <div class="progress-title text-center">HTML5</div>
+                    <div class="progress" style="width:75% !important; margin-left:auto; margin-right:auto;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="width: 90%;"></div>
+                        <span style="padding: 7px; font-size: 22px; margin-top: auto; margin-bottom: auto;">90%</span>
+                    </div>
+                    <div class="progress-title text-center">CSS3</div>
+                    <div class="progress" style="width:75% !important; margin-left:auto; margin-right:auto;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary bar" style="  width: 75%;"></div>
+                        <span style="padding: 7px; font-size: 22px; margin-top: auto; margin-bottom: auto;">75%</span>
+                    </div>
+                    <div class="progress-title text-center">Java Script</div>
+                    <div class="progress" style="width:75% !important; margin-left:auto; margin-right:auto;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="  width: 50%;"></div>
+                        <span style="padding: 7px; font-size: 22px; margin-top: auto; margin-bottom: auto;">50%</span>
+                    </div>
+                    <div class="progress-title text-center">Bootsrap 4</div>
+                    <div class="progress" style="width:75% !important; margin-left:auto; margin-right:auto;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="  width: 80%;"></div>
+                        <span style="padding: 7px; font-size: 22px; margin-top: auto; margin-bottom: auto;">80%</span>
+                    </div>
+                    <div class="progress-title text-center">Flask - Python</div>
+                    <div class="progress" style="width:75% !important; margin-left:auto; margin-right:auto;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="  width: 70%;"></div>
+                        <span style="padding: 7px; font-size: 22px; margin-top: auto; margin-bottom: auto;">70%</span>
+                    </div>
+                    <div class="progress-title text-center">AWS</div>
+                    <div class="progress" style="width:75% !important; margin-left:auto; margin-right:auto;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="  width: 50%;"></div>
+                        <span style="padding: 7px; font-size: 22px; margin-top: auto; margin-bottom: auto;">50%</span>
+                    </div>
+                    <div class="progress-title text-center">GCP</div>
+                    <div class="progress" style="width:75% !important; margin-left:auto; margin-right:auto;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="  width: 45%;"></div>
+                        <span style="padding: 7px; font-size: 22px; margin-top: auto; margin-bottom: auto;">45%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer text-center">
+            <h2 class="text-uppercase text-center text-light">Around the Web</h2>
+            <hr class="star-good mb-5">
+            <div class="container">
+                <div class="row align-content-center justify-content-center" id="contact">
+                    <div class="col-md-4 mb-5 mb-lg-0 col-md-12">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://www.facebook.com/anirudh.belwadi" title="Facebook">
+                                    <i class="fa fa-facebook fa-fw"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://www.instagram.com/believed_it_after_clicking_it/" title="Photography Portfolio">
+                                    <i class="fa fa-camera fa-fw"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://www.youtube.com/channel/UC-cy4jShw808hNtrwucrI-Q" title="Music Channel">
+                                    <i class="fa fa-youtube-play fa-fw"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://www.instagram.com/anirudh.fullstack/" title="Instagram">
+                                    <i class="fa fa-instagram fa-fw"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://www.linkedin.com/in/anirudh-srinath-belwadi/" title="LinkedIn">
+                                    <i class="fa fa-linkedin fa-fw"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="mailto:anirudh.belwadi@gmail.com" title="Mail">
+                                    <i class="icon ion-android-mail fa-fw"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://twitter.com/BelwadiAnirudh" title="Twitter">
+                                    <i class="fa fa-twitter fa-fw"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/anirudhbelwadi" title="GitHub">
+                                    <i class="fa fa-github fa-fw"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--<div class="d-lg-none scroll-to-top position-fixed rounded"><a class="d-block js-scroll-trigger text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a></div>
+        <div class="modal text-center" role="dialog" tabindex="-1" id="portfolio-modal-1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="container text-center">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    <h2 class="text-uppercase text-secondary mb-0">Project Name</h2>
+                                    <hr class="star-dark mb-5"><img class="img-fluid mb-5" src="assets/img/portfolio/cabin.png">
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
+                                    itaque. Nam.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer pb-5"><a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button" href="#"><i class="fa fa-close"></i>&nbsp;Close Project</a></div>
+                </div>
             </div>
         </div>
-        <div style="width: 100%; border-right: 4px solid black; border-top: 4px solid black; padding: 1%;">
-            <div style="width: 100%; font-size: 170%; background-color: rgba(0, 0, 0, 0.205); padding: 1%;">
-                <a href="https://tedxsiesgst.live/" style="text-decoration: none;"><h1 style="color: #e62b1e;font-family: Catamaran, sans-serif!important; font-weight: bold;">TEDx<span style="color: white;">SIESGST</span></h1></a>
-                <h4>Core Team Member</h4>
-                <h5>July 2019 - Present (1 year 2 months)</h5>
-                <h5 style="font-weight: normal;">Voice of a beautiful mind combined with the willingness to inspire. Isn't that all we need to inspire people to look at the world differently. Hence TEDx SIESGST provides a platform for people with innovative thoughts who could inspire masses to tackle hurdles from various walks of their respective lives.</h5>
+        <div class="modal text-center" role="dialog" tabindex="-1" id="portfolio-modal-2">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <h2 class="text-uppercase text-secondary mb-0">Project Name</h2>
+                                <hr class="star-dark mb-5"><img class="img-fluid mb-5" src="assets/img/portfolio/cake.png">
+                                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
+                                    itaque. Nam.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pb-5"><a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button" href="#"><i class="fa fa-close"></i>&nbsp;Close Project</a></div>
+                </div>
             </div>
         </div>
-        <div style="width: 100%; border-left: 4px solid black; border-top: 4px solid black; padding: 1%;">
-            <div style="width: 100%; font-size: 170%; background-color: rgba(0, 0, 0, 0.205); padding: 1%;">
-                <a href="https://tedxsiesgst.live/" style="text-decoration: none;"><h1 style="color:rgb(5, 139, 0); font-family: Catamaran, sans-serif!important;">AB Photography</h1></a>
-                <h4>Photographer</h4>
-                <h5>May 2019 - Present (1 year 4 months)</h5>
-                <h5 style="font-weight: normal;">Budding Photographer having an ambition of conveying stories thorough my lens.</h5>
+        <div class="modal text-center" role="dialog" tabindex="-1" id="portfolio-modal-3">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <h2 class="text-uppercase text-secondary mb-0">Project Name</h2>
+                                <hr class="star-dark mb-5"><img class="img-fluid mb-5" src="assets/img/portfolio/circus.png">
+                                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
+                                    itaque. Nam.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pb-5"><a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button" href="#"><i class="fa fa-close"></i>&nbsp;Close Project</a></div>
+                </div>
             </div>
         </div>
-    </div><br><br><br>
-    <h1 style="text-align: center;" id="education">Education</h1>
-    <hr width="20%" style="border: 1px solid rgba(0, 0, 0, 0.363);"><br>
-    <div style="width: 100%; padding-left: 11%; padding-right: 10%;">
-        <div style="width: 100%; border-left: 4px solid black; padding: 1%;">
-            <div style="width: 100%; font-size: 170%; background-color: rgba(0, 0, 0, 0.205); padding: 1%;">
-                <a href="http://www.siesgst.edu.in/" style="text-decoration: none;"><h1 style="color: #000000;">SIES Graduate School of Technology</h1></a>
-                <h4>Bachelor of Engineering - BE, Computer Engineering</h4>
-                <h5>2018-2022</h5>
+        <div class="modal text-center" role="dialog" tabindex="-1" id="portfolio-modal-4">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="container text-center">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    <h2 class="text-uppercase text-secondary mb-0">Project Name</h2>
+                                    <hr class="star-dark mb-5"><img class="img-fluid mb-5" src="assets/img/portfolio/game.png">
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
+                                        itaque. Nam.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer pb-5"><a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button" href="#"><i class="fa fa-close"></i>&nbsp;Close Project</a></div>
+                </div>
             </div>
         </div>
-        <div style="width: 100%; border-right: 4px solid black; border-top: 4px solid black; padding: 1%;">
-            <div style="width: 100%; font-size: 170%; background-color: rgba(0, 0, 0, 0.205); padding: 1%;">
-                <a href="http://www.gaet.edu.in/vvhs/" style="text-decoration: none;"><h1 style="color: #000000;">Vasant Vihar High School and Junior College</h1></a>
-                <h4>HSC</h4>
-                <h5>Year of passing : 2018</h5>
+        <div class="modal text-center" role="dialog" tabindex="-1" id="portfolio-modal-5">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="container text-center">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    <h2 class="text-uppercase text-secondary mb-0">Project Name</h2>
+                                   <hr class="star-dark mb-5"><img class="img-fluid mb-5" src="assets/img/portfolio/safe.png">
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
+                                        itaque. Nam.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer pb-5"><a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button" href="#"><i class="fa fa-close"></i>&nbsp;Close Project</a></div>
+                </div>
             </div>
         </div>
-        <div style="width: 100%; border-left: 4px solid black; border-top: 4px solid black; padding: 1%;">
-            <div style="width: 100%; font-size: 170%; background-color: rgba(0, 0, 0, 0.205); padding: 1%;">
-                <a href="https://kaveri.edu.in/khsg/" style="text-decoration: none;"><h1 style="color: #000000;">Dr. Kalmadi Shamarao High School</h1></a>
-                <h4>SSC</h4>
-                <h5>Year of passing : 2016</h5>
+        <div class="modal text-center" role="dialog" tabindex="-1" id="portfolio-modal-6">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="container text-center">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    <h2 class="text-uppercase text-secondary mb-0">Project Name</h2>
+                                    <hr class="star-dark mb-5"><img class="img-fluid mb-5" src="assets/img/portfolio/submarine.png">
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
+                                        itaque. Nam.</p>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                    <div class="modal-footer pb-5"><a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button" href="#"><i class="fa fa-close"></i>&nbsp;Close Project</a></div>
+                </div>
             </div>
-        </div>
-    </div>
-    <br><br><br>
-    <h1 style="text-align: center;" id="contact">Skills</h1>
-    <hr width="20%" style="border: 1px solid rgba(0, 0, 0, 0.363);"><br>
-    <div style="width: 40%; margin: auto;">
-        <h1 style="text-align: center;"><img src="images/html.jpg" height=100></h1>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <br>
-        <h1 style="text-align: center;"><img src="images/css.png" height=100></h1>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <br>
-        <h1 style="text-align: center;"><img src="images/js.png" height=100></h1>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <br>
-        <h1 style="text-align: center;"><img src="images/flask.png" height=100></h1>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <br>
-        <h1 style="text-align: center;"><img src="images/aws.png" height=100></h1>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <br>
-        <h1 style="text-align: center;"><img src="images/gcp.png" height=100></h1>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <br>
-        <h1 style="text-align: center;"><img src="images/s3.jpeg" height=100></h1>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-    </div>
-    <br><br><br>
-    <h1 style="text-align: center;" id="contact">Get In Touch</h1>
-    <hr width="20%" style="border: 1px solid rgba(0, 0, 0, 0.363);"><br>
-    <div style="width: 100%;">
-        <center>
-            <a href="https://www.linkedin.com/in/anirudh-belwadi-7a8707182/"><img height="50" src="images/linkedin.png"></a>&nbsp;&nbsp;
-            <a href="https://anirudhbelwadi.github.io/Resume.pdf"><img height="50" src="images/resume.png"></a>&nbsp;&nbsp;
-            <a href="mailto:anirudh.belwadi@gmail.com"><img height="50" src="images/email.png"></a>&nbsp;&nbsp;
-            <a href="https://www.instagram.com/believed_it_after_clicking_it/"><img height="50" src="images/insta.png"></a>&nbsp;&nbsp;
-            <a href="https://www.youtube.com/channel/UC-cy4jShw808hNtrwucrI-Q"><img height="50" src="images/youtube.png"></a>&nbsp;&nbsp;
-            <a href="https://www.facebook.com/anirudh.belwadi"><img height="50" src="images/facebook.png"></a>&nbsp;&nbsp;
-            <a href="https://twitter.com/BelwadiAnirudh"><img height="50" src="images/twitter.png"></a>
-        </center>
-    </div>
-    <br>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
+        </div>-->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src="assets/js/script.min.js"></script>
+    </body>
 </html>
