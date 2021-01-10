@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="assets/css/styles.min.css">
     </head>
     <body id="page-top">
-        <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-tranparent text-uppercase" style="background-color: black;" id="mainNav">
+        <nav class="navbar navbar-light navbar-expand-lg fixed-top text-uppercase" style="background-color: black; z-index: 1000;" id="mainNav">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top" style="font-size: 160%;">ANIRUDH BELWADI</a>
                 <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,7 @@
                 </div>
             </div>
         </nav>
+        
         <header class="masthead bg-dark text-white text-center" style="background-color: black !important; margin-top: -9   0px !important;">
             <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="assets/img/ani.png">
                 <h1>Anirudh Belwadi</h1>
@@ -40,6 +41,7 @@
                 <h2 class="font-weight-light mb-0">Full Stack Developer - Musician - Photographer</h2>
             </div>
         </header>
+        <div id="_progress"></div>
         <!--<section id="portfolio" class="portfolio">
             <div class="container">
                 <h2 class="text-uppercase text-center text-secondary">Portfolio</h2>
@@ -519,7 +521,13 @@
                     .then(response => alert("Thank you for contacting! I will get back to you soon."))
                     .catch(error => console.error(error.message))
                 document.getElementById("registerationForm").reset();
-            })
+            });
+            document.addEventListener("scroll", function (){
+                var scrollTop = document.documentElement["scrollTop"] || document.body["scrollTop"];
+                var scrollBottom = (document.documentElement["scrollHeight"] || document.body["scrollHeight"]) - document.documentElement.clientHeight;
+                scrollPercent = scrollTop / scrollBottom * 100 + "%";
+                document.getElementById("_progress").style.setProperty("--scroll", scrollPercent);
+            }, { passive: true });
         </script>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
