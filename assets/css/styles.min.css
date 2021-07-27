@@ -63,6 +63,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.3s;
 }
 .project_google_cross_one{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -75,6 +76,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     display: none;
 }
 .project_google_cross_two{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -143,6 +145,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.3s;
 }
 .project_ideation_cross_one{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -155,6 +158,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     display: none;
 }
 .project_ideation_cross_two{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -223,6 +227,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.3s;
 }
 .project_amigos_cross_one{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -235,6 +240,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     display: none;
 }
 .project_amigos_cross_two{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -254,6 +260,88 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.2s;
 }
 .project_amigos_cross_two_hover{
+    width: 40px;
+    border: 2px solid #F36E33;
+    cursor: pointer;
+    right: 20px;
+    transition: 0.2s;
+}
+
+/* Soundlogy Project */
+.project_soundlogy{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    z-index: 10000;
+    left: 0px;
+    top: 0px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.534);
+    backdrop-filter: blur(10px);
+    display: none;
+    padding: 4.5rem 0;
+}
+.project_soundlogy h1{
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+.project_soundlogy p{
+    text-align: center;
+    color: white;
+    padding: 0 10%;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+.project_soundlogy a{
+    position: relative;
+    left: calc(50% - 67px);
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #fbcc04ff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.project_soundlogy a:hover{
+    background-color: #F36E33;
+    transition: 0.3s;
+}
+.project_soundlogy_cross_one{
+    background-color: #fbcc04ff;
+    position: fixed;
+    width: 50px;
+    height: 0px;
+    right: 15px;
+    top: 40px;
+    z-index: 1001;
+    border: 2px solid #fbcc04ff;
+    transform: rotate(45deg);
+    transition: 0.2s;
+    display: none;
+}
+.project_soundlogy_cross_two{
+    background-color: #fbcc04ff;
+    position: fixed;
+    width: 50px;
+    height: 0px;
+    right: 15px;
+    top: 40px;
+    z-index: 1001;
+    border: 2px solid #fbcc04ff;
+    transform: rotate(-45deg);
+    transition: 0.2s;
+    display: none;
+}
+.project_soundlogy_cross_one_hover{
+    width: 40px;
+    border: 2px solid #F36E33;
+    cursor: pointer;
+    right: 20px;
+    transition: 0.2s;
+}
+.project_soundlogy_cross_two_hover{
     width: 40px;
     border: 2px solid #F36E33;
     cursor: pointer;
@@ -303,6 +391,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.3s;
 }
 .project_netflix_cross_one{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -315,6 +404,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     display: none;
 }
 .project_netflix_cross_two{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -383,6 +473,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.3s;
 }
 .project_internxpo_cross_one{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -395,6 +486,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     display: none;
 }
 .project_internxpo_cross_two{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -463,6 +555,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.3s;
 }
 .project_entrespace_cross_one{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -475,6 +568,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     display: none;
 }
 .project_entrespace_cross_two{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -543,6 +637,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.3s;
 }
 .project_aaradhya_services_cross_one{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;
@@ -555,6 +650,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     display: none;
 }
 .project_aaradhya_services_cross_two{
+    background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
     height: 0px;

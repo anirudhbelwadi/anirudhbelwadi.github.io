@@ -105,6 +105,41 @@ $('.project_amigos_cross_two').on('click', () => {
     $('.project_amigos_cross_two').hide();
 });
 
+//Soundlogy Project
+$('#soundlogy_project').on('click', () => {
+    $('.project_soundlogy').show();
+    $('.project_soundlogy_cross_one').show();
+    $('.project_soundlogy_cross_two').show();
+});
+$('.project_soundlogy_cross_one').on('mouseover', () => {
+    $('.project_soundlogy_cross_one').addClass('project_soundlogy_cross_one_hover');
+    $('.project_soundlogy_cross_two').addClass('project_soundlogy_cross_two_hover');
+});
+$('.project_soundlogy_cross_two').on('mouseover', () => {
+    $('.project_soundlogy_cross_one').addClass('project_soundlogy_cross_one_hover');
+    $('.project_soundlogy_cross_two').addClass('project_soundlogy_cross_two_hover');
+});
+$(document).mouseover(e => {
+    if ((!$('.project_soundlogy_cross_one').is(e.target) // if the target of the click isn't the container...
+        && $('.project_soundlogy_cross_one').has(e.target).length === 0)
+        && (!$('.project_soundlogy_cross_two').is(e.target)
+            && $('.project_soundlogy_cross_two').has(e.target).length === 0)) // ... nor a descendant of the container
+    {
+        $('.project_soundlogy_cross_one').removeClass('project_soundlogy_cross_one_hover');
+        $('.project_soundlogy_cross_two').removeClass('project_soundlogy_cross_two_hover');
+    }
+});
+$('.project_soundlogy_cross_one').on('click', () => {
+    $('.project_soundlogy').hide();
+    $('.project_soundlogy_cross_one').hide();
+    $('.project_soundlogy_cross_two').hide();
+});
+$('.project_soundlogy_cross_two').on('click', () => {
+    $('.project_soundlogy').hide();
+    $('.project_soundlogy_cross_one').hide();
+    $('.project_soundlogy_cross_two').hide();
+});
+
 //Netflix Clone
 $('#netflix_project').on('click', () => {
     $('.project_netflix_clone').show();
@@ -257,6 +292,9 @@ $(document).on('keydown', function (event) {
         $('.project_amigos').hide();
         $('.project_amigos_cross_one').hide();
         $('.project_amigos_cross_two').hide();
+        $('.project_soundlogy').hide();
+        $('.project_soundlogy_cross_one').hide();
+        $('.project_soundlogy_cross_two').hide();
         $('.project_netflix_clone').hide();
         $('.project_netflix_cross_one').hide();
         $('.project_netflix_cross_two').hide();
