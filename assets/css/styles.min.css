@@ -185,8 +185,8 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.2s;
 }
 
-/* Amigos Social Media Website */
-.project_amigos{
+/* Gist. Social Media Website */
+.project_gist{
     position: fixed;
     height: 100vh;
     width: 100%;
@@ -199,19 +199,19 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     display: none;
     padding: 4.5rem 0;
 }
-.project_amigos h1{
+.project_gist h1{
     text-align: center;
     color: white;
     font-size: 35px;
 }
-.project_amigos p{
+.project_gist p{
     text-align: center;
     color: white;
     padding: 0 10%;
     font-size: 20px;
     box-sizing: border-box;
 }
-.project_amigos a{
+.project_gist a{
     position: relative;
     left: calc(50% - 67px);
     font-size: 20px;
@@ -222,11 +222,11 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     border-radius: 5px;
     text-decoration: none;
 }
-.project_amigos a:hover{
+.project_gist a:hover{
     background-color: #F36E33;
     transition: 0.3s;
 }
-.project_amigos_cross_one{
+.project_gist_cross_one{
     background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
@@ -239,7 +239,7 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.2s;
     display: none;
 }
-.project_amigos_cross_two{
+.project_gist_cross_two{
     background-color: #fbcc04ff;
     position: fixed;
     width: 50px;
@@ -252,14 +252,14 @@ ul.timeline{list-style-type:none;position:relative;padding-left:1.5rem}ul.timeli
     transition: 0.2s;
     display: none;
 }
-.project_amigos_cross_one_hover{
+.project_gist_cross_one_hover{
     width: 40px;
     border: 2px solid #F36E33;
     cursor: pointer;
     right: 20px;
     transition: 0.2s;
 }
-.project_amigos_cross_two_hover{
+.project_gist_cross_two_hover{
     width: 40px;
     border: 2px solid #F36E33;
     cursor: pointer;

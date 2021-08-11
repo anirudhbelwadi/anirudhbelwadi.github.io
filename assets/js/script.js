@@ -70,39 +70,39 @@ $('.project_ideation_cross_two').on('click', () => {
     $('.project_ideation_cross_two').hide();
 });
 
-//Amigos Social Media Website
-$('#amigos_project').on('click', () => {
-    $('.project_amigos').show();
-    $('.project_amigos_cross_one').show();
-    $('.project_amigos_cross_two').show();
+//gist Social Media Website
+$('#gist_project').on('click', () => {
+    $('.project_gist').show();
+    $('.project_gist_cross_one').show();
+    $('.project_gist_cross_two').show();
 });
-$('.project_amigos_cross_one').on('mouseover', () => {
-    $('.project_amigos_cross_one').addClass('project_amigos_cross_one_hover');
-    $('.project_amigos_cross_two').addClass('project_amigos_cross_two_hover');
+$('.project_gist_cross_one').on('mouseover', () => {
+    $('.project_gist_cross_one').addClass('project_gist_cross_one_hover');
+    $('.project_gist_cross_two').addClass('project_gist_cross_two_hover');
 });
-$('.project_amigos_cross_two').on('mouseover', () => {
-    $('.project_amigos_cross_one').addClass('project_amigos_cross_one_hover');
-    $('.project_amigos_cross_two').addClass('project_amigos_cross_two_hover');
+$('.project_gist_cross_two').on('mouseover', () => {
+    $('.project_gist_cross_one').addClass('project_gist_cross_one_hover');
+    $('.project_gist_cross_two').addClass('project_gist_cross_two_hover');
 });
 $(document).mouseover(e => {
-    if ((!$('.project_amigos_cross_one').is(e.target) // if the target of the click isn't the container...
-        && $('.project_amigos_cross_one').has(e.target).length === 0)
-        && (!$('.project_amigos_cross_two').is(e.target)
-            && $('.project_amigos_cross_two').has(e.target).length === 0)) // ... nor a descendant of the container
+    if ((!$('.project_gist_cross_one').is(e.target) // if the target of the click isn't the container...
+        && $('.project_gist_cross_one').has(e.target).length === 0)
+        && (!$('.project_gist_cross_two').is(e.target)
+            && $('.project_gist_cross_two').has(e.target).length === 0)) // ... nor a descendant of the container
     {
-        $('.project_amigos_cross_one').removeClass('project_amigos_cross_one_hover');
-        $('.project_amigos_cross_two').removeClass('project_amigos_cross_two_hover');
+        $('.project_gist_cross_one').removeClass('project_gist_cross_one_hover');
+        $('.project_gist_cross_two').removeClass('project_gist_cross_two_hover');
     }
 });
-$('.project_amigos_cross_one').on('click', () => {
-    $('.project_amigos').hide();
-    $('.project_amigos_cross_one').hide();
-    $('.project_amigos_cross_two').hide();
+$('.project_gist_cross_one').on('click', () => {
+    $('.project_gist').hide();
+    $('.project_gist_cross_one').hide();
+    $('.project_gist_cross_two').hide();
 });
-$('.project_amigos_cross_two').on('click', () => {
-    $('.project_amigos').hide();
-    $('.project_amigos_cross_one').hide();
-    $('.project_amigos_cross_two').hide();
+$('.project_gist_cross_two').on('click', () => {
+    $('.project_gist').hide();
+    $('.project_gist_cross_one').hide();
+    $('.project_gist_cross_two').hide();
 });
 
 //Soundlogy Project
@@ -289,9 +289,9 @@ $(document).on('keydown', function (event) {
         $('.project_ideation').hide();
         $('.project_ideation_cross_one').hide();
         $('.project_ideation_cross_two').hide();
-        $('.project_amigos').hide();
-        $('.project_amigos_cross_one').hide();
-        $('.project_amigos_cross_two').hide();
+        $('.project_gist').hide();
+        $('.project_gist_cross_one').hide();
+        $('.project_gist_cross_two').hide();
         $('.project_soundlogy').hide();
         $('.project_soundlogy_cross_one').hide();
         $('.project_soundlogy_cross_two').hide();
