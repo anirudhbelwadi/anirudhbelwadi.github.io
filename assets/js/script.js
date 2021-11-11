@@ -175,7 +175,7 @@ $('.project_netflix_cross_two').on('click', () => {
     $('.project_netflix_cross_two').hide();
 });
 
-//IternXpo 2021 Website
+//InternXpo 2021 Website
 $('#internxpo_project').on('click', () => {
     $('.project_internxpo').show();
     $('.project_internxpo_cross_one').show();
