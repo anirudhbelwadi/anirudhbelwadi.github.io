@@ -280,6 +280,41 @@ $('.project_aaradhya_services_cross_two').on('click', () => {
     $('.project_aaradhya_services_cross_two').hide();
 });
 
+//Jessica Chen Portfolio Website
+$('#jessica_chen_portfolio_project').on('click', () => {
+    $('.project_jessica_chen_portfolio').show();
+    $('.project_jessica_chen_portfolio_cross_one').show();
+    $('.project_jessica_chen_portfolio_cross_two').show();
+});
+$('.project_jessica_chen_portfolio_cross_one').on('mouseover', () => {
+    $('.project_jessica_chen_portfolio_cross_one').addClass('project_jessica_chen_portfolio_cross_one_hover');
+    $('.project_jessica_chen_portfolio_cross_two').addClass('project_jessica_chen_portfolio_cross_two_hover');
+});
+$('.project_jessica_chen_portfolio_cross_two').on('mouseover', () => {
+    $('.project_jessica_chen_portfolio_cross_one').addClass('project_jessica_chen_portfolio_cross_one_hover');
+    $('.project_jessica_chen_portfolio_cross_two').addClass('project_jessica_chen_portfolio_cross_two_hover');
+});
+$(document).mouseover(e => {
+    if ((!$('.project_jessica_chen_portfolio_cross_one').is(e.target) // if the target of the click isn't the container...
+        && $('.project_jessica_chen_portfolio_cross_one').has(e.target).length === 0)
+        && (!$('.project_jessica_chen_portfolio_cross_two').is(e.target)
+            && $('.project_jessica_chen_portfolio_cross_two').has(e.target).length === 0)) // ... nor a descendant of the container
+    {
+        $('.project_jessica_chen_portfolio_cross_one').removeClass('project_jessica_chen_portfolio_cross_one_hover');
+        $('.project_jessica_chen_portfolio_cross_two').removeClass('project_jessica_chen_portfolio_cross_two_hover');
+    }
+});
+$('.project_jessica_chen_portfolio_cross_one').on('click', () => {
+    $('.project_jessica_chen_portfolio').hide();
+    $('.project_jessica_chen_portfolio_cross_one').hide();
+    $('.project_jessica_chen_portfolio_cross_two').hide();
+});
+$('.project_jessica_chen_portfolio_cross_two').on('click', () => {
+    $('.project_jessica_chen_portfolio').hide();
+    $('.project_jessica_chen_portfolio_cross_one').hide();
+    $('.project_jessica_chen_portfolio_cross_two').hide();
+});
+
 // CLose Pop-up on pressing Esc Key
 $(document).on('keydown', function (event) {
     if (event.key == "Escape") {
@@ -307,5 +342,8 @@ $(document).on('keydown', function (event) {
         $('.project_aaradhya_services').hide();
         $('.project_aaradhya_services_cross_one').hide();
         $('.project_aaradhya_services_cross_two').hide();
+        $('.project_jessica_chen_portfolio').hide();
+        $('.project_jessica_chen_portfolio_cross_one').hide();
+        $('.project_jessica_chen_portfolio_cross_two').hide();
     }
 });
