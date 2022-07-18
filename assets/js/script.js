@@ -35,6 +35,41 @@ $('.project_google_cross_two').on('click', () => {
     $('.project_google_cross_two').hide();
 });
 
+// Google Search Landing Page
+$('#gsis_project').on('click', () => {
+    $('.project_gsis_landing_page').show();
+    $('.project_gsis_cross_one').show();
+    $('.project_gsis_cross_two').show();
+});
+$('.project_gsis_cross_one').on('mouseover', () => {
+    $('.project_gsis_cross_one').addClass('project_gsis_cross_one_hover');
+    $('.project_gsis_cross_two').addClass('project_gsis_cross_two_hover');
+});
+$('.project_gsis_cross_two').on('mouseover', () => {
+    $('.project_gsis_cross_one').addClass('project_gsis_cross_one_hover');
+    $('.project_gsis_cross_two').addClass('project_gsis_cross_two_hover');
+});
+$(document).mouseover(e => {
+    if ((!$('.project_gsis_cross_one').is(e.target) // if the target of the click isn't the container...
+        && $('.project_gsis_cross_one').has(e.target).length === 0)
+        && (!$('.project_gsis_cross_two').is(e.target)
+            && $('.project_gsis_cross_two').has(e.target).length === 0)) // ... nor a descendant of the container
+    {
+        $('.project_gsis_cross_one').removeClass('project_gsis_cross_one_hover');
+        $('.project_gsis_cross_two').removeClass('project_gsis_cross_two_hover');
+    }
+});
+$('.project_gsis_cross_one').on('click', () => {
+    $('.project_gsis_landing_page').hide();
+    $('.project_gsis_cross_one').hide();
+    $('.project_gsis_cross_two').hide();
+});
+$('.project_gsis_cross_two').on('click', () => {
+    $('.project_gsis_landing_page').hide();
+    $('.project_gsis_cross_one').hide();
+    $('.project_gsis_cross_two').hide();
+});
+
 // Ideation 2020 Website
 $('#ideation_project').on('click', () => {
     $('.project_ideation').show();
@@ -140,40 +175,6 @@ $('.project_soundlogy_cross_two').on('click', () => {
     $('.project_soundlogy_cross_two').hide();
 });
 
-//Netflix Clone
-$('#netflix_project').on('click', () => {
-    $('.project_netflix_clone').show();
-    $('.project_netflix_cross_one').show();
-    $('.project_netflix_cross_two').show();
-});
-$('.project_netflix_cross_one').on('mouseover', () => {
-    $('.project_netflix_cross_one').addClass('project_netflix_cross_one_hover');
-    $('.project_netflix_cross_two').addClass('project_netflix_cross_two_hover');
-});
-$('.project_netflix_cross_two').on('mouseover', () => {
-    $('.project_netflix_cross_one').addClass('project_netflix_cross_one_hover');
-    $('.project_netflix_cross_two').addClass('project_netflix_cross_two_hover');
-});
-$(document).mouseover(e => {
-    if ((!$('.project_netflix_cross_one').is(e.target) // if the target of the click isn't the container...
-        && $('.project_netflix_cross_one').has(e.target).length === 0)
-        && (!$('.project_netflix_cross_two').is(e.target)
-            && $('.project_netflix_cross_two').has(e.target).length === 0)) // ... nor a descendant of the container
-    {
-        $('.project_netflix_cross_one').removeClass('project_netflix_cross_one_hover');
-        $('.project_netflix_cross_two').removeClass('project_netflix_cross_two_hover');
-    }
-});
-$('.project_netflix_cross_one').on('click', () => {
-    $('.project_netflix_clone').hide();
-    $('.project_netflix_cross_one').hide();
-    $('.project_netflix_cross_two').hide();
-});
-$('.project_netflix_cross_two').on('click', () => {
-    $('.project_netflix_clone').hide();
-    $('.project_netflix_cross_one').hide();
-    $('.project_netflix_cross_two').hide();
-});
 
 //InternXpo 2021 Website
 $('#internxpo_project').on('click', () => {
@@ -209,6 +210,77 @@ $('.project_internxpo_cross_two').on('click', () => {
     $('.project_internxpo_cross_one').hide();
     $('.project_internxpo_cross_two').hide();
 });
+
+//Harvard Project
+$('#harvard_project').on('click', () => {
+    $('.project_harvard').show();
+    $('.project_harvard_cross_one').show();
+    $('.project_harvard_cross_two').show();
+});
+$('.project_harvard_cross_one').on('mouseover', () => {
+    $('.project_harvard_cross_one').addClass('project_harvard_cross_one_hover');
+    $('.project_harvard_cross_two').addClass('project_harvard_cross_two_hover');
+});
+$('.project_harvard_cross_two').on('mouseover', () => {
+    $('.project_harvard_cross_one').addClass('project_harvard_cross_one_hover');
+    $('.project_harvard_cross_two').addClass('project_harvard_cross_two_hover');
+});
+$(document).mouseover(e => {
+    if ((!$('.project_harvard_cross_one').is(e.target) // if the target of the click isn't the container...
+        && $('.project_harvard_cross_one').has(e.target).length === 0)
+        && (!$('.project_harvard_cross_two').is(e.target)
+            && $('.project_harvard_cross_two').has(e.target).length === 0)) // ... nor a descendant of the container
+    {
+        $('.project_harvard_cross_one').removeClass('project_harvard_cross_one_hover');
+        $('.project_harvard_cross_two').removeClass('project_harvard_cross_two_hover');
+    }
+});
+$('.project_harvard_cross_one').on('click', () => {
+    $('.project_harvard').hide();
+    $('.project_harvard_cross_one').hide();
+    $('.project_harvard_cross_two').hide();
+});
+$('.project_harvard_cross_two').on('click', () => {
+    $('.project_harvard').hide();
+    $('.project_harvard_cross_one').hide();
+    $('.project_harvard_cross_two').hide();
+});
+
+//Python Math Library Project
+$('#python_project').on('click', () => {
+    $('.project_python').show();
+    $('.project_python_cross_one').show();
+    $('.project_python_cross_two').show();
+});
+$('.project_python_cross_one').on('mouseover', () => {
+    $('.project_python_cross_one').addClass('project_python_cross_one_hover');
+    $('.project_python_cross_two').addClass('project_python_cross_two_hover');
+});
+$('.project_python_cross_two').on('mouseover', () => {
+    $('.project_python_cross_one').addClass('project_python_cross_one_hover');
+    $('.project_python_cross_two').addClass('project_python_cross_two_hover');
+});
+$(document).mouseover(e => {
+    if ((!$('.project_python_cross_one').is(e.target) // if the target of the click isn't the container...
+        && $('.project_python_cross_one').has(e.target).length === 0)
+        && (!$('.project_python_cross_two').is(e.target)
+            && $('.project_python_cross_two').has(e.target).length === 0)) // ... nor a descendant of the container
+    {
+        $('.project_python_cross_one').removeClass('project_python_cross_one_hover');
+        $('.project_python_cross_two').removeClass('project_python_cross_two_hover');
+    }
+});
+$('.project_python_cross_one').on('click', () => {
+    $('.project_python').hide();
+    $('.project_python_cross_one').hide();
+    $('.project_python_cross_two').hide();
+});
+$('.project_python_cross_two').on('click', () => {
+    $('.project_python').hide();
+    $('.project_python_cross_one').hide();
+    $('.project_python_cross_two').hide();
+});
+
 
 //EntreSpace Website
 $('#entrespace_project').on('click', () => {
@@ -321,6 +393,9 @@ $(document).on('keydown', function (event) {
         $('.project_google_landing_page').hide();
         $('.project_google_cross_one').hide();
         $('.project_google_cross_two').hide();
+        $('.project_gsis_landing_page').hide();
+        $('.project_gsis_cross_one').hide();
+        $('.project_gsis_cross_two').hide();
         $('.project_ideation').hide();
         $('.project_ideation_cross_one').hide();
         $('.project_ideation_cross_two').hide();
@@ -330,12 +405,15 @@ $(document).on('keydown', function (event) {
         $('.project_soundlogy').hide();
         $('.project_soundlogy_cross_one').hide();
         $('.project_soundlogy_cross_two').hide();
-        $('.project_netflix_clone').hide();
-        $('.project_netflix_cross_one').hide();
-        $('.project_netflix_cross_two').hide();
         $('.project_internxpo').hide();
         $('.project_internxpo_cross_one').hide();
         $('.project_internxpo_cross_two').hide();
+        $('.project_harvard').hide();
+        $('.project_harvard_cross_one').hide();
+        $('.project_harvard_cross_two').hide();
+        $('.project_python').hide();
+        $('.project_python_cross_one').hide();
+        $('.project_python_cross_two').hide();
         $('.project_entrespace').hide();
         $('.project_entrespace_cross_one').hide();
         $('.project_entrespace_cross_two').hide();

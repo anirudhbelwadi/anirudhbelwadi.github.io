@@ -1,3 +1,6 @@
+html,body{
+    overflow-x: hidden;
+}
 ul.timeline {
     list-style-type: none;
     position: relative;
@@ -406,7 +409,7 @@ img {
     text-align: center;
     padding: 10px 20px;
     background-color: #fbcc04ff;
-    color: white;
+    color: black;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -414,6 +417,7 @@ img {
 .project_google_landing_page a.live_link:hover {
     background-color: #F36E33;
     transition: 0.3s;
+    color: white;
 }
 
 .project_google_cross_one {
@@ -460,6 +464,98 @@ img {
     transition: 0.2s;
 }
 
+/* GSIS Inventory Management System */
+
+.project_gsis_landing_page {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    z-index: 1000;
+    left: 0px;
+    top: 0px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.534);
+    backdrop-filter: blur(10px);
+    display: none;
+    padding: 4.5rem 0;
+}
+
+.project_gsis_landing_page h1 {
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+
+.project_gsis_landing_page p {
+    text-align: center;
+    color: white;
+    padding: 0 10%;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+.project_gsis_landing_page a.live_link {
+    position: relative;
+    left: calc(50% - 53px);
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #fbcc04ff;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.project_gsis_landing_page a.live_link:hover {
+    background-color: #F36E33;
+    transition: 0.3s;
+    color: white;
+}
+
+.project_gsis_cross_one {
+    background-color: #fbcc04ff;
+    position: fixed;
+    width: 50px;
+    height: 0px;
+    right: 15px;
+    top: 40px;
+    z-index: 1001;
+    border: 2px solid #fbcc04ff;
+    transform: rotate(45deg);
+    transition: 0.2s;
+    display: none;
+}
+
+.project_gsis_cross_two {
+    background-color: #fbcc04ff;
+    position: fixed;
+    width: 50px;
+    height: 0px;
+    right: 15px;
+    top: 40px;
+    z-index: 1001;
+    border: 2px solid #fbcc04ff;
+    transform: rotate(-45deg);
+    transition: 0.2s;
+    display: none;
+}
+
+.project_gsis_cross_one_hover {
+    width: 40px;
+    border: 2px solid #F36E33;
+    cursor: pointer;
+    right: 20px;
+    transition: 0.2s;
+}
+
+.project_gsis_cross_two_hover {
+    width: 40px;
+    border: 2px solid #F36E33;
+    cursor: pointer;
+    right: 20px;
+    transition: 0.2s;
+}
+
 /* Ideation Website */
 
 .project_ideation {
@@ -497,7 +593,7 @@ img {
     text-align: center;
     padding: 10px 20px;
     background-color: #fbcc04ff;
-    color: white;
+    color: black;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -505,6 +601,7 @@ img {
 .project_ideation a:hover {
     background-color: #F36E33;
     transition: 0.3s;
+    color: white;
 }
 
 .project_ideation_cross_one {
@@ -588,7 +685,7 @@ img {
     text-align: center;
     padding: 10px 20px;
     background-color: #fbcc04ff;
-    color: white;
+    color: black;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -596,6 +693,7 @@ img {
 .project_gist a:hover {
     background-color: #F36E33;
     transition: 0.3s;
+    color: white;
 }
 
 .project_gist_cross_one {
@@ -679,7 +777,7 @@ img {
     text-align: center;
     padding: 10px 20px;
     background-color: #fbcc04ff;
-    color: white;
+    color: black;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -687,6 +785,7 @@ img {
 .project_soundlogy a:hover {
     background-color: #F36E33;
     transition: 0.3s;
+    color: white;
 }
 
 .project_soundlogy_cross_one {
@@ -733,96 +832,6 @@ img {
     transition: 0.2s;
 }
 
-/* Netflix Clone */
-
-.project_netflix_clone {
-    position: fixed;
-    height: 100vh;
-    width: 100%;
-    z-index: 10000;
-    left: 0px;
-    top: 0px;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.534);
-    backdrop-filter: blur(10px);
-    display: none;
-    padding: 4.5rem 0;
-}
-
-.project_netflix_clone h1 {
-    text-align: center;
-    color: white;
-    font-size: 35px;
-}
-
-.project_netflix_clone p {
-    text-align: center;
-    color: white;
-    padding: 0 10%;
-    font-size: 20px;
-    box-sizing: border-box;
-}
-
-.project_netflix_clone a {
-    position: relative;
-    left: calc(50% - 56px);
-    font-size: 20px;
-    text-align: center;
-    padding: 10px 20px;
-    background-color: #fbcc04ff;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.project_netflix_clone a:hover {
-    background-color: #F36E33;
-    transition: 0.3s;
-}
-
-.project_netflix_cross_one {
-    background-color: #fbcc04ff;
-    position: fixed;
-    width: 50px;
-    height: 0px;
-    right: 15px;
-    top: 40px;
-    z-index: 1001;
-    border: 2px solid #fbcc04ff;
-    transform: rotate(45deg);
-    transition: 0.2s;
-    display: none;
-}
-
-.project_netflix_cross_two {
-    background-color: #fbcc04ff;
-    position: fixed;
-    width: 50px;
-    height: 0px;
-    right: 15px;
-    top: 40px;
-    z-index: 1001;
-    border: 2px solid #fbcc04ff;
-    transform: rotate(-45deg);
-    transition: 0.2s;
-    display: none;
-}
-
-.project_netflix_cross_one_hover {
-    width: 40px;
-    border: 2px solid #F36E33;
-    cursor: pointer;
-    right: 20px;
-    transition: 0.2s;
-}
-
-.project_netflix_cross_two_hover {
-    width: 40px;
-    border: 2px solid #F36E33;
-    cursor: pointer;
-    right: 20px;
-    transition: 0.2s;
-}
 
 /* InternXpo Website */
 
@@ -861,7 +870,7 @@ img {
     text-align: center;
     padding: 10px 20px;
     background-color: #fbcc04ff;
-    color: white;
+    color: black;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -869,6 +878,7 @@ img {
 .project_internxpo a:hover {
     background-color: #F36E33;
     transition: 0.3s;
+    color: white;
 }
 
 .project_internxpo_cross_one {
@@ -915,6 +925,190 @@ img {
     transition: 0.2s;
 }
 
+/* Harvard Project */
+
+.project_harvard {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    z-index: 10000;
+    left: 0px;
+    top: 0px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.534);
+    backdrop-filter: blur(10px);
+    display: none;
+    padding: 4.5rem 0;
+}
+
+.project_harvard h1 {
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+
+.project_harvard p {
+    text-align: center;
+    color: white;
+    padding: 0 10%;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+.project_harvard a {
+    position: relative;
+    left: calc(50% - 50px);
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #fbcc04ff;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.project_harvard a:hover {
+    background-color: #F36E33;
+    transition: 0.3s;
+    color: white;
+}
+
+.project_harvard_cross_one {
+    background-color: #fbcc04ff;
+    position: fixed;
+    width: 50px;
+    height: 0px;
+    right: 15px;
+    top: 40px;
+    z-index: 1001;
+    border: 2px solid #fbcc04ff;
+    transform: rotate(45deg);
+    transition: 0.2s;
+    display: none;
+}
+
+.project_harvard_cross_two {
+    background-color: #fbcc04ff;
+    position: fixed;
+    width: 50px;
+    height: 0px;
+    right: 15px;
+    top: 40px;
+    z-index: 1001;
+    border: 2px solid #fbcc04ff;
+    transform: rotate(-45deg);
+    transition: 0.2s;
+    display: none;
+}
+
+.project_harvard_cross_one_hover {
+    width: 40px;
+    border: 2px solid #F36E33;
+    cursor: pointer;
+    right: 20px;
+    transition: 0.2s;
+}
+
+.project_harvard_cross_two_hover {
+    width: 40px;
+    border: 2px solid #F36E33;
+    cursor: pointer;
+    right: 20px;
+    transition: 0.2s;
+}
+
+/* Python Math Library Project */
+
+.project_python {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    z-index: 10000;
+    left: 0px;
+    top: 0px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.534);
+    backdrop-filter: blur(10px);
+    display: none;
+    padding: 4.5rem 0;
+}
+
+.project_python h1 {
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+
+.project_python p {
+    text-align: center;
+    color: white;
+    padding: 0 10%;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+.project_python a {
+    position: relative;
+    left: calc(50% - 50px);
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #fbcc04ff;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.project_python a:hover {
+    background-color: #F36E33;
+    transition: 0.3s;
+    color: white;
+}
+
+.project_python_cross_one {
+    background-color: #fbcc04ff;
+    position: fixed;
+    width: 50px;
+    height: 0px;
+    right: 15px;
+    top: 40px;
+    z-index: 1001;
+    border: 2px solid #fbcc04ff;
+    transform: rotate(45deg);
+    transition: 0.2s;
+    display: none;
+}
+
+.project_python_cross_two {
+    background-color: #fbcc04ff;
+    position: fixed;
+    width: 50px;
+    height: 0px;
+    right: 15px;
+    top: 40px;
+    z-index: 1001;
+    border: 2px solid #fbcc04ff;
+    transform: rotate(-45deg);
+    transition: 0.2s;
+    display: none;
+}
+
+.project_python_cross_one_hover {
+    width: 40px;
+    border: 2px solid #F36E33;
+    cursor: pointer;
+    right: 20px;
+    transition: 0.2s;
+}
+
+.project_python_cross_two_hover {
+    width: 40px;
+    border: 2px solid #F36E33;
+    cursor: pointer;
+    right: 20px;
+    transition: 0.2s;
+}
+
 /* EntreSpace Website */
 
 .project_entrespace {
@@ -952,7 +1146,7 @@ img {
     text-align: center;
     padding: 10px 20px;
     background-color: #fbcc04ff;
-    color: white;
+    color: black;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -960,6 +1154,7 @@ img {
 .project_entrespace a.live_link:hover {
     background-color: #F36E33;
     transition: 0.3s;
+    color: white;
 }
 
 .project_entrespace_cross_one {
@@ -1043,7 +1238,7 @@ img {
     text-align: center;
     padding: 10px 20px;
     background-color: #fbcc04ff;
-    color: white;
+    color: black;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -1051,6 +1246,7 @@ img {
 .project_aaradhya_services a.live_link:hover {
     background-color: #F36E33;
     transition: 0.3s;
+    color: white;
 }
 
 .project_aaradhya_services_cross_one {
@@ -1134,7 +1330,7 @@ img {
     text-align: center;
     padding: 10px 20px;
     background-color: #fbcc04ff;
-    color: white;
+    color: black;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -1142,6 +1338,7 @@ img {
 .project_jessica_chen_portfolio a:hover {
     background-color: #F36E33;
     transition: 0.3s;
+    color: white;
 }
 
 .project_jessica_chen_portfolio_cross_one {
