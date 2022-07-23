@@ -249,3 +249,15 @@ textarea:focus {
     max-height: 500px;
     overflow: scroll;
 }
+
+/* Remove padding to px-5 class in small screens */
+@media screen and (max-width: 575px) {
+    .px-5 {
+        padding: 0 12px !important;
+    }
+}
+
+#portfolio h3,
+#contact h3 {
+    font-size: 40px;
+}
