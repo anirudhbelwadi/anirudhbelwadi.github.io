@@ -253,7 +253,8 @@ textarea:focus {
 /* Remove padding to px-5 class in small screens */
 @media screen and (max-width: 575px) {
     .px-5 {
-        padding: unset 12px !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
 }
 
