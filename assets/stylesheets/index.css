@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}
+
+.modal {
+    margin: unset !important;
+    padding: unset !important;
+}
+
+.modal>*>* {
+    margin: unset !important;
+    padding: unset !important;
+}
+
+.title_font {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.content_font {
+    font-size: 15px;
+}
+
+.btn-dark:hover {
+    background-color: transparent;
+    color: black;
+    transition: 0.4s;
+    font-size: 21px;
+}
+
+.container {
+    max-width: unset !important;
+}
+
+.header_background {
+    min-height: 100vh;
+    background: white;
+}
+
+h1 {
+    font-family: 'Philosopher', sans-serif;
+    font-size: 30px;
+}
+
+.icons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.icons a {
+    margin: 10px 20px 10px 0px !important;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+.icon {
+    margin: 7px !important;
+    color: black;
+    width: 25px;
+    height: 25px;
+}
+
+.icon:hover {
+    background-color: white;
+    color: white;
+    transition: 0.4s;
+}
+
+.icons a:hover .icon {
+    background-color: transparent;
+    color: white;
+    transition: 0.4s;
+}
+
+.icons a:hover {
+    background-color: transparent;
+    transition: 0.4s;
+    background-color: black;
+}
+
+.header_name_content h2 {
+    font-size: 20px;
+}
+
+.type {
+    color: #0000;
+    background:
+        linear-gradient(black 0 0) 0 50%/150% 95%,
+        linear-gradient(black 0 0) 0 0 /100% 100%;
+    -webkit-background-clip: padding-box, text;
+    background-clip: padding-box, text;
+    background-repeat: no-repeat;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation:
+        t 1s forwards,
+        b 1s .8s forwards;
+}
+
+@media screen and (min-width: 576px) {
+    .header_name_content h2 {
+        font-size: 30px;
+    }
+
+    .title_font {
+        font-size: 30px;
+    }
+
+    .content_font {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .header_name_content h2 {
+        font-size: 40px;
+    }
+
+    .title_font {
+        font-size: 40px;
+        font-weight: 700;
+    }
+
+    .content_font {
+        font-size: 17.5px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .icons {
+        justify-content: flex-end;
+    }
+
+    .icons a {
+        margin-left: 10px !important;
+    }
+
+    .title_font {
+        font-size: 45px;
+        font-weight: 700;
+    }
+
+    .content_font {
+        font-size: 20px;
+    }
+}
+
+
+
+
+
+@keyframes t {
+    from {
+        background-size: 0 95%, 0 100%
+    }
+}
+
+@keyframes b {
+    100% {
+        background-position: -200% 50%, 0 0
+    }
+}
+
+.project_image {
+    height: 250px;
+    border-radius: 20px;
+    background-color: #E7F5FE;
+}
+
+#portfolio img {
+    /* Shadow */
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    /* Border */
+    border-radius: 20px;
+}
+
+.project_description {
+    line-height: 3.5ex;
+    max-height: 10.5ex;
+    overflow: hidden;
+    margin-bottom: 0 !important;
+}
+
+.read_more {
+    text-decoration: none;
+    background: linear-gradient(#0086ce, #0086ce) bottom / 0 .1em no-repeat;
+    transition: 0.5s;
+    background-position: left bottom;
+    color: black;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-weight: 300;
+}
+
+.read_more:hover {
+    background-size: 100% .1em;
+    color: #005e91;
+    font-weight: 400;
+}
+
+.form_container {
+    border-radius: 20px;
+    background-color: #fdfdfd;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+input {
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid rgb(179, 179, 179);
+    outline: none;
+    padding: 0px 12px;
+}
+
+textarea {
+    min-height: 200px;
+    border-radius: 20px;
+    border: 1px solid rgb(179, 179, 179);
+    outline: none;
+    padding: 10px 12px;
+}
+
+input:focus,
+textarea:focus {
+    outline: 5px solid rgb(179, 179, 179, 0.7);
+    transition: 0.4s;
+}
+
+.modal-body {
+    max-height: 500px;
+    overflow: scroll;
+}
