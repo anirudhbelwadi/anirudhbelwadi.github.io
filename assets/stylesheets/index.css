@@ -49,6 +49,7 @@ a:hover {
 }
 
 .header_background {
+    min-height: 800px;
     background: white;
 }
 
