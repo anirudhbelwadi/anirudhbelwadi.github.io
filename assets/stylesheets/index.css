@@ -4,7 +4,7 @@
     font-family: 'Raleway', sans-serif;
 }
 
-html,
+
 body {
     overflow-x: hidden;
 }
@@ -49,7 +49,6 @@ a:hover {
 }
 
 .header_background {
-    min-height: 800px;
     background: white;
 }
 
