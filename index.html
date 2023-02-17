@@ -880,9 +880,6 @@
         </div>
     </div>
 
-
-
-
     <!-- Recommendations -->
     <div class="modal fade" id="aaradhyaServicesRecommendationModal" tabindex="-1"
         aria-labelledby="aaradhyaServicesRecommendationModalLabel" aria-hidden="true">
@@ -978,6 +975,20 @@
         </h3>
         <div class="container mt-2">
             <div class="row">
+                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                    <a href="https://www.jio.com/jcms/apps/myjio/" target="_blank">
+                        <img src="./assets/images/projects/myjio.webp" class="w-100" alt="MyJio">
+                        <h4 class="project_title mt-3"><b>MyJio Application</b></h4>
+                        <p class="project_description">
+                            
+                            <br>
+                            <a class="read_more" target="_blank" href="https://www.jio.com/jcms/apps/myjio/">Get App</a>
+                        </p>
+                    </a>
+                    <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#myjioModal">
+                        Read More...
+                    </button>
+                </div>
                 <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
                     <a href="https://cardinal-lca.github.io/website/" target="_blank">
                         <img src="./assets/images/projects/cardinal_lca.webp" class="w-100" alt="Cardinal LCA">
@@ -1522,8 +1533,8 @@
             fetch(url).then((repo) => repo.json()).then((data) => {
                 document.getElementById("visit_count").innerHTML = data.count;
             })
-            //use the data variable to show contents on the webpage
-            //Data variable format: 
+            // Use the data variable to show contents on the webpage
+            // Data variable format: 
             /*
             {
               "count": int,
