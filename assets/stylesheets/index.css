@@ -269,3 +269,7 @@ textarea:focus {
 .modal a {
     border-bottom: 0.5px solid black;
 }
+
+.glider-dot.active{
+    background-color: black;
+}
