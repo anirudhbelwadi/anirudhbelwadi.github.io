@@ -969,6 +969,31 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="vedantRecommendationModal" tabindex="-1" aria-labelledby="vikrantRecommendationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vedantRecommendationModalLabel">Vedant Bhalwatkar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Anirudh is a self-starter who is never afraid to take on new challenges. I know him since 1st year of engineering where
+                    he was actively involved in all the curricular & extracurricular activities. He is an all-rounder boy & possesses a rare
+                    combination of strong technical skills, exceptional problem-solving abilities, and excellent interpersonal &
+                    Photographic skills. Always willing to go the extra mile is his habit. What sets Anirudh apart is his ability to learn
+                    quickly and adapt to new situations. He also has the contributor & giving back factor wherever he goes.
+                    <br><br>
+                    Winning the “GSTian of the Year” award in the college was the cherry on the cake for him. He has always amazed me with
+                    his progress, simplicity, and class. I highly recommend him for any team.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark btn-lg px-4 py-2" style="border-radius: 30px"
+                        onclick="window.open('https://www.linkedin.com/in/vedant-bhalwatkar/')">Contact Vedant</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="geetaRecommendationModal" tabindex="-1" aria-labelledby="geetaRecommendationModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -1415,7 +1440,35 @@
                             </button>
                         </div>
                     </div>
-
+                    <div>
+                        <div class="px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                            <div class="row align-items-center">
+                                <div class="col-3">
+                                    <img src="./assets/images/recommendations/vedant.webp" class="w-100 rounded-circle" alt="Vedant Bhalwatkar">
+                                </div>
+                                <div class="col-9">
+                                    <h4 class="project_title"><b>Vedant Bhalwatkar</b></h4>
+                                    <p class="mb-0">Batch-mate in Bachelor of Engineering</p>
+                                </div>
+                            </div>
+                            <p class="mt-2 project_description">
+                                Anirudh is a self-starter who is never afraid to take on new challenges. I know him
+                                since 1st year of engineering where he was actively involved in all the curricular &
+                                extracurricular activities. He is an all-rounder boy & possesses a rare combination of
+                                strong technical skills, exceptional problem-solving abilities, and excellent
+                                interpersonal & Photographic skills. Always willing to go the extra mile is his habit.
+                                What sets Anirudh apart is his ability to learn quickly and adapt to new situations. He
+                                also has the contributor & giving back factor wherever he goes.
+                                <br>
+                                Winning the “GSTian of the Year” award in the college was the cherry on the cake for
+                                him. He has always amazed me with his progress, simplicity, and class. I highly
+                                recommend him for any team.
+                            </p>
+                            <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#vedantRecommendationModal">
+                                Read More...
+                            </button>
+                        </div>
+                    </div>
                     <div>
                         <div class="px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
                             <div class="row align-items-center">
@@ -1502,6 +1555,7 @@
                             </button>
                         </div>
                     </div>
+                    
                 </div>
                 <div role="tablist" class="dots mt-4" data-aos="fade-up" data-aos-duration="1000"></div>
             </div>
@@ -1664,25 +1718,25 @@
         });
 
 
-        $.getJSON("https://api.ipify.org?format=json", function (data) {
-            let url = "https://anirudhbelwadiportfolio.pythonanywhere.com/counterIncrease/" + data.ip;
-            fetch(url).then((repo) => repo.json()).then((data) => {
-                document.getElementById("visit_count").innerHTML = data.count;
-            })
-            // Use the data variable to show contents on the webpage
-            // Data variable format: 
-            /*
-            {
-              "count": int,
-              "location": {
-                  "city": "string",
-                  "country": "string",
-                  "ip": "string",
-                  "region": "string"
-               }
-            } 
-            */
-        })
+        // $.getJSON("https://api.ipify.org?format=json", function (data) {
+        //     let url = "https://anirudhbelwadiportfolio.pythonanywhere.com/counterIncrease/" + data.ip;
+        //     fetch(url).then((repo) => repo.json()).then((data) => {
+        //         document.getElementById("visit_count").innerHTML = data.count;
+        //     })
+        //     // Use the data variable to show contents on the webpage
+        //     // Data variable format: 
+        //     /*
+        //     {
+        //       "count": int,
+        //       "location": {
+        //           "city": "string",
+        //           "country": "string",
+        //           "ip": "string",
+        //           "region": "string"
+        //        }
+        //     } 
+        //     */
+        // })
 
         new Glider(document.querySelector('.glider'), {
             slidesToShow: 1,
