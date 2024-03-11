@@ -278,3 +278,7 @@ textarea:focus {
     display: none;
     width: 0 !important;
 }
+
+.stop-scrolling {
+    overflow: hidden;
+}
