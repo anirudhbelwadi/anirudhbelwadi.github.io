@@ -1857,6 +1857,10 @@
         </div>
     </section>
 
+    <div id="form_loader" style="position: fixed; background-color: rgba(0, 0, 0, 0.467); height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; visibility: hidden;">
+        <img width="50" src="./assets/images/loader.gif" alt="">
+    </div>
+
     <footer class="mt-5" data-aos="fade-up" data-aos-duration="1000">
         <div class="container">
             <div class="row justify-content-center">
@@ -1967,11 +1971,22 @@
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzYt3kxU3SFdW4o82jJpzRzrq5Iu8nlfxXeX1l_/exec'
         const form = document.forms['contactForm']
         form.addEventListener('submit', e => {
+            document.getElementById("form_loader").style.visibility = "visible";
+            $('body').addClass('stop-scrolling');
             e.preventDefault()
             fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-                .then(response => alert("Thank you for contacting! I will get back to you soon."))
-                .catch(error => console.error(error.message))
-            document.getElementById("contactForm").reset();
+                .then(response => {
+                    document.getElementById("contactForm").reset();
+                    document.getElementById("form_loader").style.visibility = "hidden";
+                    alert("Thank you for contacting! I will get back to you soon.");
+                    $('body').removeClass('stop-scrolling');
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    document.getElementById("contactForm").reset();
+                    document.getElementById("form_loader").style.visibility = "hidden";
+                    $('body').removeClass('stop-scrolling');
+                })
         });
         
 
