@@ -190,6 +190,8 @@ h1 {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
     /* Border */
     border-radius: 42px;
+    overflow: hidden;
+    margin-bottom: 15px;
 }
 
 .project_description {
@@ -260,7 +262,8 @@ textarea:focus {
 
 #portfolio h3,
 #contact h3,
-#recommendations h3 {
+#recommendations h3,
+#admits h3 {
     font-size: 33px;
     font-weight: 800;
     text-decoration: underline;
@@ -270,7 +273,7 @@ textarea:focus {
     border-bottom: 0.5px solid black;
 }
 
-.glider-dot.active{
+.glider-dot.active {
     background-color: black;
 }
 
@@ -281,4 +284,14 @@ textarea:focus {
 
 .stop-scrolling {
     overflow: hidden;
+}
+
+#admits img {
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+#admits img:hover {
+    opacity: 1;
+    transition: 0.5s;
 }
