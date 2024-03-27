@@ -288,10 +288,12 @@ textarea:focus {
 
 #admits img {
     opacity: 0.5;
+    transform: scale(1);
     transition: 0.5s;
 }
 
 #admits img:hover {
     opacity: 1;
+    transform: scale(1.3);
     transition: 0.5s;
 }
