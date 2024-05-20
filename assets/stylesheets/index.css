@@ -5,7 +5,7 @@
 }
 
 
-body {
+body, html {
     overflow-x: hidden;
 }
 
@@ -67,7 +67,7 @@ h1 {
 }
 
 .icons a {
-    margin: 10px 20px 10px 0px !important;
+    margin: 10px !important;
     border-radius: 50%;
     border: 2px solid black;
 }
