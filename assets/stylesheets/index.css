@@ -344,6 +344,7 @@ noscript iframe {
 }
 
 #filter_select {
+    background-color: transparent;
     border: 2px solid black;
     border-radius: 25px;
     padding: 10px 15px;
