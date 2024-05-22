@@ -72,6 +72,8 @@
         gtag('js', new Date());
         gtag('config', 'G-R31TCE21DV');
     </script>
+
+    <script src="./assets/scripts/preLoad.js"></script>
 </head>
 
 <body>
@@ -1267,12 +1269,61 @@
     </div>
 
     <section id="portfolio" class="mt-5">
-        <h3 class="title_font text-center" data-aos="fade-up" data-aos-duration="1000">
+        <h3 class="title_font text-center">
             Portfolio
         </h3>
-        <div class="container mt-2">
+        <div class="container mt-5">
+            <div class="row justify-content-center px-4 d-none d-md-flex">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <span class="filter_icons" id="professional" onclick="updateFilter(this.id)">
+                        Professional
+                    </span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <span class="filter_icons" id="portfolios" onclick="updateFilter(this.id)">
+                        Portfolios
+                    </span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <span class="filter_icons" id="research" onclick="updateFilter(this.id)">
+                        Reseach
+                    </span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <span class="filter_icons" id="client" onclick="updateFilter(this.id)">
+                        Client
+                    </span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <span class="filter_icons" id="internships" onclick="updateFilter(this.id)">
+                        Internships
+                    </span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <span class="filter_icons" id="hackathons" onclick="updateFilter(this.id)">
+                        Hackathons
+                    </span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <span class="filter_icons" id="student" onclick="updateFilter(this.id)">
+                        Student Clubs
+                    </span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <span class="filter_icons" id="mini" onclick="updateFilter(this.id)">
+                        Mini Projects
+                    </span>
+                </div>
+            </div>
+            <div class="row justify-content-center d-none d-md-flex">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <div class="pt-2 text-danger text-center" style="cursor: pointer;" onclick="clearFilters()">
+                        Clear Filters
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project professional">
                     <a href="https://www.jio.com/jcms/apps/myjio/" target="_blank">
                         <img src="./assets/images/projects/myjio.webp" class="w-100" alt="MyJio">
                         <h4 class="project_title mt-3"><b>MyJio Application</b></h4>
@@ -1285,7 +1336,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project internships">
                     <a href="https://cardinal-lca.github.io/website/" target="_blank">
                         <img src="./assets/images/projects/cardinal_lca.webp" class="w-100" alt="Cardinal LCA">
                         <h4 class="project_title mt-3"><b>Cardinal LCA Website</b></h4>
@@ -1300,7 +1351,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project hackathons">
                     <a href="https://learncarbon.me/" target="_blank">
                         <img src="./assets/images/projects/learn_carbon.webp" class="w-100" alt="LearnCarbon">
                         <h4 class="project_title mt-3"><b>LearnCarbon</b></h4>
@@ -1313,7 +1364,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project research">
                     <a href="https://assemblyperformance.pythonanywhere.com/" target="_blank">
                         <img src="./assets/images/projects/harvard_assembly.webp" class="w-100"
                             alt="Harvard Assembly Performance Analyzer Tool">
@@ -1328,7 +1379,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project professional">
                     <a href="https://teamfullstack.in/" target="_blank">
                         <img src="./assets/images/projects/team_fullstack.webp" class="w-100" alt="Team FullStack">
                         <h4 class="project_title mt-3"><b>Team FullStack Website</b></h4>
@@ -1345,7 +1396,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project client">
                     <a href="https://ehcctesting.pythonanywhere.com/" target="_blank">
                         <img src="./assets/images/projects/ehcc.webp" class="w-100" alt="EHCC Hospital Website">
                         <h4 class="project_title mt-3"><b>EHCC Hospital Website</b></h4>
@@ -1359,7 +1410,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project client">
                     <a href="https://gsistesting.pythonanywhere.com/" target="_blank">
                         <img src="./assets/images/projects/gsis_inventory.webp" class="w-100"
                             alt="Gulf Services & Industrial Supplies, LLC - Inventory Management System">
@@ -1375,7 +1426,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project hackathons">
                     <a href="https://github.com/covidtracker192/KASH" target="_blank">
                         <img src="./assets/images/projects/covid_19_application.webp" class="w-100"
                             alt="Covid 19 Android Application">
@@ -1393,7 +1444,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project client">
                     <a href="https://anirudhbelwadi.com/entrespace/" target="_blank">
                         <img src="./assets/images/projects/entrespace.webp" class="w-100" alt="EntreSpace Website">
                         <h4 class="project_title mt-3"><b>EntreSpace Website</b></h4>
@@ -1408,7 +1459,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project portfolios">
                     <a href="https://milindpalav.com/" target="_blank">
                         <img src="./assets/images/projects/milind_palav.webp" class="w-100"
                             alt="Milind Palav Portfolio">
@@ -1422,7 +1473,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project portfolios">
                     <a href="https://shahkshitij.com/" target="_blank">
                         <img src="./assets/images/projects/kshitij_shah.webp" class="w-100"
                             alt="Kshitij Shah Portfolio">
@@ -1436,7 +1487,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project portfolios">
                     <a href="https://anirudhbelwadi.com/jessica_chen_portfolio/" target="_blank">
                         <img src="./assets/images/projects/jessica_portfolio.webp" class="w-100"
                             alt="Jessica Chen Portfolio Website">
@@ -1452,7 +1503,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project mini">
                     <a href="https://anirudhbelwadi.com/Google-Landing-Page/" target="_blank">
                         <img src="./assets/images/projects/google_landing_clone.webp" class="w-100"
                             alt="Google Search Landing Page Clone">
@@ -1468,7 +1519,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project student">
                     <a href="https://anirudhbelwadi.com/intrnxpo-2021-website/" target="_blank">
                         <img src="./assets/images/projects/internxpo.webp" class="w-100" alt="InternXpo Website">
                         <h4 class="project_title mt-3"><b>InternXpo Website</b></h4>
@@ -1481,7 +1532,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project mini">
                     <a href="https://anirudhbelwadi.pythonanywhere.com/" target="_blank">
                         <img src="./assets/images/projects/gist.webp" class="w-100" alt="Gist. Social Media Website">
                         <h4 class="project_title mt-3"><b>Gist. Social Media Website</b></h4>
@@ -1496,7 +1547,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project client">
                     <a href="https://aaradhya-services.github.io/website" target="_blank">
                         <img src="./assets/images/projects/aaradhya_services.webp" class="w-100"
                             alt="Aaradhya Services Website">
@@ -1512,7 +1563,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project student">
                     <a href="https://anirudhbelwadi.com/ideation-2020/" target="_blank">
                         <img src="./assets/images/projects/ideation.webp" class="w-100" alt="Ideation Website">
                         <h4 class="project_title mt-3"><b>Ideation Website</b></h4>
@@ -1525,7 +1576,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project mini">
                     <a href="https://github.com/anirudhbelwadi/music-application-using-machine-learning"
                         target="_blank">
                         <img src="./assets/images/projects/soundlogy.webp" class="w-100"
@@ -1549,7 +1600,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project internships">
                     <a href="https://www.instagram.com/haleai03/" target="_blank">
                         <img src="./assets/images/projects/haleai.webp" class="w-100" alt="HaleAI Website">
                         <h4 class="project_title mt-3"><b>HaleAI Website</b></h4>
@@ -1566,7 +1617,7 @@
                         Read More...
                     </button>
                 </div>
-                <div class="col-lg-6 px-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-6 px-5 mt-5 filter_project mini">
                     <a href="https://github.com/snehil03july/mathpy" target="_blank">
                         <img src="./assets/images/projects/math_python.webp" class="w-100"
                             alt="Advanced Python Math Library">
@@ -1587,10 +1638,10 @@
 
     <br><br>
     <section id="admits" class="mt-5">
-        <h3 class="title_font text-center" data-aos="fade-up" data-aos-duration="1000">
+        <h3 class="title_font text-center">
             Admission Season 2023-2024
         </h3>
-        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+        <div class="container">
             <div class="row justify-content-center align-items-center text-center mt-5">
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-5 px-5">
                     <a href="https://www.heinz.cmu.edu/" target="_blank">
@@ -1644,7 +1695,7 @@
 
     <br><br>
     <section id="recommendations" class="mt-5">
-        <h3 class="title_font text-center" data-aos="fade-up" data-aos-duration="1000">
+        <h3 class="title_font text-center">
             Recommendations
         </h3>
         <div class="container mt-2 px-5">

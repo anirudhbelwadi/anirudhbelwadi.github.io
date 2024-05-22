@@ -320,3 +320,21 @@ noscript iframe {
     display: none;
     visibility: hidden;
 }
+
+.filter_icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.filter_active {
+    background-color: black;
+    color: white;
+    transition: 0.4s;
+}
