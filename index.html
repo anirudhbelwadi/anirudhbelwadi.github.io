@@ -1273,6 +1273,19 @@
             Portfolio
         </h3>
         <div class="container mt-5">
+            <div class="row justify-content-center px-4 d-flex d-md-none">
+                <select name="" id="filter_select" onchange="updateFilter(this.value)">
+                    <option selected disabled value="">Select a project category</option>
+                    <option value="professional">Professional</option>
+                    <option value="portfolios">Portfolios</option>
+                    <option value="research">Reseach</option>
+                    <option value="client">Client</option>
+                    <option value="internships">Internships</option>
+                    <option value="hackathons">Hackathons</option>
+                    <option value="student">Student Clubs</option>
+                    <option value="mini">Mini Projects</option>
+                </select>
+            </div>
             <div class="row justify-content-center px-4 d-none d-md-flex">
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <span class="filter_icons" id="professional" onclick="updateFilter(this.id)">

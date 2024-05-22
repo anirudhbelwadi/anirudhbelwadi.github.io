@@ -18,6 +18,10 @@ a:hover {
     color: black;
 }
 
+select {
+    outline: none;
+}
+
 .modal {
     margin: unset !important;
     padding: unset !important;
@@ -337,4 +341,17 @@ noscript iframe {
     background-color: black;
     color: white;
     transition: 0.4s;
+}
+
+#filter_select {
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 10px 15px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url(../images/dropdown.png);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: 15px, 100%;
 }
