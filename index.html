@@ -1270,9 +1270,10 @@
             Projects
         </h3>
         <div class="container mt-5">
-            <div class="row justify-content-center px-4 d-flex d-md-none">
+            <div class="row justify-content-center px-4 d-flex" id="filter_select_parent">
                 <select name="" id="filter_select" onchange="updateFilter(this.value)">
                     <option selected disabled value="">Select a project category</option>
+                    <option value="all">All projects</option>
                     <option value="professional">Professional</option>
                     <option value="portfolios">Portfolios</option>
                     <option value="research">Reseach</option>
@@ -1283,7 +1284,7 @@
                     <option value="mini">Mini Projects</option>
                 </select>
             </div>
-            <div class="row justify-content-center px-4 d-none d-md-flex">
+            <div class="row justify-content-center px-4 d-flex" id="filter_button_parent">
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <span class="filter_icons" id="professional" onclick="updateFilter(this.id)">
                         Professional

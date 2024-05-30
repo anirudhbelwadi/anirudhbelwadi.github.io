@@ -356,3 +356,17 @@ noscript iframe {
     background-position: right .7em top 50%, 0 0;
     background-size: 15px, 100%;
 }
+
+@media screen and (min-width: 768px) {
+    #filter_select_parent {
+        visibility: hidden;
+        height: 0px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #filter_button_parent {
+        visibility: hidden;
+        height: 0px;
+    }
+}
