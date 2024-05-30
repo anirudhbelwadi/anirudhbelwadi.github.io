@@ -71,19 +71,21 @@ new Glider(document.querySelector(".glider"), {
     },
   ],
 });
-
-$.getJSON("https://api.ipify.org?format=json", function (data) {
-  let url =
-    "https://anirudhbelwadiportfolio.pythonanywhere.com/counterIncrease/" +
-    data.ip;
-  fetch(url)
-    .then((repo) => repo.json())
-    .then((data) => {
-      document.getElementById("visit_count").innerHTML = data.count;
-    });
-  // Use the data variable to show contents on the webpage
-  // Data variable format:
-  /*
+fetch("https://api.ipify.org?format=json")
+  .then((data) => data.json())
+  .then((data) => {
+    let url =
+      "https://anirudhbelwadiportfolio.pythonanywhere.com/counterIncrease/" +
+      data.ip;
+    fetch(url)
+      .then((repo) => repo.json())
+      .then((data) => {
+        console.log(data, "data");
+        document.getElementById("visit_count").innerHTML = data.count;
+      });
+    // Use the data variable to show contents on the webpage
+    // Data variable format:
+    /*
     {
       "count": int,
       "location": {
@@ -94,4 +96,4 @@ $.getJSON("https://api.ipify.org?format=json", function (data) {
        }
     } 
     */
-});
+  });
