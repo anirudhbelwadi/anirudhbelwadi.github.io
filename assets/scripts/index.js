@@ -80,7 +80,6 @@ fetch("https://api.ipify.org?format=json")
     fetch(url)
       .then((repo) => repo.json())
       .then((data) => {
-        console.log(data, "data");
         document.getElementById("visit_count").innerHTML = data.count;
       });
     // Use the data variable to show contents on the webpage
