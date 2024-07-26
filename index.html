@@ -275,6 +275,62 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="p2pModal" tabindex="-1" aria-labelledby="p2pModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="p2pModalLabel">Pittsburgh2Peers Application</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="./assets/images/projects/p2p.webp" alt="Team FullStack" class="w-100 mb-2">
+                    <h4>
+                        Motivation
+                    </h4>
+                    <p>
+                        So a lot of us would be landing shortly in Pitt. We wanted to create something to sort out a lot
+                        of the logistics of getting settled in.
+                    </p>
+                    <ul>
+                        <li>
+                            Help coordinate students arriving in time buckets to share costs of hailing a ride.
+                        </li>
+                        <li>
+                            Getting a ride from the airport to your stay close to campus.
+                        </li>
+                        <li>
+                            We're also adding a service to help get a Uhaul (and a driver) whilst you arrive on campus.
+                        </li>
+                        <li>
+                            Everything is MVP mode, so what gets the job done gets pushed.
+                        </li>
+                    </ul>
+                    <h4>
+                        Current status
+                    </h4>
+                    <ul>
+                        <li>
+                            We have the flows for requesting a ride, requesting a UHaul and connecting with students who
+                            arrive in the same time slot as you built out.
+                        </li>
+                        <li>
+                            We need to authenticate via a google service. Currently, since we'd use this for CMU, we
+                            have
+                            enabled andrew.cmu.edu as the only allowed organization but you can swap out the google
+                            client
+                            id in the env file for your requirements.
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark btn-lg px-4 py-2 border-radius-30"
+                        onclick="window.open('https://pittsburgh2peers.vercel.app/')">
+                        Go to Application
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="cardinalLCAModal" tabindex="-1" aria-labelledby="cardinalLCAModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -1404,6 +1460,19 @@
                         </p>
                     </a>
                     <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#teamFullStackModal">
+                        Read More...
+                    </button>
+                </div>
+                <div class="col-lg-6 px-5 mt-5 filter_project professional">
+                    <a href="https://pittsburgh2peers.vercel.app/" target="_blank">
+                        <img src="./assets/images/projects/p2p.webp" class="w-100" alt="P2P">
+                        <h4 class="project_title mt-3"><b>Pittsburgh2Peers</b></h4>
+                        <p class="project_description">
+                            This application solves minute problems that students face while studying in the US: Car
+                            Pooling, UHual sharing, Gorcery Pickup and many more.
+                        </p>
+                    </a>
+                    <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#p2pModal">
                         Read More...
                     </button>
                 </div>

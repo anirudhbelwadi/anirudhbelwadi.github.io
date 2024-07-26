@@ -1,5 +1,5 @@
-const scriptURL =
-  "https://script.google.com/macros/s/AKfycbzYt3kxU3SFdW4o82jJpzRzrq5Iu8nlfxXeX1l_/exec";
+//const scriptURL =
+//"https://script.google.com/macros/s/AKfycbzYt3kxU3SFdW4o82jJpzRzrq5Iu8nlfxXeX1l_/exec";
 const form = document.forms["contactForm"];
 form.addEventListener("submit", (e) => {
   document.getElementById("form_loader").style.visibility = "visible";
