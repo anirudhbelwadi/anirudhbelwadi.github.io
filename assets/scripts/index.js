@@ -76,7 +76,7 @@ fetch("https://api.ipify.org?format=json")
   .then((data) => {
     let url =
       "https://anirudhbelwadiportfolio.pythonanywhere.com/counterIncrease/" +
-      data.ip;
+      data.ip + "&source="+document.referrer;
     fetch(url)
       .then((repo) => repo.json())
       .then((data) => {
