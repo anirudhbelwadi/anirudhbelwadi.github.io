@@ -582,7 +582,7 @@
 
         const filterSourceData = (data) => {
             return Object.entries(data)
-                .filter(([k, v]) => k && v > 0)
+                .filter(([k, v]) => k && v > 0 && !k.includes('127.0.0') && !k.includes('localhost'))
                 .sort((a, b) => b[1] - a[1]) // Sort descending by value
                 .slice(0, 5)               // Limit to top 5
                 .reduce((acc, [k, v]) => {
