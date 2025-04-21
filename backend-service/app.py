@@ -26,7 +26,7 @@ def fetchActualSource(source):
         return "GitHub"
     if "linktr.ee" in source.lower():
         return "Linktree"
-    return source   
+    return source
 
 def getData(database_cursor):
     week_data = database_cursor.execute("""
@@ -210,6 +210,8 @@ def viewVisitors():
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
+    dashboard_visitor_count = int(database_cursor.execute("SELECT count FROM dashboard_visitors").fetchone()[0])
+    database_cursor.execute("UPDATE dashboard_visitors SET count = ? WHERE count = ?",(dashboard_visitor_count+1,dashboard_visitor_count))
     count = int(database_cursor.execute("SELECT count FROM visit").fetchone()[0])
     visitors = database_cursor.execute("SELECT * FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
     analytics_data = getData(database_cursor)

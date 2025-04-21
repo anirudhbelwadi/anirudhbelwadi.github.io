@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anirudh Belwadi | Portfolio Analytics</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <link rel="shortcut icon" href="../static/images/anirudhbelwadi_square.webp">
     <style>
         :root {
             --background: hsl(222, 47%, 11%);
@@ -672,7 +672,7 @@
         for (let i = 0; i < cleanSource.labels.length; i++) {
             cleanSource.labels[i] = fetchActualSource(cleanSource.labels[i]);
         }
-        
+
 
         drawBarChart('countryChart', cleanCountry.labels, cleanCountry.data, 'Visitors by Top 10 Countries');
         drawBarChart('sourceChart', cleanSource.labels, cleanSource.data, 'Visitors by Top 10 Sources');
