@@ -225,12 +225,13 @@ def hello_world(ip):
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
     count = int(database_cursor.execute("SELECT count FROM visit").fetchone()[0])
-    database_cursor.execute("UPDATE visit SET count = ? WHERE count = ?",(count+1,count))
-    count = count + 1
     location_response = {}
     location_data = {}
     try:
         web_source = request.args.get('source', default="", type=str)
+        domain = request.args.get('domain', default="", type=str)
+        if domain != "true":
+            raise Exception("Invalid domain")
         location_response = json.loads(requests.get('https://ipapi.co/'+ip+'/json/').text)
         location_data = {
             "ip": ip,
@@ -239,11 +240,13 @@ def hello_world(ip):
             "country": location_response["country_name"]
         }
         database_cursor.execute("INSERT into visitors VALUES (?,?,?,?,?,?)",(ip,now,location_response.get("city"),location_response.get("region"),location_response.get("country_name"),web_source))
-    except:
-        print("error")
+        database_cursor.execute("UPDATE visit SET count = ? WHERE count = ?",(count+1,count))
+        count = count + 1
+    except Exception as e:
+        print("Error:", e)
     database_connection.commit()
     database_connection.close()
-    message = {'count': count, 'location': location_data}
+    message = {'count': count }
     response = jsonify(message)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

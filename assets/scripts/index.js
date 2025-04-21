@@ -76,23 +76,10 @@ fetch("https://api.ipify.org?format=json")
   .then((data) => {
     let url =
       "https://anirudhbelwadiportfolio.pythonanywhere.com/counterIncrease/" +
-      data.ip + "?source="+document.referrer;
+      data.ip + "?domain=" + (window.location.hostname == "anirudhbelwadi.com" ? "true" : "false") + "&source=" + document.referrer;
     fetch(url)
       .then((repo) => repo.json())
       .then((data) => {
         document.getElementById("visit_count").innerHTML = data.count;
       });
-    // Use the data variable to show contents on the webpage
-    // Data variable format:
-    /*
-    {
-      "count": int,
-      "location": {
-          "city": "string",
-          "country": "string",
-          "ip": "string",
-          "region": "string"
-       }
-    } 
-    */
   });
