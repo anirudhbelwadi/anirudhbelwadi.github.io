@@ -4,7 +4,9 @@ import os
 from datetime import datetime
 import requests
 import json
-
+import pytz
+ 
+current_timezone = pytz.timezone("America/New_York")
 app = Flask(__name__)
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
@@ -222,7 +224,7 @@ def viewVisitors():
 
 @app.route('/counterIncrease/<string:ip>',methods=["GET"])
 def hello_world(ip):
-    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    now = datetime.now(current_timezone).strftime("%d/%m/%Y %H:%M:%S")
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
