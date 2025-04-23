@@ -85,7 +85,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         .stat-card {
@@ -329,6 +329,10 @@
     </header>
 
     <main class="dashboard">
+        <h2>
+            Traffic Summary
+        </h1>
+        <hr style="border: 1px solid var(--border); margin: 1rem 0;">
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-card-header">
@@ -393,7 +397,26 @@
                     <div class="stat-value">{{ analytics_data.kpis.visits_this_month }}</div>
                 </div>
             </div>
-
+             <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-card-title">Repeat Visitors Today</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M0 0h1v15h15v1H0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-value">{{ analytics_data.kpis.repeat_visitors_today }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>
+            Highest Performing Segments
+        </h1>
+        <hr style="border: 1px solid var(--border); margin: 1rem 0;">
+        <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-card-header">
                     <div class="stat-card-title">Peak Visit Day</div>
@@ -447,14 +470,21 @@
                     <div class="stat-value">{{ analytics_data.kpis.top_source }}</div>
                 </div>
             </div>
-
+        </div>
+        <h2>
+            Performance Over Time
+        </h1>
+        <small>
+            <b>
+                (Last 6 months)
+            </b>
+        </small>
+        <hr style="border: 1px solid var(--border); margin: 1rem 0;">
+        <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-card-header">
                     <div class="stat-card-title">
                         Avg. Visits / Day
-                        <span style="font-size: 10px; font-style: italic;">
-                            (Last 6 months)
-                        </span>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -474,9 +504,6 @@
                 <div class="stat-card-header">
                     <div class="stat-card-title">
                         Avg. Visits / Week
-                        <span style="font-size: 10px; font-style: italic;">
-                            (Last 6 months)
-                        </span>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -491,7 +518,31 @@
                     <div class="stat-value">{{ analytics_data.kpis.avg_per_week }}</div>
                 </div>
             </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-card-title">
+                        Avg. Repeat Visitors / Day
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-value">{{ analytics_data.kpis.repeat_visitors_per_day }}</div>
+                </div>
+            </div>
         </div>
+        <br>
+        
+        <h1>
+            Visualization
+        </h1>
+        <br>
 
         <div class="chart-grid">
             <div class="locations-card">
