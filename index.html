@@ -506,6 +506,52 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="analyticsDashboardModal" tabindex="-1" aria-labelledby="analyticsDashboardModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="analyticsDashboardModalLabel">Portfolio Analytics Dashboard</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="./assets/images/projects/analytics_dashboard.webp" class="w-100 mb-2"
+                        alt="Portfolio Analytics Dashboard">
+                    <ul>
+                        <li>
+                            Developed an analytics dashboard that visualizes real-time and historical traffic
+                            to my personal portfolio website, focusing on visitor behavior and geographic distribution.
+                        </li>
+                        <li>
+                            The dashboard displays key metrics such as total visitors, today's activity, traffic sources,
+                            top countries, and time-based trends, with interactive charts and dynamic filtering.
+                        </li>
+                        <li>
+                            Implemented advanced visitor segmentation including source tracking (e.g., LinkedIn, Google),
+                            and regional analysis (city, country), with KPI cards, charts, and filters all in a dark-themed
+                            UI.
+                        </li>
+                        <li>
+                            <strong>Technologies used:</strong>
+                            Python (Flask), SQLite, Chart.js, Chart.js Datalabels, HTML5, CSS3, JavaScript (ES6), IP
+                            Geolocation APIs
+                        </li>
+                        <li>
+                            <strong>Hosting on:</strong>
+                            PythonAnywhere
+                        </li>
+                    </ul>
+    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark btn-lg px-4 py-2 border-radius-30"
+                        onclick="window.open('https://anirudhbelwadiportfolio.pythonanywhere.com/admin/viewVisitors')">Go
+                        to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="GSISModal" tabindex="-1" aria-labelledby="GSISModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1515,6 +1561,20 @@
                         </p>
                     </a>
                     <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#harvardModal">
+                        Read More...
+                    </button>
+                </div>
+                <div class="col-lg-6 px-5 mt-5 filter_project mini">
+                    <a href="https://anirudhbelwadiportfolio.pythonanywhere.com/admin/viewVisitors" target="_blank">
+                        <img src="./assets/images/projects/analytics_dashboard.webp" class="w-100"
+                            alt="Portfolio Analytics Dashboard">
+                        <h4 class="project_title mt-3"><b>Portfolio Analytics Dashboard</b></h4>
+                        <p class="project_description">
+                            Developed an analytics dashboard that visualizes real-time and historical traffic
+                            to my personal portfolio website, focusing on visitor behavior and geographic distribution.
+                        </p>
+                    </a>
+                    <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#analyticsDashboardModal">
                         Read More...
                     </button>
                 </div>
