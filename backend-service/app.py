@@ -305,9 +305,9 @@ def hello_world(ip):
         location_response = json.loads(requests.get('https://ipapi.co/'+ip+'/json/').text)
         is_repeat_visitor_today = database_cursor.execute("SELECT COUNT(*) FROM visitors WHERE ip = ? AND timestamp LIKE ?", (ip, f"{now.split()[0]}%")).fetchone()[0]
         if is_repeat_visitor_today == 0:
-            is_repeat_visitor_today = "Y"
-        else:
             is_repeat_visitor_today = "N"
+        else:
+            is_repeat_visitor_today = "Y"
         database_cursor.execute("INSERT into visitors VALUES (?,?,?,?,?,?,?)",(ip,now,location_response.get("city"),location_response.get("region"),location_response.get("country_name"),web_source, is_repeat_visitor_today))
         database_cursor.execute("UPDATE visit SET count = ? WHERE count = ?",(count+1,count))
         count = count + 1
