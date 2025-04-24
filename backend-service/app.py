@@ -253,6 +253,7 @@ def getData(database_cursor):
     """, (
         (today - timedelta(days=180)).strftime("%Y-%m-%d"),
     )).fetchone()[0]
+    repeat_visitors_per_day = round(repeat_visitors_per_day, 2) if repeat_visitors_per_day else 0
     return {
         "week_data": week_data,
         "month_data": month_data,
