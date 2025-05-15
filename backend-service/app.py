@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import requests
 import pytz
 from dateutil.relativedelta import relativedelta
+from country_code import clean_row_country
  
 current_timezone = pytz.timezone('America/New_York')
 app = Flask(__name__)
@@ -308,7 +309,10 @@ def hello_world(ip):
             is_repeat_visitor_today = "N"
         else:
             is_repeat_visitor_today = "Y"
-        database_cursor.execute("INSERT into visitors VALUES (?,?,?,?,?,?,?,?)",(ip,now,location_response.get("city"),location_response.get("region"),location_response.get("country"),web_source, is_repeat_visitor_today, location_response.get("postal")))
+        cleaned_country = location_response.get("country")
+        if cleaned_country is not None:
+            cleaned_country = clean_row_country(cleaned_country)
+        database_cursor.execute("INSERT into visitors VALUES (?,?,?,?,?,?,?,?)",(ip,now,location_response.get("city"),location_response.get("region"),cleaned_country,web_source, is_repeat_visitor_today, location_response.get("postal")))
         database_cursor.execute("UPDATE visit SET count = ? WHERE count = ?",(count+1,count))
         count = count + 1
     except Exception as e:
