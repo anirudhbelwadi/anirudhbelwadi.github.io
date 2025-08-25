@@ -180,6 +180,42 @@
 
     <!-- Modals -->
     <!-- Projects -->
+    <div class="modal fade" id="awdModal" tabindex="-1" aria-labelledby="awdModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="awdModalLabel">Amazon Warehousing & Distribution</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="./assets/images/projects/awd_cim.webp" alt="Amazon Warehousing & Distribution" class="w-100 mb-2">
+                    <ul>
+                        <li>
+                            Architectured and designed a high-performance pre-computation layer for Amazon Warehousing & Distribution's
+                            Inventory Management System that reduced API latency by implementing event-driven data aggregation using AWS Lambda, SNS & SQS.
+                        </li>
+                        <li>
+                            Developed scalable data processing pipeline to handle 200k+ requests/hour by implementing partitioned FIFO queues with
+                            parallel processing.
+                        </li>
+                        <li>
+                            Also, developed migration approach from existing system of MySQL to PostgreSQL and documented tech specifications and integration patterns.
+                        </li>
+                        <li>
+                            <strong>
+                                Technologies used:
+                            </strong>
+                            Java, Amazon Relational Database Service (RDS), Lambda, SQS, SNS, DynamoDB, CloudWatch, CloudFormation
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark btn-lg px-4 py-2 border-radius-30"
+                        onclick="window.open('https://sell.amazon.com/programs/warehousing')">Go to Website</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="myjioModal" tabindex="-1" aria-labelledby="myjioModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1564,6 +1600,19 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 px-5 mt-5 filter_project professional">
+                    <a href="https://sell.amazon.com/programs/warehousing" target="_blank">
+                        <img src="./assets/images/projects/awd_cim.webp" class="w-100" alt="MyJio">
+                        <h4 class="project_title mt-3"><b>Amazon Warehousing & Distribution</b></h4>
+                        <p class="project_description">
+                            Architectured and designed a high-performance pre-computation layer for Amazon Warehousing & Distribution's 
+                            Inventory Management System that reduced API latency by implementing event-driven data aggregation.
+                        </p>
+                    </a>
+                    <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#awdModal">
+                        Read More...
+                    </button>
+                </div>
+                <div class="col-lg-6 px-5 mt-5 filter_project professional">
                     <a href="https://www.jio.com/jcms/apps/myjio/" target="_blank">
                         <img src="./assets/images/projects/myjio.webp" class="w-100" alt="MyJio">
                         <h4 class="project_title mt-3"><b>MyJio Application</b></h4>
@@ -1576,6 +1625,7 @@
                         Read More...
                     </button>
                 </div>
+            
                 <div class="col-lg-6 px-5 mt-5 filter_project professional">
                     <a href="https://safeai-lab.github.io/" target="_blank">
                         <img src="./assets/images/projects/safeAILab.webp" class="w-100" alt="Safe AI Lab">
