@@ -180,6 +180,35 @@
 
     <!-- Modals -->
     <!-- Projects -->
+    <div class="modal fade" id="mfiModal" tabindex="-1" aria-labelledby="mfiModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mfiModalLabel">Retrieval API for MFI Digital Data Backbone</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="./assets/images/projects/mfi.webp" alt="Amazon Warehousing & Distribution" class="w-100 mb-2">
+                    <ul>
+                        <li>
+                            Architected a polyglot persistence system with a unified Retrieval API orchestrating multiple data stores, enabling
+                            independent schema evolution and optimized storage per use case.
+                        
+                            
+                        </li>
+                        <li>
+                            Built database connectors and RESTful endpoints for metadata, historian, and file storage, supporting time-series
+                            queries and trial lifecycle tracking for manufacturing data pipelines.
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark btn-lg px-4 py-2 border-radius-30"
+                        onclick="window.open('https://cmu-mfi.github.io/ddb/index.html')">Go to Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="awdModal" tabindex="-1" aria-labelledby="awdModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1599,6 +1628,19 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-6 px-5 mt-5 filter_project professional">
+                    <a href="https://cmu-mfi.github.io/ddb/index.html" target="_blank">
+                        <img src="./assets/images/projects/mfi.webp" class="w-100" alt="MyJio">
+                        <h4 class="project_title mt-3"><b>Amazon Warehousing & Distribution</b></h4>
+                        <p class="project_description">
+                            Architected a polyglot persistence system with a unified Retrieval API orchestrating multiple data stores, enabling
+                            independent schema evolution and optimized storage per use case.
+                        </p>
+                    </a>
+                    <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#mfiModal">
+                        Read More...
+                    </button>
+                </div>
                 <div class="col-lg-6 px-5 mt-5 filter_project professional">
                     <a href="https://sell.amazon.com/programs/warehousing" target="_blank">
                         <img src="./assets/images/projects/awd_cim.webp" class="w-100" alt="MyJio">
