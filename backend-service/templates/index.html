@@ -411,7 +411,7 @@
                 </div>
             </div>
         </div>
-        
+
         <h2>
             Highest Performing Segments
         </h1>
@@ -538,7 +538,7 @@
             </div>
         </div>
         <br>
-        
+
         <h1>
             Visualization
         </h1>
@@ -726,7 +726,7 @@
 
 
         drawBarChart('countryChart', cleanCountry.labels, cleanCountry.data, 'Visitors by Top 10 Countries');
-        drawBarChart('sourceChart', cleanSource.labels, cleanSource.data, 'Visitors by Top 10 Sources');
+        drawBarChart('sourceChart', cleanSource.labels, cleanSource.data, 'Visitors by Top 5 Sources');
 
         // --- Time-based Trends Chart (One Dynamic Line Chart) ---
         const weekData = {{ analytics_data["week_data"] | tojson }};

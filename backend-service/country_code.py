@@ -13,7 +13,7 @@ def clean_row_country(name):
     if len(name) == 2:
         actual_name = convert_country_code_to_name(name)
     return actual_name
- 
+
 if __name__ == "__main__":
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()

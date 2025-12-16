@@ -6,7 +6,7 @@ import requests
 import pytz
 from dateutil.relativedelta import relativedelta
 from country_code import clean_row_country
- 
+
 current_timezone = pytz.timezone('America/New_York')
 app = Flask(__name__)
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -35,7 +35,7 @@ def getData(database_cursor):
     today = datetime.now(current_timezone)
     today_db_format = datetime.now(current_timezone).strftime("%d/%m/%Y")
     today_str = today.strftime("%Y-%m-%d")
-    
+
     six_days_ago_str = (today - timedelta(days=6)).strftime("%Y-%m-%d")
     week_data = database_cursor.execute("""
         WITH RECURSIVE dates(day) AS (
@@ -215,11 +215,11 @@ def getData(database_cursor):
     repeat_visitors_per_day = database_cursor.execute("""
         SELECT AVG(daily_repeat_ips) AS avg_repeat_ips_per_day
         FROM (
-            SELECT 
+            SELECT
                 visit_date,
                 COUNT(DISTINCT ip) AS daily_repeat_ips
             FROM (
-                SELECT 
+                SELECT
                     v1.ip,
                     date(
                         substr(v1.timestamp, 7, 4) || '-' ||
@@ -289,6 +289,27 @@ def viewVisitors():
     database_connection.commit()
     database_connection.close()
     return render_template('index.html', count = count, visitors=visitors, analytics_data = analytics_data)
+
+@app.route('/admin/viewVisitors/allVisitors')
+def allVisitors():
+    database_location = os.path.join(THIS_FOLDER, 'database.db')
+    database_connection = sqlite3.connect(database_location)
+    database_cursor = database_connection.cursor()
+    visitors = database_cursor.execute("SELECT * FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
+    database_connection.close()
+    visitors_list = []
+    for visitor in visitors:
+        visitors_list.append({
+            "ip": visitor[0],
+            "timestamp": visitor[1],
+            "city": visitor[2],
+            "region": visitor[3],
+            "country_name": visitor[4],
+            "source": visitor[5],
+            "is_repeat_visitor": visitor[6],
+            "postal": visitor[7]
+        })
+    return render_template('all_visitors.html', visitors=visitors_list)
 
 @app.route('/counterIncrease/<string:ip>',methods=["GET"])
 def hello_world(ip):

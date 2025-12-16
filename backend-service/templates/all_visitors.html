@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>All Visitors | Portfolio Analytics</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+	<link rel="shortcut icon" href="../static/images/anirudhbelwadi_square.webp">
+	<style>
+		:root {
+			--background: hsl(222, 47%, 11%);
+			--foreground: hsl(210, 40%, 98%);
+			--card: hsl(222, 47%, 15%);
+			--card-foreground: hsl(210, 40%, 98%);
+			--border: hsl(217, 32%, 17%);
+			--primary: hsl(210, 40%, 98%);
+			--primary-foreground: hsl(222, 47%, 11%);
+			--secondary: hsl(217, 32%, 17%);
+			--secondary-foreground: hsl(210, 40%, 98%);
+			--muted: hsl(217, 32%, 17%);
+			--muted-foreground: hsl(215, 20%, 65%);
+			--radius: 0.5rem;
+			--info: #3B82F6;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			background-color: var(--background);
+			color: var(--foreground);
+			line-height: 1.5;
+		}
+
+		header {
+			background-color: var(--card);
+			border-bottom: 1px solid var(--border);
+			padding: 1rem 1.5rem;
+			position: sticky;
+			top: 0;
+			z-index: 30;
+		}
+
+		.header-content {
+			display: flex;
+			height: 4rem;
+			align-items: center;
+			gap: 0.75rem;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.brand h1 {
+			font-size: 1.25rem;
+			font-weight: 600;
+		}
+
+		.title {
+			margin-left: auto;
+			font-size: 0.9rem;
+			font-weight: 500;
+			color: var(--muted-foreground);
+		}
+
+		.page {
+			padding: 1.5rem;
+			max-width: 1400px;
+			margin: 0 auto 3rem;
+		}
+
+		.page-header {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 1rem;
+		}
+
+		.page-header h2 {
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
+
+		.meta {
+			display: flex;
+			gap: 1rem;
+			align-items: center;
+			color: var(--muted-foreground);
+			font-size: 0.95rem;
+		}
+
+		.badge {
+			background: var(--secondary);
+			color: var(--secondary-foreground);
+			padding: 0.35rem 0.65rem;
+			border-radius: var(--radius);
+			font-size: 0.85rem;
+			font-weight: 600;
+		}
+
+		.actions {
+			display: flex;
+			gap: 0.5rem;
+			align-items: center;
+		}
+
+		.btn {
+			border: 1px solid var(--border);
+			background: var(--secondary);
+			color: var(--secondary-foreground);
+			padding: 0.5rem 0.9rem;
+			border-radius: var(--radius);
+			font-weight: 600;
+			cursor: pointer;
+			text-decoration: none;
+			transition: background-color 0.2s, border-color 0.2s;
+		}
+
+		.btn:hover {
+			background: var(--muted);
+			border-color: var(--muted);
+		}
+
+		.search-box {
+			display: flex;
+			gap: 0.5rem;
+			align-items: center;
+			width: 100%;
+			max-width: 420px;
+			margin-top: 0.5rem;
+		}
+
+		.search-box input {
+			flex: 1;
+			background: var(--secondary);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 0.6rem 0.8rem;
+			color: var(--foreground);
+			font-size: 0.95rem;
+		}
+
+		.search-box input::placeholder {
+			color: var(--muted-foreground);
+		}
+
+		.table-container {
+			background-color: var(--card);
+			border-radius: var(--radius);
+			overflow: hidden;
+			border: 1px solid var(--border);
+		}
+
+		.table-header {
+			padding: 1.25rem 1.5rem;
+			border-bottom: 1px solid var(--border);
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.75rem;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.table-title {
+			font-size: 1.125rem;
+			font-weight: 700;
+		}
+
+		.table-content {
+			padding: 0 1.5rem 1.5rem;
+			overflow-x: auto;
+		}
+
+		.pagination {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			padding: 1rem 1.5rem 1.25rem;
+			flex-wrap: wrap;
+			border-top: 1px solid var(--border);
+		}
+
+		.page-controls {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.page-btn {
+			border: 1px solid var(--border);
+			background: var(--secondary);
+			color: var(--secondary-foreground);
+			padding: 0.4rem 0.75rem;
+			border-radius: var(--radius);
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.2s, border-color 0.2s;
+		}
+
+		.page-btn:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+
+		.page-btn:hover:not(:disabled) {
+			background: var(--muted);
+			border-color: var(--muted);
+		}
+
+		.page-size {
+			background: var(--secondary);
+			color: var(--secondary-foreground);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 0.35rem 0.5rem;
+			font-weight: 600;
+		}
+
+		.page-meta {
+			color: var(--muted-foreground);
+			font-size: 0.95rem;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			text-align: left;
+			font-size: 0.9rem;
+		}
+
+		thead {
+			position: sticky;
+			top: 0;
+			background: var(--card);
+			z-index: 1;
+		}
+
+		th {
+			height: 3rem;
+			font-weight: 600;
+			color: var(--muted-foreground);
+			text-align: left;
+			padding: 0 1rem;
+			border-bottom: 1px solid var(--border);
+		}
+
+		td {
+			padding: 0.9rem 1rem;
+			border-bottom: 1px solid var(--border);
+		}
+
+		tr:hover td {
+			background-color: var(--secondary);
+		}
+
+		.ip-cell {
+			font-family: monospace;
+		}
+
+		.nowrap {
+			white-space: nowrap;
+		}
+
+		.muted {
+			color: var(--muted-foreground);
+		}
+
+		@media (max-width: 768px) {
+			.table-content {
+				padding: 0 1rem 1rem;
+			}
+
+			th, td {
+				padding: 0.75rem 0.75rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="header-content">
+			<div class="brand">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+					stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+					<circle cx="12" cy="7" r="4"></circle>
+				</svg>
+				<h1>Anirudh Belwadi</h1>
+			</div>
+			<div class="title">Visitor Log</div>
+		</div>
+	</header>
+
+	<main class="page">
+		<div class="page-header">
+			<div>
+				<h2>All Visitors</h2>
+				<div class="meta">
+					<span class="badge">{{ visitors|length }} records</span>
+					<span class="muted">Latest first</span>
+				</div>
+			</div>
+			<div class="actions">
+				<a class="btn" href="/admin/viewVisitors">Back to Dashboard</a>
+			</div>
+		</div>
+
+		<div class="table-container">
+			<div class="table-header">
+				<div class="table-title">Visitor Details</div>
+				<div class="search-box">
+					<input id="globalSearch" type="text" placeholder="Search IP, city, country, source, etc." oninput="handleSearch()" aria-label="Search visitors">
+				</div>
+			</div>
+			<div class="table-content">
+				<table id="visitorTable">
+					<thead>
+						<tr>
+							<th>IP</th>
+							<th class="nowrap">Timestamp</th>
+							<th>City</th>
+							<th>Region</th>
+							<th>Country</th>
+							<th>Source</th>
+							<th class="nowrap">Repeat?</th>
+							<th class="nowrap">Postal</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for v in visitors %}
+						<tr>
+							<td class="ip-cell">{{ v.ip }}</td>
+							<td class="nowrap">{{ v.timestamp }}</td>
+							<td>{{ v.city or '-' }}</td>
+							<td>{{ v.region or '-' }}</td>
+							<td>{{ v.country_name or '-' }}</td>
+							<td data-source>{{ v.source or '-' }}</td>
+							<td class="nowrap">{{ 'Yes' if v.is_repeat_visitor == 'Y' else 'No' }}</td>
+							<td class="nowrap">{{ v.postal or '-' }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="pagination">
+				<div class="page-controls">
+					<button class="page-btn" id="prevPage">Prev</button>
+					<button class="page-btn" id="nextPage">Next</button>
+				</div>
+				<div class="page-controls">
+					<label for="pageSize" class="muted">Rows per page</label>
+					<select id="pageSize" class="page-size" aria-label="Rows per page">
+						<option value="10" selected>10</option>
+						<option value="25">25</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+				</div>
+				<div class="page-meta" id="pageMeta"></div>
+			</div>
+		</div>
+	</main>
+
+	<script>
+		function fetchActualSource(source) {
+			const lower = source.toLowerCase();
+			if (lower.includes("linkedin")) {
+				if (lower.includes("www")) return "LinkedIn Web";
+				return "LinkedIn Mobile";
+			}
+			if (lower.includes("facebook")) return "Facebook";
+			if (lower.includes("twitter")) return "Twitter";
+			if (lower.includes("instagram")) return "Instagram";
+			if (lower.includes("google")) return "Google";
+			if (lower.includes("github")) return "GitHub";
+			if (lower.includes("linktr.ee")) return "Linktree";
+			return source;
+		}
+
+		function normalizeSources() {
+			const cells = document.querySelectorAll('[data-source]');
+			cells.forEach(cell => {
+				const text = cell.textContent.trim();
+				if (!text || text === '-') return;
+				cell.textContent = fetchActualSource(text);
+			});
+		}
+
+	const rows = Array.from(document.querySelectorAll('#visitorTable tbody tr'));
+	let currentPage = 1;
+	let pageSize = 10;
+
+	function getFilteredRows() {
+		const query = document.getElementById('globalSearch').value.toLowerCase();
+		return rows.filter(row => row.textContent.toLowerCase().includes(query));
+	}
+
+	function renderPagination(filtered) {
+		const total = filtered.length;
+		const totalPages = Math.max(1, Math.ceil(total / pageSize));
+		currentPage = Math.min(currentPage, totalPages);
+		const start = (currentPage - 1) * pageSize;
+		const end = start + pageSize;
+
+		rows.forEach(row => row.style.display = 'none');
+		filtered.slice(start, end).forEach(row => row.style.display = '');
+
+		document.getElementById('prevPage').disabled = currentPage === 1;
+		document.getElementById('nextPage').disabled = currentPage >= totalPages;
+		document.getElementById('pageMeta').textContent = `Page ${currentPage} of ${totalPages} · Showing ${Math.min(end, total)} of ${total} rows`;
+	}
+
+	function handleSearch() {
+		currentPage = 1;
+		renderPagination(getFilteredRows());
+	}
+
+	function handlePageChange(delta) {
+		currentPage += delta;
+		renderPagination(getFilteredRows());
+	}
+
+	function handlePageSizeChange() {
+		pageSize = parseInt(document.getElementById('pageSize').value, 10) || 25;
+		currentPage = 1;
+		renderPagination(getFilteredRows());
+	}
+
+	document.getElementById('prevPage').addEventListener('click', () => handlePageChange(-1));
+	document.getElementById('nextPage').addEventListener('click', () => handlePageChange(1));
+	document.getElementById('pageSize').addEventListener('change', handlePageSizeChange);
+
+	normalizeSources();
+	renderPagination(getFilteredRows());
+	</script>
+</body>
+
+</html>
