@@ -2481,6 +2481,17 @@
                                         <textarea name="message" id="message" class="w-100" required
                                             placeholder="Message" cols="30"></textarea>
                                     </div>
+                                    <input type="hidden" name="ip_address" id="ip_address" value="">
+                                    <script>
+                                        fetch('https://api.ipify.org?format=json')
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                document.getElementById('ip_address').value = data.ip;
+                                            })
+                                            .catch(error => {
+                                                console.error('Error fetching IP address:', error);
+                                            });
+                                    </script>
                                     <div class="col-12">
                                         <button type="submit"
                                             class="btn btn-dark btn-lg px-4 py-2 border-radius-30">Submit</button>
