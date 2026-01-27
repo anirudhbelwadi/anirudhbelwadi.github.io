@@ -275,7 +275,7 @@ def getData(database_cursor):
         }
     }
 
-@app.route('/admin/viewVisitors')
+@app.route('/admin/viewVisitors/')
 def viewVisitors():
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
@@ -290,7 +290,7 @@ def viewVisitors():
     database_connection.close()
     return render_template('index.html', count = count, visitors=visitors, analytics_data = analytics_data)
 
-@app.route('/admin/viewVisitors/allVisitors')
+@app.route('/admin/viewVisitors/allVisitors/')
 def allVisitors():
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
