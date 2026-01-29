@@ -29,6 +29,14 @@ def fetchActualSource(source):
         return "GitHub"
     if "linktr.ee" in source.lower():
         return "Linktree"
+    if "jessica_chen_portfolio" in source.lower():
+        return "Jessica Chen Portfolio Website"
+    if "rounakgodhkey.com" in source.lower():
+        return "Rounak Godhkey Portfolio Website"
+    if "assemblyperformance" in source.lower():
+        return "Assembly Performance Website"
+    if "shahkshitij" in source.lower():
+        return "Kshitij Shah Portfolio Website"
     return source
 
 def getData(database_cursor):
