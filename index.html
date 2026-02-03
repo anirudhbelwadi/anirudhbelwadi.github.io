@@ -18,7 +18,7 @@
 
     <meta name="title" property="og:title" content="Anirudh Belwadi | Portfolio">
     <meta name="description" property="og:description"
-        content="A passionate individual who loves building web applications, a developer and musician by passion, an engineer by profession and a photographer by interest.">
+        content="A passionate individual who loves building products that make a real impact!">
     <meta property="og:type" content="Website">
     <meta name="image" property="og:image"
         content="https://anirudhbelwadi.com/assets/images/anirudhbelwadi_square.webp">
@@ -29,7 +29,7 @@
 
     <meta name="twitter:title" content="Anirudh Belwadi | Portfolio">
     <meta name="twitter:description"
-        content="A passionate individual who loves building web applications, a developer and musician by passion, an engineer by profession and a photographer by interest.">
+        content="A passionate individual who loves building products that make a real impact!">
     <meta name="twitter:image" content="https://anirudhbelwadi.com/assets/images/anirudhbelwadi_square.webp">
     <meta name="twitter:image:alt" content="Anirudh Belwadi - Profile Image">
     <meta name="twitter:card" content="https://anirudhbelwadi.com/assets/images/anirudhbelwadi_square.webp">
@@ -133,7 +133,7 @@
                             </div>
                             <div class="header_tagline_content mt-4">
                                 <span class="type title_font">
-                                    I love developing websites and web based applications.
+                                    I'm passionate about building products that make a real impact!
                                 </span>
                             </div>
                             <div class="header_button mt-4">
@@ -156,15 +156,18 @@
         <div class="row px-5 align-items-center">
             <div class="col-lg-7 mb-3 px-5 order-lg-2">
                 <div class="title_font">
-                    I'm Anirudh Belwadi, a Full Stack Web Developer
+                    About me
                 </div>
-                <div class="content_font mt-4">
-                    I am a passionate individual who loves building web applications, a developer and musician by
-                    passion, an engineer by profession and a photographer by interest. My life's mission is to remain
-                    dedicated to advancing the software industry, with a focus on driving innovation that elevates the
-                    standard of living in society.
+                <div class="content_font mt-2">
+                    I am Software Engineer with a Master's degree from Carnegie Mellon University, who loves building
+                    scalable distributed systems and cloud-native applications.
+                    <br><br>
+                    I specialize in Java, Python, and AWS/GCP, and enjoy owning features end-to-end from system design
+                    to production.
+                    <br><br>
+                    Outside of tech, I'm a musician and photographer who enjoys creative expression.
                 </div>
-                <div class="about_button mt-4">
+                <div class="about_button mt-5">
                     <button type="button" class="btn btn-dark btn-lg px-4 py-2 border-radius-30"
                         onclick="window.open('./assets/documents/anirudh_srinath_belwadi_cv.pdf');">Download
                         CV</button>
@@ -188,17 +191,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img src="./assets/images/projects/mfi.webp" alt="Amazon Warehousing & Distribution" class="w-100 mb-2">
+                    <img src="./assets/images/projects/mfi.webp" alt="Amazon Warehousing & Distribution"
+                        class="w-100 mb-2">
                     <ul>
                         <li>
-                            Architected a polyglot persistence system with a unified Retrieval API orchestrating multiple data stores, enabling
-                            independent schema evolution and optimized storage per use case.
-                        
-                            
+                            Designed and implemented a polyglot persistence architecture with a unified Retrieval API
+                            spanning PostgreSQL, AVEVA PI (time-series), key-value stores, and object/file storage,
+                            enabling independent schema evolution and optimized access across heterogeneous
+                            manufacturing workloads.
                         </li>
                         <li>
-                            Built database connectors and RESTful endpoints for metadata, historian, and file storage, supporting time-series
-                            queries and trial lifecycle tracking for manufacturing data pipelines.
+                            Built scalable backend services and database connectors in Python (Flask) to expose
+                            metadata, historian, and file-system data via RESTful APIs, supporting time-series
+                            analytics and end-to-end trial lifecycle tracking
+                        </li>
+                        <li>
+                            Defined data models, API contracts, and indexing strategies to improve query performance,
+                            consistency, and reliability across storage backends
+                        </li>
+                        <li>
+                            Collaborated with researchers and engineers to productionize data pipelines for large-scale
+                            manufacturing experiments
                         </li>
                     </ul>
                 </div>
@@ -217,24 +230,36 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img src="./assets/images/projects/awd_cim.webp" alt="Amazon Warehousing & Distribution" class="w-100 mb-2">
+                    <img src="./assets/images/projects/awd_cim.webp" alt="Amazon Warehousing & Distribution"
+                        class="w-100 mb-2">
                     <ul>
                         <li>
-                            Architectured and designed a high-performance pre-computation layer for Amazon Warehousing & Distribution's
-                            Inventory Management System that reduced API latency by implementing event-driven data aggregation using AWS Lambda, SNS & SQS.
+                            Designed and built a serverless, event-driven distributed system using AWS Lambda, SQS & SNS
+                            to decouple compute-intensive workloads from latency-sensitive APIs
                         </li>
                         <li>
-                            Developed scalable data processing pipeline to handle 200k+ requests/hour by implementing partitioned FIFO queues with
-                            parallel processing.
+                            Reduced p99 API latency by ~90% by introducing an asynchronous precomputation pipeline to
+                            reliably handle 200K+ requests/hour under peak production traffic
                         </li>
                         <li>
-                            Also, developed migration approach from existing system of MySQL to PostgreSQL and documented tech specifications and integration patterns.
+                            Implemented fault-tolerant processing guarantees using retries, dead-letter queues and
+                            idempotency controls to handle message duplication, partial failures, and downstream
+                            service outages
+                        </li>
+                        <li>
+                            Redesigned DynamoDB data models and access patterns to eliminate hot partitions, improve
+                            throughput predictability and reduce infrastructure costs at scale
+                        </li>
+                        <li>
+                            Drove design reviews and production-readiness discussions, contributing to decisions around
+                            scalability limits, failure modes, observability, and operational excellence
                         </li>
                         <li>
                             <strong>
                                 Technologies used:
                             </strong>
-                            Java, Amazon Relational Database Service (RDS), Lambda, SQS, SNS, DynamoDB, CloudWatch, CloudFormation
+                            Java, Amazon Relational Database Service (RDS), Lambda, SQS, SNS, DynamoDB, CloudWatch,
+                            CloudFormation
                         </li>
                     </ul>
                 </div>
@@ -256,17 +281,24 @@
                     <img src="./assets/images/projects/myjio.webp" alt="MyJio" class="w-100 mb-2">
                     <ul>
                         <li>
-                            Worked on applications which brought in, >95% telecommunication recharge revenue to the
-                            company.
+                            Designed and developed Java Spring Boot microservices powering a large-scale consumer
+                            platform, MyJio, with 500M+ users
                         </li>
                         <li>
-                            Implemented Business Logic in multiple micro services which facilitated mobility recharges
-                            and payments.
+                            Built horizontally scalable backend services for authentication, user data management and
+                            service orchestration, with a focus on low latency and high availability
                         </li>
                         <li>
-                            Developed highly responsive User Interfaces in ReactJs from provided design prototypes in
-                            Figma. Followed a
-                            pre defined design system which had guideline principles.
+                            Improved system reliability and debuggability by implementing structured logging, service
+                            health checks and production monitoring to detect and diagnose failures
+                        </li>
+                        <li>
+                            Collaborated with product, frontend, and platform teams to define stable API contracts,
+                            support staged rollouts, and ensure safe production deployments
+                        </li>
+                        <li>
+                            Investigated and resolved performance bottlenecks and availability issues in distributed
+                            services by analyzing logs, metrics and system behavior under load
                         </li>
                         <li>
                             <strong>
@@ -295,35 +327,34 @@
                     <img src="./assets/images/projects/team_fullstack.webp" alt="Team FullStack" class="w-100 mb-2">
                     <ul>
                         <li>
-                            Trained over 200+ students in different domains like Full Stack Development, Graphic
-                            Designing and Digital Marketing
+                            Founded and led an initiative of training 200+ students in web development and UI/UX while
+                            delivering real-world
+                            client projects for small and medium scale companies
                         </li>
                         <li>
-                            Provided digital services like product research-design-development, collaterals' design
-                            and digital marketing to 7 clients.
+                            Supported the
+                            <a class="read_more" href="https://nsdcindia.org/" target="_blank">
+                                National Skill Development Corporation of India (NSDC)
+                            </a>
+                            and
+                            <a class="read_more" href="https://apll.info/" target="_blank">APLL</a>
+                            in managing CSR projects for global companies like
+                            <a class="read_more" href="https://www.ltimindtree.com/" target="_blank">LTI</a>
+                            and
+                            <a class="read_more" href="https://www.tcs.com/" target="_blank">TCS</a>.
                         </li>
                         <li>
-                            Worked closely with <a class="read_more" href="https://nsdcindia.org/"
-                                target="_blank">National Skill Development Corporation of India (NSDC)</a> and <a
-                                class="read_more" href="https://apll.info/" target="_blank">APLL</a> for managing CSR
-                            projects of global companies like <a class="read_more" href="https://www.lntinfotech.com/"
-                                target="_blank">LTI</a> and <a class="read_more" href="https://www.tcs.com/"
-                                target="_blank">TCS</a>.
+                            Mentored 16 interns through hands-on full-stack development projects, improving their
+                            technical proficiency and industry readiness
                         </li>
                         <li>
-                            Managed a team of 16 interns assigned to different projects simultaneously.
+                            Awarded 1st place in Global Student Entrepreneur Awards. Qualified and participated at their
+                            National finals in Vizag, India
                         </li>
                         <li>
-                            Stood 1st in <a class="read_more" href="https://gsea.org/" target="_blank">Global Student
-                                Entrepreneur Awards
-                                (GSEA)</a> in Hyderabad chapter finals and got
-                            qualified for the National level finals which was held in Vizag, India.
-                        </li>
-                        <li>
-                            Qualified to top 500 across 15 countries in <a class="read_more"
-                                href="https://www.innopreneurs.in/" target="_blank">Innopreneurs</a> International
-                            Startup Contest (7th
-                            Edition)
+                            Qualified to top 500 across 15 countries in
+                            <a class="read_more" href="https://www.innopreneurs.in/" target="_blank">Innopreneurs</a>
+                            International Startup Contest (7th Edition)
                         </li>
                         <li>
                             <strong>
@@ -355,8 +386,10 @@
                         Motivation
                     </h4>
                     <p>
-                        So a lot of us would be landing shortly in Pitt. We wanted to create something to sort out a lot
-                        of the logistics of getting settled in.
+                        <strong>Time context:</strong> Just before Fall 2024 semester started at CMU, and I was
+                        preparing to move to Pittsburgh, first time in the United States.
+                        <br>
+                        We wanted to create something to sort out a lot of the logistics of getting settled in.
                     </p>
                     <ul>
                         <li>
@@ -413,10 +446,15 @@
                             the accessibility of the website.
                         </li>
                         <li>
+                            Improved the website performance by 95% and also developed ReactJS UI for energy chatbot
+                            interaction and dataset visualization using
+                            <a href="https://kepler.gl/" target="_blank">kepler.gl</a>.
+                        </li>
+                        <li>
                             <strong>
                                 Technologies used:
                             </strong>
-                            HTML, CSS, JavaScript, jQuery
+                            HTML, CSS, JavaScript, jQuery, Bootstrap, ReactJS, kepler.gl
                         </li>
                         <li>
                             <strong>
@@ -448,8 +486,10 @@
                         Description
                     </h3>
                     <p>
-                        The AI-Powered Patient Screening & Intake System is a web-based platform designed to streamline patient screening and intake processes for healthcare providers.
-                        By leveraging AI-driven voice interactions, speech-to-text conversion, and automated screening reports, this system reduces the time spent on information gathering and improves patient care efficiency.
+                        The AI-Powered Patient Screening & Intake System is a web-based platform designed to streamline
+                        patient screening and intake processes for healthcare providers. By leveraging AI-driven voice
+                        interactions, speech-to-text conversion, and automated screening reports, this system reduces
+                        the time spent on information gathering and improves patient care efficiency.
                     </p>
                     <h3>
                         Features
@@ -459,7 +499,8 @@
                             <strong>
                                 AI-Powered Voice Screening:
                             </strong>
-                            Patients can answer dynamically generated screening questions via voice or chat, eliminating lengthy intake
+                            Patients can answer dynamically generated screening questions via voice or chat, eliminating
+                            lengthy intake
                             forms.
                         </li>
                         <li>
@@ -656,13 +697,14 @@
                             to my personal portfolio website, focusing on visitor behavior and geographic distribution.
                         </li>
                         <li>
-                            The dashboard displays key metrics such as total visitors, today's activity, traffic sources,
-                            top countries, and time-based trends, with interactive charts and dynamic filtering.
+                            The dashboard displays key metrics such as total visitors, today's activity, traffic
+                            sources, top countries, and time-based trends, with interactive charts and dynamic
+                            filtering.
                         </li>
                         <li>
-                            Implemented advanced visitor segmentation including source tracking (e.g., LinkedIn, Google),
-                            and regional analysis (city, country), with KPI cards, charts, and filters all in a dark-themed
-                            UI.
+                            Implemented advanced visitor segmentation including source tracking (e.g., LinkedIn,
+                            Google), and regional analysis (city, country), with KPI cards, charts, and filters
+                            all in a dark-themed UI.
                         </li>
                         <li>
                             <strong>Technologies used:</strong>
@@ -674,7 +716,7 @@
                             PythonAnywhere
                         </li>
                     </ul>
-    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark btn-lg px-4 py-2 border-radius-30"
@@ -1633,8 +1675,9 @@
                         <img src="./assets/images/projects/mfi.webp" class="w-100" alt="MyJio">
                         <h4 class="project_title mt-3"><b>Retrieval API for MFI Digital Data Backbone</b></h4>
                         <p class="project_description">
-                            Architected a polyglot persistence system with a unified Retrieval API orchestrating multiple data stores, enabling
-                            independent schema evolution and optimized storage per use case.
+                            Architected a polyglot persistence system with a unified Retrieval API orchestrating
+                            multiple data stores, enabling independent schema evolution and optimized storage
+                            per use case.
                         </p>
                     </a>
                     <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#mfiModal">
@@ -1646,8 +1689,9 @@
                         <img src="./assets/images/projects/awd_cim.webp" class="w-100" alt="MyJio">
                         <h4 class="project_title mt-3"><b>Amazon Warehousing & Distribution</b></h4>
                         <p class="project_description">
-                            Architectured and designed a high-performance pre-computation layer for Amazon Warehousing & Distribution's 
-                            Inventory Management System that reduced API latency by implementing event-driven data aggregation.
+                            Architectured and designed a high-performance pre-computation layer for Amazon Warehousing &
+                            Distribution's Inventory Management System that reduced API latency by implementing
+                            event-driven data aggregation.
                         </p>
                     </a>
                     <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#awdModal">
@@ -1659,15 +1703,15 @@
                         <img src="./assets/images/projects/myjio.webp" class="w-100" alt="MyJio">
                         <h4 class="project_title mt-3"><b>MyJio Application</b></h4>
                         <p class="project_description">
-                            Assisted in developing 5+ core services application in MyJio which included writing
-                            structured, tested, readable and maintainable code.
+                            Designed and developed Java Spring Boot microservices powering a large-scale consumer
+                            platform, MyJio, with 500M+ users.
                         </p>
                     </a>
                     <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#myjioModal">
                         Read More...
                     </button>
                 </div>
-            
+
                 <div class="col-lg-6 px-5 mt-5 filter_project professional">
                     <a href="https://safeai-lab.github.io/" target="_blank">
                         <img src="./assets/images/projects/safeAILab.webp" class="w-100" alt="Safe AI Lab">
@@ -1746,7 +1790,8 @@
                             to my personal portfolio website, focusing on visitor behavior and geographic distribution.
                         </p>
                     </a>
-                    <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#analyticsDashboardModal">
+                    <button type="button" data-bs-toggle="modal" class="read_more"
+                        data-bs-target="#analyticsDashboardModal">
                         Read More...
                     </button>
                 </div>
@@ -1772,8 +1817,8 @@
                         <img src="./assets/images/projects/p2p.webp" class="w-100" alt="P2P">
                         <h4 class="project_title mt-3"><b>Pittsburgh2Peers</b></h4>
                         <p class="project_description">
-                            This application solves minute problems that students face while studying in the US: Car
-                            Pooling, UHual sharing, Grocery Pickup and many more.
+                            Developed a student resource platform using ReactJS and Flask to streamline relocation
+                            logistics, enabling airport cab-sharing and U-Haul coordination.
                         </p>
                     </a>
                     <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#p2pModal">
