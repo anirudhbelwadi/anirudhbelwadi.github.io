@@ -37,6 +37,10 @@ def fetchActualSource(source):
         return "Assembly Performance Website"
     if "shahkshitij" in source.lower():
         return "Kshitij Shah Portfolio Website"
+    if "siesalumni.com" in source.lower():
+        return "SIES Alumni Website"
+    if "search.brave.com" in source.lower():
+        return "Brave"
     return source
 
 def getData(database_cursor):
