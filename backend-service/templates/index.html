@@ -587,27 +587,27 @@
     </main>
 
     <script>
-       function fetchActualSource(source) {
-            if (source.toLowerCase().includes("linkedin")){
-                if (source.toLowerCase().includes("www")){
-                    return "LinkedIn Web";
-                } else{
-                    return "LinkedIn Mobile";
+      async function fetchActualSourceMap(sources) {
+            try {
+                const response = await fetch('/source-config/batch', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ sources })
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch source config');
                 }
+                const data = await response.json();
+                return data.mapping || {};
+            } catch (error) {
+                const fallback = {};
+                sources.forEach(source => {
+                    fallback[source] = source;
+                });
+                return fallback;
             }
-            if (source.toLowerCase().includes("facebook")) return "Facebook";
-            if (source.toLowerCase().includes("twitter")) return "Twitter";
-            if (source.toLowerCase().includes("instagram")) return "Instagram";
-            if (source.toLowerCase().includes("google")) return "Google";
-            if (source.toLowerCase().includes("github")) return "GitHub";
-            if (source.toLowerCase().includes("linktr.ee")) return "Linktree";
-            if (lower.includes("jessica_chen_portfolio")) return "Jessica Chen Portfolio Website";
-			if (lower.includes("rounakgodhkey.com")) return "Rounak Godhkey Portfolio Website";
-			if (lower.includes("assemblyperformance")) return "Assembly Performance Website";
-			if (lower.includes("shahkshitij")) return "Kshitij Shah Portfolio Website";
-            if (lower.includes("siesalumni.com")) return "SIES Alumni Website";
-            if (lower.includes("search.brave.com")) return "Brave";
-            return source;
         }
 
         // --- Table Filtering ---
@@ -725,14 +725,6 @@
 
         const cleanCountry = filterCountryData(countryCounts);
         const cleanSource = filterSourceData(sourceCounts);
-
-        for (let i = 0; i < cleanSource.labels.length; i++) {
-            cleanSource.labels[i] = fetchActualSource(cleanSource.labels[i]);
-        }
-
-
-        drawBarChart('countryChart', cleanCountry.labels, cleanCountry.data, 'Visitors by Top 10 Countries');
-        drawBarChart('sourceChart', cleanSource.labels, cleanSource.data, 'Visitors by Top 5 Sources');
 
         // --- Time-based Trends Chart (One Dynamic Line Chart) ---
         const weekData = {{ analytics_data["week_data"] | tojson }};
@@ -853,8 +845,17 @@
             drawTimeChart(dataset.labels, dataset.data, label);
         }
 
-        // Initialize with default (7 days)
-        updateTimeChart("week");
+        (async function init() {
+            const mapping = await fetchActualSourceMap(cleanSource.labels);
+            for (let i = 0; i < cleanSource.labels.length; i++) {
+                cleanSource.labels[i] = mapping[cleanSource.labels[i]] || cleanSource.labels[i];
+            }
+
+            drawBarChart('countryChart', cleanCountry.labels, cleanCountry.data, 'Visitors by Top 10 Countries');
+            drawBarChart('sourceChart', cleanSource.labels, cleanSource.data, 'Visitors by Top 5 Sources');
+            // Initialize with default (7 days)
+            updateTimeChart("week");
+        })();
     </script>
 </body>
 

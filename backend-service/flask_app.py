@@ -6,41 +6,66 @@ import requests
 import pytz
 from dateutil.relativedelta import relativedelta
 from country_code import clean_row_country
+import json
+from fetch_gist import fetch_gist_json
 
 current_timezone = pytz.timezone('America/New_York')
 app = Flask(__name__)
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
+@app.route('/source-config/batch', methods=['POST'])
+def source_config_batch():
+    payload = request.get_json(silent=True) or {}
+    sources = payload.get('sources', [])
+    config_data = fetchRemoteSourceConfig()
+    resolved = {}
+    for source in sources:
+        if source in resolved:
+            continue
+        resolved[source] = resolveSourceFromConfig(config_data, source)
+    return jsonify({"mapping": resolved})
+
+def fetchLocalSourceConfig():
+    try:
+        with open(os.path.join(THIS_FOLDER, 'source_config.json'), 'r') as file:
+            json_data = json.load(file)
+            return json_data
+    except Exception as e:
+        print(f"Error reading local source config: {e}")
+        return None
+
+def fetchRemoteSourceConfig():
+    try:
+        json_data = fetch_gist_json()
+        print(json_data)
+        return json_data
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching Gist: {e}")
+        return fetchLocalSourceConfig()
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON: {e}")
+        return fetchLocalSourceConfig()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return fetchLocalSourceConfig()
+
 def fetchActualSource(source):
-    if "linkedin" in source.lower():
-        if "www" in source.lower():
-            return "LinkedIn Web"
-        else:
-            return "LinkedIn Mobile"
-    if "facebook" in source.lower():
-        return "Facebook"
-    if "twitter" in source.lower():
-        return "Twitter"
-    if "instagram" in source.lower():
-        return "Instagram"
-    if "google" in source.lower():
-        return "Google"
-    if "github" in source.lower():
-        return "GitHub"
-    if "linktr.ee" in source.lower():
-        return "Linktree"
-    if "jessica_chen_portfolio" in source.lower():
-        return "Jessica Chen Portfolio Website"
-    if "rounakgodhkey.com" in source.lower():
-        return "Rounak Godhkey Portfolio Website"
-    if "assemblyperformance" in source.lower():
-        return "Assembly Performance Website"
-    if "shahkshitij" in source.lower():
-        return "Kshitij Shah Portfolio Website"
-    if "siesalumni.com" in source.lower():
-        return "SIES Alumni Website"
-    if "search.brave.com" in source.lower():
-        return "Brave"
+    config_data = fetchRemoteSourceConfig()
+    return resolveSourceFromConfig(config_data, source)
+
+def resolveSourceFromConfig(config_data, source):
+    source_lower = source.lower()
+    if config_data:
+        mappings = config_data.get("mappings", [])
+        for mapping in mappings:
+            keywords = mapping.get("keywords", [])
+            match_all = mapping.get("match_all", False)
+            if match_all:
+                if all(keyword.lower() in source_lower for keyword in keywords):
+                    return mapping.get("display_name", source)
+            else:
+                if any(keyword.lower() in source_lower for keyword in keywords):
+                    return mapping.get("display_name", source)
     return source
 
 def getData(database_cursor):

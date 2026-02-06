@@ -372,33 +372,42 @@
 	</main>
 
 	<script>
-		function fetchActualSource(source) {
-			const lower = source.toLowerCase();
-			if (lower.includes("linkedin")) {
-				if (lower.includes("www")) return "LinkedIn Web";
-				return "LinkedIn Mobile";
-			}
-			if (lower.includes("facebook")) return "Facebook";
-			if (lower.includes("twitter")) return "Twitter";
-			if (lower.includes("instagram")) return "Instagram";
-			if (lower.includes("google")) return "Google";
-			if (lower.includes("github")) return "GitHub";
-			if (lower.includes("linktr.ee")) return "Linktree";
-			if (lower.includes("jessica_chen_portfolio")) return "Jessica Chen Portfolio Website";
-			if (lower.includes("rounakgodhkey.com")) return "Rounak Godhkey Portfolio Website";
-			if (lower.includes("assemblyperformance")) return "Assembly Performance Website";
-			if (lower.includes("shahkshitij")) return "Kshitij Shah Portfolio Website";
-			if (lower.includes("siesalumni.com")) return "SIES Alumni Website";
-			if (lower.includes("search.brave.com")) return "Brave";
-			return source;
-		}
+		async function normalizeSources() {
+			const cells = Array.from(document.querySelectorAll('[data-source]'));
+			const uniqueSources = new Set();
 
-		function normalizeSources() {
-			const cells = document.querySelectorAll('[data-source]');
 			cells.forEach(cell => {
 				const text = cell.textContent.trim();
 				if (!text || text === '-') return;
-				cell.textContent = fetchActualSource(text);
+				uniqueSources.add(text);
+			});
+
+			const sourceMap = new Map();
+			try {
+				const response = await fetch('/source-config/batch', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ sources: Array.from(uniqueSources) })
+				});
+				if (!response.ok) {
+					throw new Error('Failed to fetch source config');
+				}
+				const data = await response.json();
+				Object.entries(data.mapping || {}).forEach(([key, value]) => {
+					sourceMap.set(key, value);
+				});
+			} catch (error) {
+				uniqueSources.forEach(source => {
+					sourceMap.set(source, source);
+				});
+			}
+
+			cells.forEach(cell => {
+				const text = cell.textContent.trim();
+				if (!text || text === '-') return;
+				cell.textContent = sourceMap.get(text) || text;
 			});
 		}
 
@@ -446,8 +455,10 @@
 	document.getElementById('nextPage').addEventListener('click', () => handlePageChange(1));
 	document.getElementById('pageSize').addEventListener('change', handlePageSizeChange);
 
-	normalizeSources();
-	renderPagination(getFilteredRows());
+	(async function init() {
+		await normalizeSources();
+		renderPagination(getFilteredRows());
+	})();
 	</script>
 </body>
 
