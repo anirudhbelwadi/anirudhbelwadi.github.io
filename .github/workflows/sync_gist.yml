@@ -1,0 +1,30 @@
+name: Sync Gist to PythonAnywhere
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Gist and Deploy
+        env:
+          PA_TOKEN: ${{ secrets.PA_API_TOKEN }}
+          PA_USERNAME: "anirudhbelwadiportfolio"
+          PA_FILE_PATH: "/home/anirudhbelwadiportfolio/mysite/source_config.json"
+          GIST_URL: "https://gist.githubusercontent.com/anirudhbelwadi/364c7cc98dacc6fa7d1f59dd7862e856/raw"
+        run: |
+          # 1. Download Gist content to a temporary file
+          echo "Fetching Gist..."
+          curl -sL "$GIST_URL" -o gist_data.json
+
+          # 2. Upload to PythonAnywhere via API
+          echo "Uploading to PythonAnywhere..."
+          curl -X POST \
+            -H "Authorization: Token $PA_TOKEN" \
+            -F "content=@gist_data.json" \
+            "https://www.pythonanywhere.com"
+            
+          echo "Update Complete."
