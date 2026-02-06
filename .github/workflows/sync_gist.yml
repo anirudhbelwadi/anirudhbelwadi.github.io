@@ -6,25 +6,61 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-server:
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch Gist and Deploy
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Fetch and Upload
+        shell: python
         env:
+          # Make sure these 3 secrets/vars are set in your GitHub Repo Settings
           PA_TOKEN: ${{ secrets.PA_API_TOKEN }}
           PA_USERNAME: "anirudhbelwadiportfolio"
           PA_FILE_PATH: "/home/anirudhbelwadiportfolio/mysite/source_config.json"
           GIST_URL: "https://gist.githubusercontent.com/anirudhbelwadi/364c7cc98dacc6fa7d1f59dd7862e856/raw"
         run: |
-          # 1. Download Gist content to a temporary file
-          echo "Fetching Gist..."
-          curl -sL "$GIST_URL" -o gist_data.json
+          import os
+          import requests
+          import sys
 
-          # 2. Upload to PythonAnywhere via API
-          echo "Uploading to PythonAnywhere..."
-          curl -X POST \
-            -H "Authorization: Token $PA_TOKEN" \
-            -F "content=@gist_data.json" \
-            "https://www.pythonanywhere.com"
-            
-          echo "Update Complete."
+          # Load environment variables
+          token = os.getenv('PA_TOKEN')
+          username = os.getenv('PA_USERNAME')
+          path = os.getenv('PA_FILE_PATH')
+          gist_url = os.getenv('GIST_URL')
+
+          # 1. Fetch data from Gist
+          print(f"Fetching from Gist...")
+          gist_response = requests.get(gist_url)
+          if gist_response.status_code != 200:
+              print(f"Failed to fetch Gist: {gist_response.status_code}")
+              sys.exit(1)
+
+          # 2. Upload to PythonAnywhere
+          # Note: The URL must include /api/v0/user/{username}/files/path{full_path}
+          # Use eu.pythonanywhere.com if your account is on the EU server
+          api_url = f"https://www.pythonanywhere.com{username}/files/path{path}"
+          
+          print(f"Uploading to {api_url}...")
+          pa_response = requests.post(
+              api_url,
+              headers={'Authorization': f'Token {token}'},
+              files={'content': gist_response.content}
+          )
+
+          if pa_response.status_code in [200, 201]:
+              print("✅ Success: File updated on PythonAnywhere.")
+          else:
+              print(f"❌ Failed: {pa_response.status_code}")
+              print(pa_response.text)
+              sys.exit(1)
