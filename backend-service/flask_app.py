@@ -37,7 +37,6 @@ def fetchLocalSourceConfig():
 def fetchRemoteSourceConfig():
     try:
         json_data = fetch_gist_json()
-        print(json_data)
         return json_data
     except requests.exceptions.RequestException as e:
         print(f"Error fetching Gist: {e}")

@@ -746,8 +746,11 @@
         // Get current year as string (e.g., "2025")
         const currentYear = new Date().getFullYear().toString();
 
-        // Filter out the current year from fiveYearData
-        const filteredFiveYearData = fiveYearData.filter(d => d[0] !== currentYear);
+        // Change current year label to Current Year (growing)
+        const filteredFiveYearData = fiveYearData.map(item => {
+            const label = item[0].endsWith(currentYear) ? `${currentYear} (Current & growing)` : item[0];
+            return [label, item[1]];
+        });
 
         const extractLabelsAndData = (data, format = false) => ({
             labels: data.map(d => format ? formatMonthYear(d[0]) : d[0]),
@@ -838,7 +841,7 @@
                     break;
                 case "five":
                     dataset = extractLabelsAndData(filteredFiveYearData);
-                    label = "Visits - Last 5 Years (Excludes Current)";
+                    label = "Visits - Last 5 Years";
                     break;
             }
 
