@@ -71,6 +71,9 @@
     </script>
 
     <script src="./assets/scripts/preLoad.js"></script>
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -2537,6 +2540,9 @@
                                                 console.error('Error fetching IP address:', error);
                                             });
                                     </script>
+                                    <div class="col-12 mb-4">
+                                        <div class="g-recaptcha" data-sitekey="6LdPY2MsAAAAAAHOo9_oM3vzuJOLn68yJiE67BON"></div>
+                                    </div>
                                     <div class="col-12">
                                         <button type="submit"
                                             class="btn btn-dark btn-lg px-4 py-2 border-radius-30">Submit</button>

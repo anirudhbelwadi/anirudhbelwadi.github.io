@@ -1,13 +1,27 @@
 const scriptURL =
-  "https://script.google.com/macros/s/AKfycbzYt3kxU3SFdW4o82jJpzRzrq5Iu8nlfxXeX1l_/exec";
+  "https://script.google.com/macros/s/AKfycbwqaL7sjtrpGokLK7WnqX1g45yQudPK-bwkuGYxTZfayK0t3cDV3JpAGwjeUu7q_hBE/exec";
 const form = document.forms["contactForm"];
 form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  // Validate reCAPTCHA
+  const recaptchaResponse = grecaptcha.getResponse();
+  if (!recaptchaResponse) {
+    alert("Please complete the CAPTCHA verification.");
+    return;
+  }
+  
   document.getElementById("form_loader").style.visibility = "visible";
   $("body").addClass("stop-scrolling");
-  e.preventDefault();
-  fetch(scriptURL, { method: "POST", body: new FormData(form) })
+  
+  // Add reCAPTCHA response to form data
+  const formData = new FormData(form);
+  formData.append('g-recaptcha-response', recaptchaResponse);
+  
+  fetch(scriptURL, { method: "POST", body: formData })
     .then((response) => {
       document.getElementById("contactForm").reset();
+      grecaptcha.reset(); // Reset reCAPTCHA after successful submission
       document.getElementById("form_loader").style.visibility = "hidden";
       alert("Thank you for contacting! I will get back to you soon.");
       $("body").removeClass("stop-scrolling");
@@ -15,6 +29,7 @@ form.addEventListener("submit", (e) => {
     .catch((error) => {
       console.error(error.message);
       document.getElementById("contactForm").reset();
+      grecaptcha.reset(); // Reset reCAPTCHA on error
       document.getElementById("form_loader").style.visibility = "hidden";
       $("body").removeClass("stop-scrolling");
     });
