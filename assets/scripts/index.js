@@ -1,5 +1,5 @@
 const scriptURL =
-  "https://script.google.com/macros/s/AKfycbwqaL7sjtrpGokLK7WnqX1g45yQudPK-bwkuGYxTZfayK0t3cDV3JpAGwjeUu7q_hBE/exec";
+  "https://script.google.com/macros/s/AKfycbyWNWRv5wzR9rnL4DuvISw0crIXioO2XmJRHPChOZTSYtZSRVh5u87XOxnIRgM1XPFQ/exec";
 const form = document.forms["contactForm"];
 form.addEventListener("submit", (e) => {
   e.preventDefault();
