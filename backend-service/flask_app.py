@@ -369,6 +369,7 @@ def counterIncrease(ip):
     database_cursor = database_connection.cursor()
     count = int(database_cursor.execute("SELECT count FROM visit").fetchone()[0])
     location_response = {}
+    visit_id = None
     try:
         web_source = request.args.get('source', default="", type=str)
         domain = request.args.get('domain', default="", type=str)
@@ -396,15 +397,47 @@ def counterIncrease(ip):
         cleaned_country = location_response.get("country")
         if cleaned_country is not None:
             cleaned_country = clean_row_country(cleaned_country)
-        database_cursor.execute("INSERT into visitors VALUES (?,?,?,?,?,?,?,?)",(ip,now,location_response.get("city"),location_response.get("region"),cleaned_country,web_source, is_repeat_visitor_last_24h, location_response.get("postal")))
+        database_cursor.execute(
+            "INSERT into visitors (ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role) VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (ip, now, location_response.get("city"), location_response.get("region"), cleaned_country, web_source, is_repeat_visitor_last_24h, location_response.get("postal"), None, None)
+        )
+        visit_id = database_cursor.lastrowid
         database_cursor.execute("UPDATE visit SET count = ? WHERE count = ?",(count+1,count))
         count = count + 1
     except Exception as e:
         print("Error:", e)
     database_connection.commit()
     database_connection.close()
-    message = {'count': count }
+    message = {'count': count, 'visit_id': visit_id }
     response = jsonify(message)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/visitMeta/<int:visit_id>', methods=["POST", "OPTIONS"])
+def visitMeta(visit_id):
+    if request.method == "OPTIONS":
+        response = jsonify({"status": "ok"})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        return response
+
+    payload = request.get_json(silent=True) or {}
+    visitor_name = (payload.get('name') or "").strip()
+    visitor_role = (payload.get('role') or "").strip()
+
+    database_location = os.path.join(THIS_FOLDER, 'database.db')
+    database_connection = sqlite3.connect(database_location)
+    database_cursor = database_connection.cursor()
+    ensure_visitor_columns(database_cursor)
+    database_cursor.execute(
+        "UPDATE visitors SET visitor_name = ?, visitor_role = ? WHERE rowid = ?",
+        (visitor_name, visitor_role, visit_id)
+    )
+    database_connection.commit()
+    database_connection.close()
+
+    response = jsonify({"status": "saved"})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 

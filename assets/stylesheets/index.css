@@ -168,9 +168,135 @@ h1 {
     }
 }
 
+.visitor_chatbot {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 60000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    font-family: 'Raleway', sans-serif;
+}
 
+.visitor_chatbot_toggle {
+    background: #111111;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
 
+.visitor_chatbot_panel {
+    width: min(340px, calc(100vw - 40px));
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0px 16px 36px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: none;
+}
 
+.visitor_chatbot_panel.open {
+    display: block;
+}
+
+.visitor_chatbot_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #111111;
+    color: #ffffff;
+}
+
+.visitor_chatbot_header h2 {
+    font-family: 'Philosopher', sans-serif;
+    font-size: 18px;
+    margin: 0;
+}
+
+.visitor_chatbot_close {
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.visitor_chatbot_body {
+    padding: 16px;
+}
+
+.visitor_chatbot_message {
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.visitor_chatbot_message.bot {
+    background: #f1f1f1;
+    color: #111111;
+}
+
+.visitor_label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 10px 0 6px;
+}
+
+#visitor_chatbot_form input,
+#visitor_chatbot_form select {
+    width: 100%;
+}
+
+#visitor_chatbot_form select {
+    height: 50px;
+    border-radius: 25px;
+    border: 1px solid rgb(179, 179, 179);
+    padding: 0px 12px;
+    background-color: #ffffff;
+}
+
+#visitor_chatbot_form select:focus {
+    outline: 5px solid rgb(179, 179, 179, 0.7);
+    transition: 0.4s;
+}
+
+.visitor_chatbot_actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.visitor_chatbot_skip {
+    border: 1px solid #111111;
+    background: transparent;
+    color: #111111;
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.visitor_chatbot_thanks {
+    display: none;
+    margin-bottom: 0;
+}
+
+.visitor_chatbot_panel.submitted #visitor_chatbot_form {
+    display: none;
+}
+
+.visitor_chatbot_panel.submitted .visitor_chatbot_thanks {
+    display: block;
+}
 
 @keyframes t {
     from {
@@ -369,4 +495,112 @@ noscript iframe {
         visibility: hidden;
         height: 0px;
     }
+}
+
+.visitor_gate {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #f6f6f6 0%, #e7eef5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 60000;
+    padding: 24px;
+}
+
+.visitor_gate.hidden {
+    display: none;
+}
+
+.visitor_card {
+    width: min(520px, 100%);
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.18);
+    padding: 32px;
+    position: relative;
+}
+
+.visitor_card h2 {
+    font-family: 'Philosopher', sans-serif;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.visitor_subtitle {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.visitor_label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 12px 0 6px;
+}
+
+#visitor_gate_form input,
+#visitor_gate_form select {
+    width: 100%;
+}
+
+#visitor_gate_form select {
+    height: 50px;
+    border-radius: 25px;
+    border: 1px solid rgb(179, 179, 179);
+    padding: 0px 12px;
+    background-color: #ffffff;
+}
+
+#visitor_gate_form select:focus {
+    outline: 5px solid rgb(179, 179, 179, 0.7);
+    transition: 0.4s;
+}
+
+#visitor_gate_submit {
+    width: 100%;
+    margin-top: 18px;
+}
+
+.visitor_note {
+    font-size: 12px;
+    color: #555555;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.visitor_close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: none;
+    background: #111111;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 0;
+    line-height: 0;
+    padding: 0;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visitor_close::before {
+    content: "\00d7";
+    font-size: 26px;
+    line-height: 1;
+    position: relative;
+    top: -1px;
+}
+
+.visitor_close:hover {
+    background: #333333;
+}
+
+.visitor_close:focus-visible {
+    outline: 3px solid #8bbcff;
+    outline-offset: 2px;
 }

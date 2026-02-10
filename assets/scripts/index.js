@@ -1,5 +1,9 @@
 const scriptURL =
   "https://script.google.com/macros/s/AKfycbyWNWRv5wzR9rnL4DuvISw0crIXioO2XmJRHPChOZTSYtZSRVh5u87XOxnIRgM1XPFQ/exec";
+const LOCAL_API_PORT = "5000";
+window.addEventListener("load", () => {
+  window.scrollTo(0, 0);
+});
 const form = document.forms["contactForm"];
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -89,12 +93,133 @@ new Glider(document.querySelector(".glider"), {
 fetch("https://api.ipify.org?format=json")
   .then((data) => data.json())
   .then((data) => {
+    const apiBaseUrl = getVisitorApiBaseUrl();
+    const domainParam = getVisitorDomainParam();
     let url =
-      "https://anirudhbelwadiportfolio.pythonanywhere.com/counterIncrease/" +
-      data.ip + "?domain=" + (window.location.hostname == "anirudhbelwadi.com" ? "true" : "false") + "&source=" + document.referrer;
+      `${apiBaseUrl}/counterIncrease/` +
+      data.ip + "?domain=" + domainParam + "&source=" + document.referrer;
     fetch(url)
       .then((repo) => repo.json())
       .then((data) => {
         document.getElementById("visit_count").innerHTML = data.count;
+        visitId = data.visit_id || null;
+        if (visitId && pendingVisitorMeta) {
+          sendVisitorMeta(pendingVisitorMeta.name, pendingVisitorMeta.role);
+          pendingVisitorMeta = null;
+        }
       });
   });
+
+const visitorChatbot = document.getElementById("visitor_chatbot");
+const visitorChatbotPanel = document.getElementById("visitor_chatbot_panel");
+const visitorChatbotToggle = document.getElementById("visitor_chatbot_toggle");
+const visitorChatbotClose = document.getElementById("visitor_chatbot_close");
+const visitorChatbotSkip = document.getElementById("visitor_chatbot_skip");
+const visitorChatbotForm = document.getElementById("visitor_chatbot_form");
+const visitorChatbotThanks = document.getElementById("visitor_chatbot_thanks");
+const visitorNameInput = document.getElementById("visitor_name");
+const visitorRoleSelect = document.getElementById("visitor_role");
+const visitorChatbotSubmit = document.getElementById("visitor_chatbot_submit");
+let visitId = null;
+let pendingVisitorMeta = null;
+
+const getVisitorApiBaseUrl = () => {
+  const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+  const configuredPort = LOCAL_API_PORT;
+  return isLocalhost
+    ? `http://127.0.0.1:${configuredPort}`
+    : "https://anirudhbelwadiportfolio.pythonanywhere.com";
+};
+
+const getVisitorDomainParam = () => {
+  const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+  return window.location.hostname === "anirudhbelwadi.com" || isLocalhost
+    ? "true"
+    : "false";
+};
+
+const sendVisitorMeta = (name, role) => {
+  if (!visitId) {
+    pendingVisitorMeta = { name, role };
+    return;
+  }
+
+  const apiBaseUrl = getVisitorApiBaseUrl();
+
+  fetch(`${apiBaseUrl}/visitMeta/${visitId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, role }),
+  }).catch((error) => {
+    console.error("Error saving visitor meta:", error.message || error);
+  });
+};
+
+if (
+  visitorChatbot &&
+  visitorChatbotPanel &&
+  visitorChatbotToggle &&
+  visitorChatbotForm &&
+  visitorNameInput &&
+  visitorRoleSelect &&
+  visitorChatbotSubmit
+) {
+  const setChatbotOpen = (isOpen) => {
+    visitorChatbotPanel.classList.toggle("open", isOpen);
+    visitorChatbotToggle.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  setChatbotOpen(true);
+
+  const updateChatbotState = () => {
+    const nameReady = visitorNameInput.value.trim().length > 0;
+    const roleReady = visitorRoleSelect.value.trim().length > 0;
+    visitorChatbotSubmit.disabled = !(nameReady && roleReady);
+  };
+
+  visitorNameInput.addEventListener("input", updateChatbotState);
+  visitorRoleSelect.addEventListener("change", updateChatbotState);
+
+  visitorChatbotForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const nameValue = visitorNameInput.value.trim();
+    const roleValue = visitorRoleSelect.value.trim();
+
+    if (!nameValue || !roleValue) {
+      updateChatbotState();
+      return;
+    }
+
+    if (visitorChatbotThanks) {
+      visitorChatbotThanks.textContent = `Thanks, ${nameValue}! Enjoy the portfolio.`;
+    }
+    sendVisitorMeta(nameValue, roleValue);
+    visitorChatbotToggle.style.display = "none";
+    visitorChatbotPanel.classList.add("submitted");
+    setTimeout(() => {
+      setChatbotOpen(false);
+    }, 3000);
+  });
+
+  visitorChatbotToggle.addEventListener("click", () => {
+    setChatbotOpen(!visitorChatbotPanel.classList.contains("open"));
+  });
+
+  if (visitorChatbotClose) {
+    visitorChatbotClose.addEventListener("click", () => {
+      setChatbotOpen(false);
+    });
+  }
+
+  if (visitorChatbotSkip) {
+    visitorChatbotSkip.addEventListener("click", () => {
+      setChatbotOpen(false);
+    });
+  }
+}

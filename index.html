@@ -83,6 +83,48 @@
         </iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <div id="visitor_chatbot" class="visitor_chatbot" aria-live="polite">
+        <button type="button" class="visitor_chatbot_toggle" id="visitor_chatbot_toggle"
+            aria-expanded="true" aria-controls="visitor_chatbot_panel">
+            Hello!
+        </button>
+        <div class="visitor_chatbot_panel" id="visitor_chatbot_panel" role="dialog" aria-modal="false"
+            aria-labelledby="visitor_chatbot_title">
+            <div class="visitor_chatbot_header">
+                <h2 id="visitor_chatbot_title">Quick hello</h2>
+                <button type="button" class="visitor_chatbot_close" id="visitor_chatbot_close"
+                    aria-label="Close chat">&times;</button>
+            </div>
+            <div class="visitor_chatbot_body">
+                <div class="visitor_chatbot_message bot">
+                    Hi! Who is visiting my portfolio today?
+                </div>
+                <form id="visitor_chatbot_form" novalidate>
+                    <label class="visitor_label" for="visitor_name">Your name</label>
+                    <input type="text" id="visitor_name" name="visitor_name" placeholder="e.g., Priya" required>
+                    <label class="visitor_label" for="visitor_role">I am a</label>
+                    <select id="visitor_role" name="visitor_role" required>
+                        <option value="" selected disabled>Select one</option>
+                        <option value="recruiter">Recruiter</option>
+                        <option value="hiring-manager">Hiring Manager</option>
+                        <option value="student">Student</option>
+                        <option value="collaborator">Collaborator</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="visitor_chatbot_actions">
+                        <button type="button" class="visitor_chatbot_skip" id="visitor_chatbot_skip">Skip</button>
+                        <button type="submit" id="visitor_chatbot_submit"
+                            class="btn btn-dark btn-lg px-4 py-2 border-radius-30" disabled>
+                            Send
+                        </button>
+                    </div>
+                </form>
+                <div class="visitor_chatbot_message bot visitor_chatbot_thanks" id="visitor_chatbot_thanks">
+                    Thanks! Enjoy the portfolio.
+                </div>
+            </div>
+        </div>
+    </div>
     <header>
         <div class="header_background d-flex">
             <div class="header_content">

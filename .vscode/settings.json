@@ -1,0 +1,6 @@
+{
+  "liveServer.settings.ignoreFiles": [
+    // This is to prevent live server from reloading when changes are made in the backend service directory
+    "**/backend-service/**"
+  ]
+}
