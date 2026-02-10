@@ -25,6 +25,10 @@ def source_config_batch():
         resolved[source] = resolveSourceFromConfig(config_data, source)
     return jsonify({"mapping": resolved})
 
+@app.route('/')
+def analytics_readme():
+    return render_template('analytics_readme.html')
+
 def fetchLocalSourceConfig():
     try:
         with open(os.path.join(THIS_FOLDER, 'source_config.json'), 'r') as file:
@@ -239,14 +243,23 @@ def getData(database_cursor):
         GROUP BY location HAVING location IS NOT NULL ORDER BY cnt DESC LIMIT 5
     """).fetchall()
 
-    # Repeat Visitors
-    repeat_visitors_today = database_cursor.execute("""
+    # Repeat Visitors (Last 24 Hours)
+    now_date_time = today
+    cutoff_date_time = now_date_time - timedelta(hours=24)
+    now_iso = now_date_time.strftime("%Y-%m-%d %H:%M:%S")
+    cutoff_iso = cutoff_date_time.strftime("%Y-%m-%d %H:%M:%S")
+    repeat_visitors_last_24h = database_cursor.execute("""
         SELECT COUNT(DISTINCT ip)
         FROM visitors
         WHERE is_repeat_visitor = 'Y'
-          AND substr(timestamp, 1, 10) = ?
-    """, (today_db_format,)).fetchone()[0]
-    repeat_visitors_today = repeat_visitors_today if repeat_visitors_today else 0
+          AND datetime(
+              substr(timestamp, 7, 4) || '-' ||
+              substr(timestamp, 4, 2) || '-' ||
+              substr(timestamp, 1, 2) || ' ' ||
+              substr(timestamp, 12)
+          ) BETWEEN datetime(?) AND datetime(?)
+    """, (cutoff_iso, now_iso)).fetchone()[0]
+    repeat_visitors_last_24h = repeat_visitors_last_24h if repeat_visitors_last_24h else 0
     # average repeat visitors per day in last 6 months grouped by day and averaged
     repeat_visitors_per_day = database_cursor.execute("""
         SELECT AVG(daily_repeat_ips) AS avg_repeat_ips_per_day
@@ -306,7 +319,7 @@ def getData(database_cursor):
             "avg_per_day": avg_per_day,
             "avg_per_week": avg_per_week,
             "top_locations": city_counts,
-            "repeat_visitors_today": repeat_visitors_today,
+            "repeat_visitors_last_24h": repeat_visitors_last_24h,
             "repeat_visitors_per_day": repeat_visitors_per_day,
         }
     }
@@ -348,8 +361,9 @@ def allVisitors():
     return render_template('all_visitors.html', visitors=visitors_list)
 
 @app.route('/counterIncrease/<string:ip>',methods=["GET"])
-def hello_world(ip):
-    now = datetime.now(current_timezone).strftime("%d/%m/%Y %H:%M:%S")
+def counterIncrease(ip):
+    now_date_time = datetime.now(current_timezone)
+    now = now_date_time.strftime("%d/%m/%Y %H:%M:%S")
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
@@ -361,15 +375,28 @@ def hello_world(ip):
         if domain != "true":
             raise Exception("Invalid domain")
         location_response = (requests.get(f"https://ipinfo.io/{ip}/json")).json()
-        is_repeat_visitor_today = database_cursor.execute("SELECT COUNT(*) FROM visitors WHERE ip = ? AND timestamp LIKE ?", (ip, f"{now.split()[0]}%")).fetchone()[0]
-        if is_repeat_visitor_today == 0:
-            is_repeat_visitor_today = "N"
+        cutoff_date_time = now_date_time - timedelta(hours=24)
+        now_iso = now_date_time.strftime("%Y-%m-%d %H:%M:%S")
+        cutoff_iso = cutoff_date_time.strftime("%Y-%m-%d %H:%M:%S")
+        count_of_visit_by_same_ip_last_24h = database_cursor.execute("""
+            SELECT COUNT(*)
+            FROM visitors
+            WHERE ip = ?
+              AND datetime(
+                  substr(timestamp, 7, 4) || '-' ||
+                  substr(timestamp, 4, 2) || '-' ||
+                  substr(timestamp, 1, 2) || ' ' ||
+                  substr(timestamp, 12)
+              ) BETWEEN datetime(?) AND datetime(?)
+        """, (ip, cutoff_iso, now_iso)).fetchone()[0]
+        if count_of_visit_by_same_ip_last_24h == 0:
+            is_repeat_visitor_last_24h = "N"
         else:
-            is_repeat_visitor_today = "Y"
+            is_repeat_visitor_last_24h = "Y"
         cleaned_country = location_response.get("country")
         if cleaned_country is not None:
             cleaned_country = clean_row_country(cleaned_country)
-        database_cursor.execute("INSERT into visitors VALUES (?,?,?,?,?,?,?,?)",(ip,now,location_response.get("city"),location_response.get("region"),cleaned_country,web_source, is_repeat_visitor_today, location_response.get("postal")))
+        database_cursor.execute("INSERT into visitors VALUES (?,?,?,?,?,?,?,?)",(ip,now,location_response.get("city"),location_response.get("region"),cleaned_country,web_source, is_repeat_visitor_last_24h, location_response.get("postal")))
         database_cursor.execute("UPDATE visit SET count = ? WHERE count = ?",(count+1,count))
         count = count + 1
     except Exception as e:

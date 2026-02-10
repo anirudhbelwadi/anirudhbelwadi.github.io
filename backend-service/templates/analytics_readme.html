@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics Guide | Portfolio Analytics</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="shortcut icon" href="../../static/images/anirudhbelwadi_square.webp">
+    <style>
+        :root {
+            --background: hsl(222, 47%, 11%);
+            --foreground: hsl(210, 40%, 98%);
+            --card: hsl(222, 47%, 15%);
+            --card-foreground: hsl(210, 40%, 98%);
+            --border: hsl(217, 32%, 17%);
+            --primary: hsl(210, 40%, 98%);
+            --primary-foreground: hsl(222, 47%, 11%);
+            --secondary: hsl(217, 32%, 17%);
+            --secondary-foreground: hsl(210, 40%, 98%);
+            --muted: hsl(217, 32%, 17%);
+            --muted-foreground: hsl(215, 20%, 65%);
+            --accent: hsl(217, 32%, 17%);
+            --accent-foreground: hsl(210, 40%, 98%);
+            --success: #10B981;
+            --info: #3B82F6;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --radius: 0.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .dashboard {
+            padding: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .doc-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .doc-subtitle {
+            color: var(--muted-foreground);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem 1.5rem 1.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.06), rgba(17, 24, 39, 0.0));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, var(--info), #10B981);
+        }
+
+        .section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .section p {
+            color: var(--muted-foreground);
+            margin-bottom: 0.75rem;
+        }
+
+        .toc {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(16, 185, 129, 0.08));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .toc h2 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .toc p {
+            color: var(--muted-foreground);
+            margin-bottom: 0.75rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+
+        .toc-list a {
+            color: var(--foreground);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0;
+        }
+
+        .toc-list a::before {
+            content: "#";
+            color: var(--info);
+            font-weight: 600;
+        }
+
+        .toc-list a:hover {
+            color: var(--info);
+        }
+
+        .definition-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+
+        .definition-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .definition-item:last-child {
+            border-bottom: none;
+        }
+
+        .definition-term {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .definition-desc {
+            color: var(--muted-foreground);
+            font-size: 1rem;
+        }
+
+        .note {
+            color: var(--muted-foreground);
+            margin-bottom: 10px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+            text-decoration: none;
+            color: var(--foreground);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s, border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--info), #10B981);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--info);
+            background-color: var(--accent);
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        .feature-kicker {
+            color: var(--muted-foreground);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.35rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: var(--muted-foreground);
+            font-size: 0.95rem;
+        }
+
+        hr {
+            border: 1px solid var(--border);
+            margin: 1.25rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="dashboard">
+        <div class="doc-title">Portfolio Analytics Readme</div>
+        <div class="doc-subtitle">
+            This document explains the analytics dashboard for Anirudh Belwadi's portfolio website and how each KPI
+            and chart should be interpreted.
+        </div>
+        <p class="note">
+            Portfolio URL: <a href="https://anirudhbelwadi.com/" style="color: var(--info); text-decoration: none;" target="_blank">https://anirudhbelwadi.com/</a>
+        </p>
+        <p class="note">
+            Use this readme when reviewing traffic for the Anirudh Belwadi portfolio site. It defines what each metric
+            measures, how to read each visualization, and how time windows are calculated. All counts are based on
+            recorded visit events unless stated otherwise.
+        </p>
+
+        <div class="feature-grid">
+            <a class="feature-card" href="/admin/viewVisitors/" target="_blank">
+                <div class="feature-kicker">Primary Dashboard</div>
+                <div class="feature-title">Analytics Overview</div>
+                <div class="feature-desc">KPI tiles, trend charts, top countries, and top sources in one place.</div>
+            </a>
+            <a class="feature-card" href="/admin/viewVisitors/allVisitors/" target="_blank">
+                <div class="feature-kicker">Raw Data</div>
+                <div class="feature-title">Visitors Table</div>
+                <div class="feature-desc">Full visit log with timestamps, locations, and sources for auditing.</div>
+            </a>
+        </div>
+
+        <div class="toc">
+            <h2>Readme Map</h2>
+            <p>Jump to the section you need or read top-to-bottom for the full context.</p>
+            <div class="toc-list">
+                <a href="#traffic-summary">Traffic Summary KPIs</a>
+                <a href="#highest-segments">Highest Performing Segments</a>
+                <a href="#performance-over-time">Performance Over Time</a>
+                <a href="#visualizations">Visualizations</a>
+                <a href="#data-notes">Data Notes</a>
+            </div>
+        </div>
+
+        <section class="section" id="traffic-summary">
+            <h2>Traffic Summary KPIs</h2>
+            <p>
+                Top-line activity and short-term momentum for the portfolio. These KPIs give a quick read on how much
+                traffic the site is getting right now and whether recent interest is accelerating or cooling off.
+            </p>
+            <div class="definition-list">
+                <div class="definition-item">
+                    <div class="definition-term">Total Visitors (All Time)</div>
+                    <div class="definition-desc">
+                        Total number of recorded visit events across all time. This is the master counter used for
+                        the dashboard headline.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Today's Visitors</div>
+                    <div class="definition-desc">
+                        Total visit events recorded for the current calendar day in the configured timezone.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Visitors Since 7 Days</div>
+                    <div class="definition-desc">
+                        Rolling 7-day sum of visit events including today. Useful for week-over-week momentum.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Visitors Since 30 Days</div>
+                    <div class="definition-desc">
+                        Rolling 30-day sum of visit events including today. Captures monthly demand and seasonality.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Repeat Visitors (Last 24 Hours)</div>
+                    <div class="definition-desc">
+                        Distinct IPs that have a repeat-visit flag within the last 24 hours. This highlights return
+                        behavior in the most recent day.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="highest-segments">
+            <h2>Highest Performing Segments</h2>
+            <p>
+                Highlights from the strongest day and the best-performing sources. These are directional indicators
+                for where attention is concentrated.
+            </p>
+            <div class="definition-list">
+                <div class="definition-item">
+                    <div class="definition-term">Peak Visit Day</div>
+                    <div class="definition-desc">
+                        Date with the highest visit count in the last 30 days. Helpful for identifying spikes tied to
+                        content releases or promotions.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Top Country</div>
+                    <div class="definition-desc">
+                        Country with the most recorded visits over all time. Useful for regional targeting and
+                        localization decisions.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Top Source</div>
+                    <div class="definition-desc">
+                        Most frequent traffic source or referrer. Helps validate which channels are driving traffic.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="performance-over-time">
+            <h2>Performance Over Time</h2>
+            <p>
+                Rolling averages that capture stability and repeat behavior. These smooth short-term spikes and give a
+                more reliable baseline for planning.
+            </p>
+            <div class="definition-list">
+                <div class="definition-item">
+                    <div class="definition-term">Avg. Visits / Day</div>
+                    <div class="definition-desc">
+                        Average daily visit events across the last 30 days. Good for monitoring daily demand.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Avg. Visits / Week</div>
+                    <div class="definition-desc">
+                        Average weekly visit events across the last 12 months. Useful for seasonality and long-term
+                        trend comparisons.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Avg. Repeat Visitors / Day</div>
+                    <div class="definition-desc">
+                        Average daily repeat IPs across the last 6 months. Indicates how sticky the audience is.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="visualizations">
+            <h2>Visualizations</h2>
+            <p>
+                Charts that show trends, distribution, and top segments. Use these to visualize shifts in traffic
+                volume and where visitors are coming from.
+            </p>
+            <div class="definition-list">
+                <div class="definition-item">
+                    <div class="definition-term">Top 5 Locations List</div>
+                    <div class="definition-desc">
+                        Top cities and regions by visit count, displayed as a ranked list for quick scanning.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Visitor Trends</div>
+                    <div class="definition-desc">
+                        Time-series trends for 7D, 1M, 1Y, and 5Y views. Use this to compare short-term spikes to
+                        long-term growth.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Visitors by Country</div>
+                    <div class="definition-desc">
+                        Top 10 countries by visit volume. Highlights geographic concentration of traffic.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Visitors by Source</div>
+                    <div class="definition-desc">
+                        Top 5 sources or referrers by visit volume. Use this to measure channel effectiveness.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="data-notes">
+            <h2>Data Notes</h2>
+            <p>
+                The analytics database stores one row per visit event. Repeat-visit metrics are derived from the visit
+                history of the same IP within recent windows, and time windows are evaluated using the configured
+                timezone.
+            </p>
+            <div class="definition-list">
+                <div class="definition-item">
+                    <div class="definition-term">Time Windows</div>
+                    <div class="definition-desc">
+                        7-day and 30-day metrics are rolling windows that include today. The last 24 hours is a moving
+                        window relative to the current time.
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Repeat Visitors</div>
+                    <div class="definition-desc">
+                        An IP is marked as repeat when it has a prior visit within the last 24 hours at the moment the
+                        event is recorded.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+
+</html>

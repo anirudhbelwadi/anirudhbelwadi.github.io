@@ -64,10 +64,39 @@
 		}
 
 		.title {
-			margin-left: auto;
+			margin-left: 1rem;
 			font-size: 0.9rem;
 			font-weight: 500;
 			color: var(--muted-foreground);
+		}
+
+		.page-name {
+			font-size: 1.35rem;
+			font-weight: 700;
+			letter-spacing: 0.01em;
+		}
+
+		.nav-links {
+			margin-left: auto;
+			display: flex;
+			gap: 0.75rem;
+			align-items: center;
+		}
+
+		.nav-link {
+			color: var(--muted-foreground);
+			text-decoration: none;
+			font-size: 0.85rem;
+			font-weight: 600;
+			padding: 0.35rem 0.6rem;
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			background: var(--secondary);
+		}
+
+		.nav-link:hover {
+			color: var(--foreground);
+			border-color: var(--info);
 		}
 
 		.page {
@@ -289,15 +318,11 @@
 <body>
 	<header>
 		<div class="header-content">
-			<div class="brand">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-					stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-					<circle cx="12" cy="7" r="4"></circle>
-				</svg>
-				<h1>Anirudh Belwadi</h1>
-			</div>
-			<div class="title">Visitor Log</div>
+			<div class="page-name">All Visitors</div>
+			<nav class="nav-links">
+				<a class="nav-link" href="/">Readme</a>
+				<a class="nav-link" href="/admin/viewVisitors/">Dashboard</a>
+			</nav>
 		</div>
 	</header>
 

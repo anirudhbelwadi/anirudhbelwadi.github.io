@@ -58,21 +58,33 @@
             align-items: center;
         }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .page-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
         }
 
-        .brand h1 {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .title {
+        .nav-links {
             margin-left: auto;
-            font-size: 0.875rem;
-            font-weight: 500;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.35rem 0.6rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--secondary);
+        }
+
+        .nav-link:hover {
+            color: var(--foreground);
+            border-color: var(--info);
         }
 
         .dashboard {
@@ -316,15 +328,11 @@
 <body>
     <header>
         <div class="header-content">
-            <div class="brand">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                <h1>Anirudh Belwadi</h1>
-            </div>
-            <div class="title">Portfolio Analytics Dashboard</div>
+            <div class="page-name">Portfolio Analytics Dashboard</div>
+            <nav class="nav-links">
+                <a class="nav-link" href="/">Readme</a>
+                <a class="nav-link" href="/admin/viewVisitors/allVisitors/">All Visitors</a>
+            </nav>
         </div>
     </header>
 
@@ -399,7 +407,7 @@
             </div>
              <div class="stat-card">
                 <div class="stat-card-header">
-                    <div class="stat-card-title">Repeat Visitors Today</div>
+                    <div class="stat-card-title">Repeat Visitors Last 24 Hours</div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -407,7 +415,7 @@
                     </svg>
                 </div>
                 <div class="stat-card-content">
-                    <div class="stat-value">{{ analytics_data.kpis.repeat_visitors_today }}</div>
+                    <div class="stat-value">{{ analytics_data.kpis.repeat_visitors_last_24h }}</div>
                 </div>
             </div>
         </div>
@@ -622,7 +630,7 @@
         }
 
         // --- Visitor Breakdown Charts ---
-        const visitorData = {{ visitors| tojson }};
+        const visitorData = {{ visitors | tojson }};
         const countryCounts = {};
         const sourceCounts = {};
 
