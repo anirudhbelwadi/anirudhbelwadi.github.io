@@ -429,7 +429,6 @@ def visitMeta(visit_id):
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
-    ensure_visitor_columns(database_cursor)
     database_cursor.execute(
         "UPDATE visitors SET visitor_name = ?, visitor_role = ? WHERE rowid = ?",
         (visitor_name, visitor_role, visit_id)

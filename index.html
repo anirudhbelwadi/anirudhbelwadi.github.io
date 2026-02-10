@@ -125,6 +125,34 @@
             </div>
         </div>
     </div>
+    <div class="visitor_gate hidden" id="visitor_gate" role="dialog" aria-modal="true"
+        aria-labelledby="visitor_gate_title">
+        <div class="visitor_card">
+            <button type="button" class="visitor_close" id="visitor_gate_close" aria-label="Close"></button>
+            <h2 id="visitor_gate_title">Quick hello</h2>
+            <p class="visitor_subtitle">Tell me who is visiting my portfolio today.</p>
+            <form id="visitor_gate_form" novalidate>
+                <label class="visitor_label" for="visitor_gate_name">Your name</label>
+                <input type="text" id="visitor_gate_name" name="visitor_gate_name" placeholder="e.g., Priya" required>
+                <label class="visitor_label" for="visitor_gate_role">I am a</label>
+                <select id="visitor_gate_role" name="visitor_gate_role" required>
+                    <option value="" selected disabled>Select one</option>
+                    <option value="recruiter">Recruiter</option>
+                    <option value="hiring-manager">Hiring Manager</option>
+                    <option value="student">Student</option>
+                    <option value="collaborator">Collaborator</option>
+                    <option value="other">Other</option>
+                </select>
+                <div class="visitor_chatbot_actions">
+                    <button type="button" class="visitor_chatbot_skip" id="visitor_gate_skip">Skip</button>
+                    <button type="submit" id="visitor_gate_submit"
+                        class="btn btn-dark btn-lg px-4 py-2 border-radius-30" disabled>
+                        Continue
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     <header>
         <div class="header_background d-flex">
             <div class="header_content">

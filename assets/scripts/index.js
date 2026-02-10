@@ -55,7 +55,9 @@ function isMobileDevice() {
   return check;
 }
 
-if (isMobileDevice()) {
+const isMobile = isMobileDevice();
+
+if (isMobile) {
   document.querySelectorAll("#admits img").forEach((image) => {
     image.style.opacity = "1";
   });
@@ -120,6 +122,13 @@ const visitorChatbotThanks = document.getElementById("visitor_chatbot_thanks");
 const visitorNameInput = document.getElementById("visitor_name");
 const visitorRoleSelect = document.getElementById("visitor_role");
 const visitorChatbotSubmit = document.getElementById("visitor_chatbot_submit");
+const visitorGate = document.getElementById("visitor_gate");
+const visitorGateForm = document.getElementById("visitor_gate_form");
+const visitorGateNameInput = document.getElementById("visitor_gate_name");
+const visitorGateRoleSelect = document.getElementById("visitor_gate_role");
+const visitorGateSubmit = document.getElementById("visitor_gate_submit");
+const visitorGateSkip = document.getElementById("visitor_gate_skip");
+const visitorGateClose = document.getElementById("visitor_gate_close");
 let visitId = null;
 let pendingVisitorMeta = null;
 
@@ -162,6 +171,7 @@ const sendVisitorMeta = (name, role) => {
 };
 
 if (
+  !isMobile &&
   visitorChatbot &&
   visitorChatbotPanel &&
   visitorChatbotToggle &&
@@ -220,6 +230,60 @@ if (
   if (visitorChatbotSkip) {
     visitorChatbotSkip.addEventListener("click", () => {
       setChatbotOpen(false);
+    });
+  }
+}
+
+if (
+  isMobile &&
+  visitorGate &&
+  visitorGateForm &&
+  visitorGateNameInput &&
+  visitorGateRoleSelect &&
+  visitorGateSubmit
+) {
+  if (visitorChatbot) {
+    visitorChatbot.style.display = "none";
+  }
+
+  const setGateOpen = (isOpen) => {
+    visitorGate.classList.toggle("hidden", !isOpen);
+    document.body.classList.toggle("stop-scrolling", isOpen);
+  };
+
+  const updateGateState = () => {
+    const nameReady = visitorGateNameInput.value.trim().length > 0;
+    const roleReady = visitorGateRoleSelect.value.trim().length > 0;
+    visitorGateSubmit.disabled = !(nameReady && roleReady);
+  };
+
+  setGateOpen(true);
+  visitorGateNameInput.addEventListener("input", updateGateState);
+  visitorGateRoleSelect.addEventListener("change", updateGateState);
+
+  visitorGateForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const nameValue = visitorGateNameInput.value.trim();
+    const roleValue = visitorGateRoleSelect.value.trim();
+
+    if (!nameValue || !roleValue) {
+      updateGateState();
+      return;
+    }
+
+    sendVisitorMeta(nameValue, roleValue);
+    setGateOpen(false);
+  });
+
+  if (visitorGateSkip) {
+    visitorGateSkip.addEventListener("click", () => {
+      setGateOpen(false);
+    });
+  }
+
+  if (visitorGateClose) {
+    visitorGateClose.addEventListener("click", () => {
+      setGateOpen(false);
     });
   }
 }
