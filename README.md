@@ -1,4 +1,19 @@
 # Portfolio Website
-This is my Portfolio website built on HTML, CSS, JS and Bootstrap.
+Personal portfolio site for Anirudh Belwadi with a custom analytics dashboard.
 
-Check the live website <a href="https://anirudhbelwadi.com/">here</a>.
+Live site: https://anirudhbelwadi.com/
+
+## Tech Stack
+- HTML, CSS, JavaScript, Bootstrap
+- Charting: Chart.js
+- Python (Flask) for the analytics dashboard backend
+- SQLite for analytics data storage
+- External APIs for IP geolocation and source mapping
+
+## Analytics Dashboard
+The analytics dashboard tracks visits, sources, geolocation, and repeat visitors.
+
+Pages:
+- Readme: https://anirudhbelwadiportfolio.pythonanywhere.com/
+- Dashboard: https://anirudhbelwadiportfolio.pythonanywhere.com/admin/viewVisitors/
+- All visitors: https://anirudhbelwadiportfolio.pythonanywhere.com/admin/viewVisitors/allVisitors/

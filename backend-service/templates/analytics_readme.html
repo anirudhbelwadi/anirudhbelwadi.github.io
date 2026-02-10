@@ -84,6 +84,16 @@
             background: linear-gradient(180deg, var(--info), #10B981);
         }
 
+        .section.featured {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(16, 185, 129, 0.12));
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        .section.featured h2 {
+            font-size: 1.35rem;
+        }
+
         .section h2 {
             font-size: 1.25rem;
             font-weight: 600;
@@ -164,6 +174,23 @@
         .definition-desc {
             color: var(--muted-foreground);
             font-size: 1rem;
+        }
+
+        .stack-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .stack-badge {
+            background: var(--secondary);
+            color: var(--secondary-foreground);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         .note {
@@ -267,6 +294,7 @@
             <h2>Readme Map</h2>
             <p>Jump to the section you need or read top-to-bottom for the full context.</p>
             <div class="toc-list">
+                <a href="#tech-stack">Tech Stack</a>
                 <a href="#traffic-summary">Traffic Summary KPIs</a>
                 <a href="#highest-segments">Highest Performing Segments</a>
                 <a href="#performance-over-time">Performance Over Time</a>
@@ -274,6 +302,53 @@
                 <a href="#data-notes">Data Notes</a>
             </div>
         </div>
+
+        <section class="section featured" id="tech-stack">
+            <h2>Tech Stack</h2>
+            <p>High-level view of the tools that power the portfolio and its analytics dashboard.</p>
+            <div class="definition-list">
+                <div class="definition-item">
+                    <div class="definition-term">Frontend</div>
+                    <div class="definition-desc">HTML, CSS, JavaScript, Bootstrap</div>
+                    <div class="stack-badges">
+                        <span class="stack-badge">HTML</span>
+                        <span class="stack-badge">CSS</span>
+                        <span class="stack-badge">JavaScript</span>
+                        <span class="stack-badge">Bootstrap</span>
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Charts</div>
+                    <div class="definition-desc">Chart.js for time series and breakdown visualizations</div>
+                    <div class="stack-badges">
+                        <span class="stack-badge">Chart.js</span>
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Backend</div>
+                    <div class="definition-desc">Python (Flask) for analytics endpoints and rendering</div>
+                    <div class="stack-badges">
+                        <span class="stack-badge">Python</span>
+                        <span class="stack-badge">Flask</span>
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">Data Storage</div>
+                    <div class="definition-desc">SQLite for visit logs and KPI calculations</div>
+                    <div class="stack-badges">
+                        <span class="stack-badge">SQLite</span>
+                    </div>
+                </div>
+                <div class="definition-item">
+                    <div class="definition-term">External APIs</div>
+                    <div class="definition-desc">IP geolocation via ipinfo.io and source mapping via GitHub Gist</div>
+                    <div class="stack-badges">
+                        <span class="stack-badge">ipinfo.io</span>
+                        <span class="stack-badge">GitHub Gist</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section class="section" id="traffic-summary">
             <h2>Traffic Summary KPIs</h2>
