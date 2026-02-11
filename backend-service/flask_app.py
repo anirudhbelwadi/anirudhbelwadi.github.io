@@ -71,6 +71,7 @@ def resolveSourceFromConfig(config_data, source):
                     return mapping.get("display_name", source)
     return source
 
+
 def getData(database_cursor):
     today = datetime.now(current_timezone)
     today_db_format = datetime.now(current_timezone).strftime("%d/%m/%Y")
@@ -373,6 +374,8 @@ def counterIncrease(ip):
     try:
         web_source = request.args.get('source', default="", type=str)
         domain = request.args.get('domain', default="", type=str)
+        is_mobile_param = request.args.get('is_mobile', default="", type=str)
+        is_mobile_flag = "Y" if is_mobile_param.lower() in {"true", "1", "yes", "y"} else "N"
         if domain != "true":
             raise Exception("Invalid domain")
         location_response = (requests.get(f"https://ipinfo.io/{ip}/json")).json()
@@ -398,8 +401,8 @@ def counterIncrease(ip):
         if cleaned_country is not None:
             cleaned_country = clean_row_country(cleaned_country)
         database_cursor.execute(
-            "INSERT into visitors (ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role) VALUES (?,?,?,?,?,?,?,?,?,?)",
-            (ip, now, location_response.get("city"), location_response.get("region"), cleaned_country, web_source, is_repeat_visitor_last_24h, location_response.get("postal"), None, None)
+            "INSERT into visitors (ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+            (ip, now, location_response.get("city"), location_response.get("region"), cleaned_country, web_source, is_repeat_visitor_last_24h, location_response.get("postal"), None, None, is_mobile_flag)
         )
         visit_id = database_cursor.lastrowid
         database_cursor.execute("UPDATE visit SET count = ? WHERE count = ?",(count+1,count))

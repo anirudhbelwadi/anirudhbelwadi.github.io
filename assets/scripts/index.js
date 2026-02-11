@@ -99,7 +99,13 @@ fetch("https://api.ipify.org?format=json")
     const domainParam = getVisitorDomainParam();
     let url =
       `${apiBaseUrl}/counterIncrease/` +
-      data.ip + "?domain=" + domainParam + "&source=" + document.referrer;
+      data.ip +
+      "?domain=" +
+      domainParam +
+      "&source=" +
+      document.referrer +
+      "&is_mobile=" +
+      (isMobile ? "true" : "false");
     fetch(url)
       .then((repo) => repo.json())
       .then((data) => {
