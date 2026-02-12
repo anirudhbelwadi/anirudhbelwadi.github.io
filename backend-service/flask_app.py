@@ -371,6 +371,7 @@ def counterIncrease(ip):
     count = int(database_cursor.execute("SELECT count FROM visit").fetchone()[0])
     location_response = {}
     visit_id = None
+    is_repeat_visitor_last_24h = "N"
     try:
         web_source = request.args.get('source', default="", type=str)
         domain = request.args.get('domain', default="", type=str)
@@ -411,7 +412,11 @@ def counterIncrease(ip):
         print("Error:", e)
     database_connection.commit()
     database_connection.close()
-    message = {'count': count, 'visit_id': visit_id }
+    message = {
+        'count': count,
+        'visit_id': visit_id,
+        'is_repeat_visitor': is_repeat_visitor_last_24h
+    }
     response = jsonify(message)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

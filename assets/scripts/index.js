@@ -7,21 +7,21 @@ window.addEventListener("load", () => {
 const form = document.forms["contactForm"];
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  
+
   // Validate reCAPTCHA
   const recaptchaResponse = grecaptcha.getResponse();
   if (!recaptchaResponse) {
     alert("Please complete the CAPTCHA verification.");
     return;
   }
-  
+
   document.getElementById("form_loader").style.visibility = "visible";
   $("body").addClass("stop-scrolling");
-  
+
   // Add reCAPTCHA response to form data
   const formData = new FormData(form);
   formData.append('g-recaptcha-response', recaptchaResponse);
-  
+
   fetch(scriptURL, { method: "POST", body: formData })
     .then((response) => {
       document.getElementById("contactForm").reset();
@@ -111,6 +111,10 @@ fetch("https://api.ipify.org?format=json")
       .then((data) => {
         document.getElementById("visit_count").innerHTML = data.count;
         visitId = data.visit_id || null;
+        if (data.is_repeat_visitor) {
+          isRepeatVisitor = data.is_repeat_visitor === "Y";
+        }
+        initVisitorDialogs();
         if (visitId && pendingVisitorMeta) {
           sendVisitorMeta(pendingVisitorMeta.name, pendingVisitorMeta.role);
           pendingVisitorMeta = null;
@@ -137,6 +141,8 @@ const visitorGateSkip = document.getElementById("visitor_gate_skip");
 const visitorGateClose = document.getElementById("visitor_gate_close");
 let visitId = null;
 let pendingVisitorMeta = null;
+let isRepeatVisitor = null;
+let visitorDialogInitialized = false;
 
 const getVisitorApiBaseUrl = () => {
   const isLocalhost =
@@ -176,120 +182,143 @@ const sendVisitorMeta = (name, role) => {
   });
 };
 
-if (
-  !isMobile &&
-  visitorChatbot &&
-  visitorChatbotPanel &&
-  visitorChatbotToggle &&
-  visitorChatbotForm &&
-  visitorNameInput &&
-  visitorRoleSelect &&
-  visitorChatbotSubmit
-) {
-  const setChatbotOpen = (isOpen) => {
-    visitorChatbotPanel.classList.toggle("open", isOpen);
-    visitorChatbotToggle.setAttribute("aria-expanded", String(isOpen));
-  };
+function initVisitorDialogs() {
+  if (visitorDialogInitialized) {
+    return;
+  }
 
-  setChatbotOpen(true);
-
-  const updateChatbotState = () => {
-    const nameReady = visitorNameInput.value.trim().length > 0;
-    const roleReady = visitorRoleSelect.value.trim().length > 0;
-    visitorChatbotSubmit.disabled = !(nameReady && roleReady);
-  };
-
-  visitorNameInput.addEventListener("input", updateChatbotState);
-  visitorRoleSelect.addEventListener("change", updateChatbotState);
-
-  visitorChatbotForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const nameValue = visitorNameInput.value.trim();
-    const roleValue = visitorRoleSelect.value.trim();
-
-    if (!nameValue || !roleValue) {
-      updateChatbotState();
-      return;
+  if (isRepeatVisitor === true) {
+    if (visitorChatbot) {
+      visitorChatbot.style.display = "none";
     }
-
-    if (visitorChatbotThanks) {
-      visitorChatbotThanks.textContent = `Thanks, ${nameValue}! Enjoy the portfolio.`;
+    if (visitorGate) {
+      visitorGate.classList.add("hidden");
     }
-    sendVisitorMeta(nameValue, roleValue);
-    visitorChatbotToggle.style.display = "none";
-    visitorChatbotPanel.classList.add("submitted");
-    setTimeout(() => {
-      setChatbotOpen(false);
-    }, 3000);
-  });
+    document.body.classList.remove("stop-scrolling");
+    visitorDialogInitialized = true;
+    return;
+  }
 
-  visitorChatbotToggle.addEventListener("click", () => {
-    setChatbotOpen(!visitorChatbotPanel.classList.contains("open"));
-  });
+  if (
+    !isMobile &&
+    visitorChatbot &&
+    visitorChatbotPanel &&
+    visitorChatbotToggle &&
+    visitorChatbotForm &&
+    visitorNameInput &&
+    visitorRoleSelect &&
+    visitorChatbotSubmit
+  ) {
+    const setChatbotOpen = (isOpen) => {
+      visitorChatbotPanel.classList.toggle("open", isOpen);
+      visitorChatbotToggle.setAttribute("aria-expanded", String(isOpen));
+    };
 
-  if (visitorChatbotClose) {
-    visitorChatbotClose.addEventListener("click", () => {
-      setChatbotOpen(false);
+    setChatbotOpen(true);
+
+    const updateChatbotState = () => {
+      const nameReady = visitorNameInput.value.trim().length > 0;
+      const roleReady = visitorRoleSelect.value.trim().length > 0;
+      visitorChatbotSubmit.disabled = !(nameReady && roleReady);
+    };
+
+    visitorNameInput.addEventListener("input", updateChatbotState);
+    visitorRoleSelect.addEventListener("change", updateChatbotState);
+
+    visitorChatbotForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const nameValue = visitorNameInput.value.trim();
+      const roleValue = visitorRoleSelect.value.trim();
+
+      if (!nameValue || !roleValue) {
+        updateChatbotState();
+        return;
+      }
+
+      if (visitorChatbotThanks) {
+        visitorChatbotThanks.textContent = `Thanks, ${nameValue}! Enjoy the portfolio.`;
+      }
+      sendVisitorMeta(nameValue, roleValue);
+      visitorChatbotToggle.style.display = "none";
+      visitorChatbotPanel.classList.add("submitted");
+      setTimeout(() => {
+        setChatbotOpen(false);
+      }, 3000);
     });
-  }
 
-  if (visitorChatbotSkip) {
-    visitorChatbotSkip.addEventListener("click", () => {
-      setChatbotOpen(false);
+    visitorChatbotToggle.addEventListener("click", () => {
+      setChatbotOpen(!visitorChatbotPanel.classList.contains("open"));
     });
-  }
-}
 
-if (
-  isMobile &&
-  visitorGate &&
-  visitorGateForm &&
-  visitorGateNameInput &&
-  visitorGateRoleSelect &&
-  visitorGateSubmit
-) {
-  if (visitorChatbot) {
-    visitorChatbot.style.display = "none";
-  }
-
-  const setGateOpen = (isOpen) => {
-    visitorGate.classList.toggle("hidden", !isOpen);
-    document.body.classList.toggle("stop-scrolling", isOpen);
-  };
-
-  const updateGateState = () => {
-    const nameReady = visitorGateNameInput.value.trim().length > 0;
-    const roleReady = visitorGateRoleSelect.value.trim().length > 0;
-    visitorGateSubmit.disabled = !(nameReady && roleReady);
-  };
-
-  setGateOpen(true);
-  visitorGateNameInput.addEventListener("input", updateGateState);
-  visitorGateRoleSelect.addEventListener("change", updateGateState);
-
-  visitorGateForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const nameValue = visitorGateNameInput.value.trim();
-    const roleValue = visitorGateRoleSelect.value.trim();
-
-    if (!nameValue || !roleValue) {
-      updateGateState();
-      return;
+    if (visitorChatbotClose) {
+      visitorChatbotClose.addEventListener("click", () => {
+        setChatbotOpen(false);
+      });
     }
 
-    sendVisitorMeta(nameValue, roleValue);
-    setGateOpen(false);
-  });
+    if (visitorChatbotSkip) {
+      visitorChatbotSkip.addEventListener("click", () => {
+        setChatbotOpen(false);
+      });
+    }
 
-  if (visitorGateSkip) {
-    visitorGateSkip.addEventListener("click", () => {
+    visitorDialogInitialized = true;
+    return;
+  }
+
+  if (
+    isMobile &&
+    visitorGate &&
+    visitorGateForm &&
+    visitorGateNameInput &&
+    visitorGateRoleSelect &&
+    visitorGateSubmit
+  ) {
+    if (visitorChatbot) {
+      visitorChatbot.style.display = "none";
+    }
+
+    const setGateOpen = (isOpen) => {
+      visitorGate.classList.toggle("hidden", !isOpen);
+      document.body.classList.toggle("stop-scrolling", isOpen);
+    };
+
+    const updateGateState = () => {
+      const nameReady = visitorGateNameInput.value.trim().length > 0;
+      const roleReady = visitorGateRoleSelect.value.trim().length > 0;
+      visitorGateSubmit.disabled = !(nameReady && roleReady);
+    };
+
+    setGateOpen(true);
+    visitorGateNameInput.addEventListener("input", updateGateState);
+    visitorGateRoleSelect.addEventListener("change", updateGateState);
+
+    visitorGateForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const nameValue = visitorGateNameInput.value.trim();
+      const roleValue = visitorGateRoleSelect.value.trim();
+
+      if (!nameValue || !roleValue) {
+        updateGateState();
+        return;
+      }
+
+      sendVisitorMeta(nameValue, roleValue);
       setGateOpen(false);
     });
-  }
 
-  if (visitorGateClose) {
-    visitorGateClose.addEventListener("click", () => {
-      setGateOpen(false);
-    });
+    if (visitorGateSkip) {
+      visitorGateSkip.addEventListener("click", () => {
+        setGateOpen(false);
+      });
+    }
+
+    if (visitorGateClose) {
+      visitorGateClose.addEventListener("click", () => {
+        setGateOpen(false);
+      });
+    }
+
+    visitorDialogInitialized = true;
   }
 }
