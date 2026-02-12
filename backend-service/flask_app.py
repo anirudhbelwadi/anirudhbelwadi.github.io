@@ -244,6 +244,16 @@ def getData(database_cursor):
         GROUP BY location HAVING location IS NOT NULL ORDER BY cnt DESC LIMIT 5
     """).fetchall()
 
+    mobile_visitors = database_cursor.execute("""
+        SELECT COUNT(*) FROM visitors WHERE is_mobile = 'Y'
+    """).fetchone()[0]
+    web_visitors = database_cursor.execute("""
+        SELECT COUNT(*) FROM visitors WHERE is_mobile = 'N'
+    """).fetchone()[0]
+    total_device_visitors = mobile_visitors + web_visitors
+    mobile_pct = round((mobile_visitors / total_device_visitors) * 100, 1) if total_device_visitors else 0
+    web_pct = round((web_visitors / total_device_visitors) * 100, 1) if total_device_visitors else 0
+
     # Repeat Visitors (Last 24 Hours)
     now_date_time = today
     cutoff_date_time = now_date_time - timedelta(hours=24)
@@ -322,6 +332,12 @@ def getData(database_cursor):
             "top_locations": city_counts,
             "repeat_visitors_last_24h": repeat_visitors_last_24h,
             "repeat_visitors_per_day": repeat_visitors_per_day,
+            "device_split": {
+                "mobile_count": mobile_visitors,
+                "web_count": web_visitors,
+                "mobile_pct": mobile_pct,
+                "web_pct": web_pct,
+            },
         }
     }
 

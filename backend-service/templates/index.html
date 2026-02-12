@@ -127,6 +127,46 @@
             padding-top: 0.5rem;
         }
 
+        .device-split {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .device-chart {
+            width: 90px;
+            height: 90px;
+        }
+
+        .device-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            font-size: 0.85rem;
+            color: var(--muted-foreground);
+        }
+
+        .device-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .device-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            display: inline-block;
+        }
+
+        .device-dot.mobile {
+            background: var(--info);
+        }
+
+        .device-dot.web {
+            background: var(--success);
+        }
+
         .stat-value {
             font-size: 1.5rem;
             font-weight: 700;
@@ -418,6 +458,35 @@
                     <div class="stat-value">{{ analytics_data.kpis.repeat_visitors_last_24h }}</div>
                 </div>
             </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-card-title">Device Split</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon">
+                        <rect x="2" y="4" width="20" height="14" rx="2"></rect>
+                        <line x1="8" y1="20" x2="16" y2="20"></line>
+                        <line x1="12" y1="18" x2="12" y2="20"></line>
+                    </svg>
+                </div>
+                <div class="stat-card-content">
+                    <div class="device-split">
+                        <div class="device-chart">
+                            <canvas id="deviceSplitChart"></canvas>
+                        </div>
+                        <div class="device-legend">
+                            <div class="device-row">
+                                <span class="device-dot mobile"></span>
+                                Mobile {{ analytics_data.kpis.device_split.mobile_pct }}%
+                            </div>
+                            <div class="device-row">
+                                <span class="device-dot web"></span>
+                                Web {{ analytics_data.kpis.device_split.web_pct }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <h2>
@@ -630,6 +699,7 @@
         }
 
         // --- Visitor Breakdown Charts ---
+        const deviceSplit = {{ analytics_data.kpis.device_split | tojson }};
         const visitorData = {{ visitors | tojson }};
         const countryCounts = {};
         const sourceCounts = {};
@@ -668,6 +738,39 @@
                     return acc;
                 }, { labels: [], data: [] });
         };
+
+        const deviceSplitCanvas = document.getElementById('deviceSplitChart');
+        if (deviceSplitCanvas) {
+            const deviceTotal = (deviceSplit.mobile_count || 0) + (deviceSplit.web_count || 0);
+            new Chart(deviceSplitCanvas.getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Mobile', 'Web'],
+                    datasets: [{
+                        data: [deviceSplit.mobile_count || 0, deviceSplit.web_count || 0],
+                        backgroundColor: ['#3B82F6', '#10B981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const value = context.parsed || 0;
+                                    const pct = deviceTotal ? Math.round((value / deviceTotal) * 100) : 0;
+                                    return `${context.label}: ${value} (${pct}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
         const drawBarChart = (ctxId, labels, data, label) => {
             const ctx = document.getElementById(ctxId).getContext('2d');
