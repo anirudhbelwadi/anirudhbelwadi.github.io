@@ -332,7 +332,7 @@ def viewVisitors():
     database_cursor = database_connection.cursor()
     dashboard_visitor_count = int(database_cursor.execute("SELECT count FROM dashboard_visitors").fetchone()[0])
     database_cursor.execute("UPDATE dashboard_visitors SET count = ? WHERE count = ?",(dashboard_visitor_count+1,dashboard_visitor_count))
-    count = int(database_cursor.execute("SELECT count FROM visit").fetchone()[0])
+    count = int(database_cursor.execute("SELECT COUNT(*) FROM visitors").fetchone()[0])
     visitors = database_cursor.execute("SELECT * FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
     analytics_data = getData(database_cursor)
     #analytics_data = {}
@@ -368,7 +368,6 @@ def counterIncrease(ip):
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
-    count = int(database_cursor.execute("SELECT count FROM visit").fetchone()[0])
     location_response = {}
     visit_id = None
     is_repeat_visitor_last_24h = "N"
@@ -406,10 +405,9 @@ def counterIncrease(ip):
             (ip, now, location_response.get("city"), location_response.get("region"), cleaned_country, web_source, is_repeat_visitor_last_24h, location_response.get("postal"), None, None, is_mobile_flag)
         )
         visit_id = database_cursor.lastrowid
-        database_cursor.execute("UPDATE visit SET count = ? WHERE count = ?",(count+1,count))
-        count = count + 1
     except Exception as e:
         print("Error:", e)
+    count = int(database_cursor.execute("SELECT COUNT(*) FROM visitors").fetchone()[0])
     database_connection.commit()
     database_connection.close()
     message = {
