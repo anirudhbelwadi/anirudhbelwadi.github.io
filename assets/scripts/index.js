@@ -111,8 +111,8 @@ fetch("https://api.ipify.org?format=json")
       .then((data) => {
         document.getElementById("visit_count").innerHTML = data.count;
         visitId = data.visit_id || null;
-        if (data.is_repeat_visitor) {
-          isRepeatVisitor = data.is_repeat_visitor === "Y";
+        if (data.has_entered_name_before) {
+          hasEnteredNameBefore = data.has_entered_name_before === "Y";
         }
         initVisitorDialogs();
         if (visitId && pendingVisitorMeta) {
@@ -141,7 +141,7 @@ const visitorGateSkip = document.getElementById("visitor_gate_skip");
 const visitorGateClose = document.getElementById("visitor_gate_close");
 let visitId = null;
 let pendingVisitorMeta = null;
-let isRepeatVisitor = null;
+let hasEnteredNameBefore = null;
 let visitorDialogInitialized = false;
 
 const getVisitorApiBaseUrl = () => {
@@ -187,7 +187,7 @@ function initVisitorDialogs() {
     return;
   }
 
-  if (isRepeatVisitor === true) {
+  if (hasEnteredNameBefore === true) {
     if (visitorChatbot) {
       visitorChatbot.style.display = "none";
     }

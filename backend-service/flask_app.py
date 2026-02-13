@@ -361,7 +361,7 @@ def allVisitors():
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
-    visitors = database_cursor.execute("SELECT * FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
+    visitors = database_cursor.execute("SELECT ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
     database_connection.close()
     visitors_list = []
     for visitor in visitors:
@@ -373,7 +373,10 @@ def allVisitors():
             "country_name": visitor[4],
             "source": visitor[5],
             "is_repeat_visitor": visitor[6],
-            "postal": visitor[7]
+            "postal": visitor[7],
+            "visitor_name": visitor[8],
+            "visitor_role": visitor[9],
+            "is_mobile": visitor[10]
         })
     return render_template('all_visitors.html', visitors=visitors_list)
 
@@ -413,6 +416,28 @@ def counterIncrease(ip):
             is_repeat_visitor_last_24h = "N"
         else:
             is_repeat_visitor_last_24h = "Y"
+        
+        # Check if repeat visitor has already entered name and role
+        has_entered_name_before = "N"
+        if is_repeat_visitor_last_24h == "Y":
+            has_name_result = database_cursor.execute("""
+                SELECT COUNT(*)
+                FROM visitors
+                WHERE ip = ?
+                  AND visitor_name IS NOT NULL
+                  AND visitor_name != ''
+                  AND visitor_role IS NOT NULL
+                  AND visitor_role != ''
+                  AND datetime(
+                      substr(timestamp, 7, 4) || '-' ||
+                      substr(timestamp, 4, 2) || '-' ||
+                      substr(timestamp, 1, 2) || ' ' ||
+                      substr(timestamp, 12)
+                  ) BETWEEN datetime(?) AND datetime(?)
+            """, (ip, cutoff_iso, now_iso)).fetchone()[0]
+            if has_name_result > 0:
+                has_entered_name_before = "Y"
+        
         cleaned_country = location_response.get("country")
         if cleaned_country is not None:
             cleaned_country = clean_row_country(cleaned_country)
@@ -429,7 +454,7 @@ def counterIncrease(ip):
     message = {
         'count': count,
         'visit_id': visit_id,
-        'is_repeat_visitor': is_repeat_visitor_last_24h
+        'has_entered_name_before': has_entered_name_before
     }
     response = jsonify(message)
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -451,10 +476,54 @@ def visitMeta(visit_id):
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
-    database_cursor.execute(
-        "UPDATE visitors SET visitor_name = ?, visitor_role = ? WHERE rowid = ?",
-        (visitor_name, visitor_role, visit_id)
-    )
+    
+    # Get the IP for the current visit_id
+    visitor_ip_result = database_cursor.execute(
+        "SELECT ip, timestamp FROM visitors WHERE rowid = ?",
+        (visit_id,)
+    ).fetchone()
+    
+    if visitor_ip_result:
+        visitor_ip = visitor_ip_result[0]
+        current_timestamp = visitor_ip_result[1]
+        
+        # Parse current timestamp to get cutoff time (24 hours before)
+        try:
+            current_dt = datetime.strptime(current_timestamp, "%d/%m/%Y %H:%M:%S")
+            current_dt = current_timezone.localize(current_dt)
+        except:
+            current_dt = datetime.now(current_timezone)
+        
+        cutoff_dt = current_dt - timedelta(hours=24)
+        now_iso = current_dt.strftime("%Y-%m-%d %H:%M:%S")
+        cutoff_iso = cutoff_dt.strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Update the current visit
+        database_cursor.execute(
+            "UPDATE visitors SET visitor_name = ?, visitor_role = ? WHERE rowid = ?",
+            (visitor_name, visitor_role, visit_id)
+        )
+        
+        # Update all other visits from the same IP in the last 24 hours
+        database_cursor.execute("""
+            UPDATE visitors
+            SET visitor_name = ?, visitor_role = ?
+            WHERE ip = ?
+              AND rowid != ?
+              AND datetime(
+                  substr(timestamp, 7, 4) || '-' ||
+                  substr(timestamp, 4, 2) || '-' ||
+                  substr(timestamp, 1, 2) || ' ' ||
+                  substr(timestamp, 12)
+              ) BETWEEN datetime(?) AND datetime(?)
+        """, (visitor_name, visitor_role, visitor_ip, visit_id, cutoff_iso, now_iso))
+    else:
+        # Fallback: just update the current row if IP lookup fails
+        database_cursor.execute(
+            "UPDATE visitors SET visitor_name = ?, visitor_role = ? WHERE rowid = ?",
+            (visitor_name, visitor_role, visit_id)
+        )
+    
     database_connection.commit()
     database_connection.close()
 

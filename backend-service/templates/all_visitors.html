@@ -358,6 +358,7 @@
 							<th>Country</th>
 							<th>Source</th>
 							<th class="nowrap">Repeat?</th>
+							<th class="nowrap">Device</th>
 							<th class="nowrap">Postal</th>
 						</tr>
 					</thead>
@@ -371,6 +372,7 @@
 							<td>{{ v.country_name or '-' }}</td>
 							<td data-source>{{ v.source or '-' }}</td>
 							<td class="nowrap">{{ 'Yes' if v.is_repeat_visitor == 'Y' else 'No' }}</td>
+							<td class="nowrap">{{ 'Mobile' if v.is_mobile == 'Y' else 'Web' if v.is_mobile == 'N' else '-' }}</td>
 							<td class="nowrap">{{ v.postal or '-' }}</td>
 						</tr>
 						{% endfor %}
