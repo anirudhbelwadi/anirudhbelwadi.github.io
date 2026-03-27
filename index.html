@@ -256,6 +256,42 @@
 
     <!-- Modals -->
     <!-- Projects -->
+    <div class="modal fade" id="dartIQModal" tabindex="-1" aria-labelledby="dartIQModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dartIQModalLabel">DartIQ.ai</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="./assets/images/projects/dartiq.webp" alt="DartIQ.ai" class="w-100 mb-2">
+                    <ul>
+                        <li>
+                            Engineered Temporal workflows to orchestrate single-VM and wave-based VMware-to-Azure
+                            migrations, enabling reliable parallel execution across distributed migration batches of
+                            50+ VMs.
+                        </li>
+                        <li>
+                            Integrated Azure SDK (Python) to automate VM provisioning, OS migration, health validation
+                            and recovery, reducing per-VM manual setup from around 3 hours to under 20 minutes.
+                        </li>
+                        <li>
+                            Built an end-to-end integration testing framework with a local microservice stack to seed
+                            test data and validate workflows, cutting debugging cycle time by around 40%.
+                        </li>
+                        <li>
+                            Developed CLI tooling and migration scripts for VMware lab environments, improving
+                            developer operational efficiency and standardizing testing workflows across the team.
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark btn-lg px-4 py-2 border-radius-30"
+                        onclick="window.open('https://dartiq.ai/')">Go to Website</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="mfiModal" tabindex="-1" aria-labelledby="mfiModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1743,6 +1779,19 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-6 px-5 mt-5 filter_project professional">
+                    <a href="https://dartiq.ai/" target="_blank">
+                        <img src="./assets/images/projects/dartiq.webp" class="w-100" alt="DartIQ.ai">
+                        <h4 class="project_title mt-3"><b>DartIQ.ai</b></h4>
+                        <p class="project_description">
+                            Enabled enterprises to migrate VMware workloads to Azure faster and more reliably through
+                            intelligent workflow orchestration, automation and built-in recovery safeguards.
+                        </p>
+                    </a>
+                    <button type="button" data-bs-toggle="modal" class="read_more" data-bs-target="#dartIQModal">
+                        Read More...
+                    </button>
+                </div>
                 <div class="col-lg-6 px-5 mt-5 filter_project professional">
                     <a href="https://cmu-mfi.github.io/ddb/index.html" target="_blank">
                         <img src="./assets/images/projects/mfi.webp" class="w-100" alt="MyJio">
