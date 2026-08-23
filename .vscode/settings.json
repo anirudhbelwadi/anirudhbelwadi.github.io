@@ -1,6 +1,4 @@
 {
-  "liveServer.settings.ignoreFiles": [
-    // This is to prevent live server from reloading when changes are made in the backend service directory
-    "**/backend-service/**"
-  ]
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": false
 }

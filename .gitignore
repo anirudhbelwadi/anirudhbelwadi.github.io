@@ -3,3 +3,10 @@ venv/
 env/
 __pycache__/
 backend-service/source_config.json
+
+# Node / Vite
+node_modules/
+dist/
+*.local
+.vite/
+*.tsbuildinfo
