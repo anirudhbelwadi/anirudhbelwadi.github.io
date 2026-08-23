@@ -3,6 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [master]
+    # Backend-only pushes are handled by deploy-backend.yml.
+    paths-ignore:
+      - 'backend-service/**'
+      - '.github/scripts/deploy_pythonanywhere.py'
+      - '.github/workflows/deploy-backend.yml'
+      - 'README.md'
   workflow_dispatch:
 
 permissions:

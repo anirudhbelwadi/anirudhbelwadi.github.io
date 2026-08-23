@@ -1,0 +1,68 @@
+name: Deploy backend to PythonAnywhere
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'backend-service/**'
+      - '.github/scripts/deploy_pythonanywhere.py'
+      - '.github/workflows/deploy-backend.yml'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'List the files that would deploy, upload nothing'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Never let two deploys write to the web app at once.
+concurrency:
+  group: pythonanywhere
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
+      PA_USERNAME: ${{ vars.PA_USERNAME }}
+      PA_DOMAIN: ${{ vars.PA_DOMAIN }}
+      PA_REMOTE_DIR: ${{ vars.PA_REMOTE_DIR }}
+      PA_HOST: ${{ vars.PA_HOST || 'www.pythonanywhere.com' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests
+
+      # Runs first and without credentials, so a tripped safety guard shows up
+      # in the log before anything touches the server.
+      - name: Preview manifest
+        env:
+          PA_DRY_RUN: 'true'
+        run: python .github/scripts/deploy_pythonanywhere.py
+
+      - name: Check configuration
+        id: config
+        run: |
+          missing=
+          [ -n "$PA_API_TOKEN" ]  || missing="$missing PA_API_TOKEN(secret)"
+          [ -n "$PA_USERNAME" ]   || missing="$missing PA_USERNAME(variable)"
+          [ -n "$PA_DOMAIN" ]     || missing="$missing PA_DOMAIN(variable)"
+          [ -n "$PA_REMOTE_DIR" ] || missing="$missing PA_REMOTE_DIR(variable)"
+          if [ -n "$missing" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=Backend deploy skipped::Not configured yet. Missing:$missing"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload and reload
+        if: ${{ steps.config.outputs.ready == 'true' && github.event.inputs.dry_run != 'true' }}
+        run: python .github/scripts/deploy_pythonanywhere.py
