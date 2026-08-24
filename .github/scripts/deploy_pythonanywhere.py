@@ -180,24 +180,47 @@ def upload_images(session: requests.Session, api_root: str, remote_dir: str,
         print("\nPA_DRY_RUN set — nothing was uploaded.")
         return
 
-    for path in files:
+    # A steady trickle keeps the run under the API's rate limit; the retry
+    # handles the cases where it still pushes back.
+    for index, path in enumerate(files, start=1):
         relative = Path("content_images") / path.relative_to(source_root)
         outcome = _upload_absolute(session, api_root, remote_dir, path, relative)
-        print(f"  {outcome:<8} {relative.as_posix()}")
+        print(f"  [{index}/{len(files)}] {outcome:<8} {relative.as_posix()}")
+        if index < len(files):
+            time.sleep(1.5)
+
+
+# PythonAnywhere throttles the API and reports how long to wait in the body.
+THROTTLE_HINT = re.compile(r"available in (\d+) seconds")
 
 
 def _upload_absolute(session: requests.Session, api_root: str, remote_dir: str,
-                     local: Path, relative: Path) -> str:
+                     local: Path, relative: Path, attempts: int = 6) -> str:
+    """Upload one file, waiting out the API's rate limiter if it pushes back."""
     remote_path = f"{remote_dir.rstrip('/')}/{relative.as_posix()}"
-    with local.open("rb") as handle:
-        response = session.post(f"{api_root}/files/path{remote_path}", files={"content": handle})
-    if response.status_code == 201:
-        return "created"
-    if response.status_code == 200:
-        return "updated"
-    raise DeployError(
-        f"Upload failed for {relative} (HTTP {response.status_code}): {response.text[:200]}"
-    )
+    url = f"{api_root}/files/path{remote_path}"
+
+    for attempt in range(1, attempts + 1):
+        with local.open("rb") as handle:
+            response = session.post(url, files={"content": handle})
+
+        if response.status_code == 201:
+            return "created"
+        if response.status_code == 200:
+            return "updated"
+
+        if response.status_code == 429 and attempt < attempts:
+            hint = THROTTLE_HINT.search(response.text)
+            delay = int(hint.group(1)) + 2 if hint else 15 * attempt
+            print(f"  throttled, waiting {delay}s ({attempt}/{attempts - 1})")
+            time.sleep(delay)
+            continue
+
+        raise DeployError(
+            f"Upload failed for {relative} (HTTP {response.status_code}): {response.text[:200]}"
+        )
+
+    raise DeployError(f"Gave up on {relative} after {attempts} throttled attempts")
 
 
 def main() -> int:
