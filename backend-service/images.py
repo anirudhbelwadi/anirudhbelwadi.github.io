@@ -18,7 +18,15 @@ IMAGE_ROOT = os.path.join(THIS_FOLDER, 'content_images')
 
 # Raster formats only. SVG is deliberately excluded: it can carry script, and
 # these files are served from the same origin as the analytics dashboard.
-ALLOWED_EXTENSIONS = {'.webp', '.png', '.jpg', '.jpeg', '.gif'}
+MIME_TYPES = {
+    '.webp': 'image/webp',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.gif': 'image/gif',
+}
+
+ALLOWED_EXTENSIONS = set(MIME_TYPES)
 
 MAX_UPLOAD_BYTES = 5 * 1024 * 1024
 
@@ -103,7 +111,14 @@ def serve(relative):
         return None
 
     directory = os.path.dirname(absolute)
-    response = send_from_directory(directory, os.path.basename(absolute))
+    # Set the type explicitly: the server's mimetypes database does not
+    # recognise .webp, and Flask falls back to application/octet-stream, which
+    # browsers sniff past but caches and proxies handle poorly.
+    response = send_from_directory(
+        directory,
+        os.path.basename(absolute),
+        mimetype=MIME_TYPES[os.path.splitext(absolute)[1].lower()],
+    )
     # Content images are replaced by uploading a new name, so they can be
     # cached hard.
     response.headers['Cache-Control'] = 'public, max-age=86400'
