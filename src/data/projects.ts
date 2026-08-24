@@ -1,5 +1,7 @@
-// AUTO-GENERATED from the pre-React index.html, then hand-maintained.
-// Edit this file to add or change content — no JSX changes needed.
+// Snapshot of the content served by the backend, refreshed by
+// `npm run sync-content`. The app renders this until the API responds, and
+// keeps it on screen if the API is unreachable — so edit content in the
+// backend, not here.
 import type { Project, ProjectCategory } from '../types';
 
 export { projectCategories } from './projectCategories';
@@ -12,12 +14,12 @@ export const projects: Project[] = [
     title: "DartIQ.ai",
     description: "Enabled enterprises to migrate VMware workloads to Azure faster and more reliably through intelligent workflow orchestration, automation and built-in recovery safeguards.",
     href: "https://dartiq.ai/",
-    image: "/assets/images/projects/dartiq.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/dartiq.webp",
     imageAlt: "DartIQ.ai",
     modal: {
       title: "DartIQ.ai",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/dartiq.webp", alt: "DartIQ.ai" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/dartiq.webp", alt: "DartIQ.ai" },
         { kind: 'list', items: [
           "Engineered Temporal workflows to orchestrate single-VM and wave-based VMware-to-Azure migrations, enabling reliable parallel execution across distributed migration batches of 50+ VMs.",
           "Integrated Azure SDK (Python) to automate VM provisioning, OS migration, health validation and recovery, reducing per-VM manual setup from around 3 hours to under 20 minutes.",
@@ -34,12 +36,12 @@ export const projects: Project[] = [
     title: "Retrieval API for MFI Digital Data Backbone",
     description: "Architected a polyglot persistence system with a unified Retrieval API orchestrating multiple data stores, enabling independent schema evolution and optimized storage per use case.",
     href: "https://cmu-mfi.github.io/ddb/index.html",
-    image: "/assets/images/projects/mfi.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/mfi.webp",
     imageAlt: "MyJio",
     modal: {
       title: "Retrieval API for MFI Digital Data Backbone",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/mfi.webp", alt: "Amazon Warehousing & Distribution" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/mfi.webp", alt: "Amazon Warehousing & Distribution" },
         { kind: 'list', items: [
           "Designed and implemented a polyglot persistence architecture with a unified Retrieval API spanning PostgreSQL, AVEVA PI (time-series), key-value stores, and object/file storage, enabling independent schema evolution and optimized access across heterogeneous manufacturing workloads.",
           "Built scalable backend services and database connectors in Python (Flask) to expose metadata, historian, and file-system data via RESTful APIs, supporting time-series analytics and end-to-end trial lifecycle tracking",
@@ -56,12 +58,12 @@ export const projects: Project[] = [
     title: "Amazon Warehousing & Distribution",
     description: "Architectured and designed a high-performance pre-computation layer for Amazon Warehousing & Distribution's Inventory Management System that reduced API latency by implementing event-driven data aggregation.",
     href: "https://sell.amazon.com/programs/warehousing",
-    image: "/assets/images/projects/awd_cim.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/awd_cim.webp",
     imageAlt: "MyJio",
     modal: {
       title: "Amazon Warehousing & Distribution",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/awd_cim.webp", alt: "Amazon Warehousing & Distribution" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/awd_cim.webp", alt: "Amazon Warehousing & Distribution" },
         { kind: 'list', items: [
           "Designed and built a serverless, event-driven distributed system using AWS Lambda, SQS & SNS to decouple compute-intensive workloads from latency-sensitive APIs",
           "Reduced p99 API latency by ~90% by introducing an asynchronous precomputation pipeline to reliably handle 200K+ requests/hour under peak production traffic",
@@ -80,12 +82,12 @@ export const projects: Project[] = [
     title: "MyJio Application",
     description: "Designed and developed Java Spring Boot microservices powering a large-scale consumer platform, MyJio, with 500M+ users.",
     href: "https://www.jio.com/jcms/apps/myjio/",
-    image: "/assets/images/projects/myjio.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/myjio.webp",
     imageAlt: "MyJio",
     modal: {
       title: "MyJio Application",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/myjio.webp", alt: "MyJio" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/myjio.webp", alt: "MyJio" },
         { kind: 'list', items: [
           "Designed and developed Java Spring Boot microservices powering a large-scale consumer platform, MyJio, with 500M+ users",
           "Built horizontally scalable backend services for authentication, user data management and service orchestration, with a focus on low latency and high availability",
@@ -104,12 +106,12 @@ export const projects: Project[] = [
     title: "Safe AI Lab Website",
     description: "Revamped the existing website where I improved the design, functionality, responsiveness and the accessibility of the website.",
     href: "https://safeai-lab.github.io/",
-    image: "/assets/images/projects/safeAILab.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/safeAILab.webp",
     imageAlt: "Safe AI Lab",
     modal: {
       title: "Safe AI Lab",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/safeAILab.webp", alt: "Safe AI Lab" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/safeAILab.webp", alt: "Safe AI Lab" },
         { kind: 'list', items: [
           "Revamped the existing website where I improved the design, functionality, responsiveness and the accessibility of the website.",
           "Improved the website performance by 95% and also developed ReactJS UI for energy chatbot interaction and dataset visualization using [kepler.gl](https://kepler.gl/).",
@@ -126,13 +128,13 @@ export const projects: Project[] = [
     title: "VoiceAssist - AI-Powered Patient Screening & Intake System",
     description: "The AI-Powered Patient Screening & Intake System is a web-based platform designed to streamline patient screening and intake processes for healthcare providers.",
     href: "https://github.com/anirudhbelwadi/voiceAssist",
-    image: "/assets/images/projects/voiceCareAssist.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/voiceCareAssist.webp",
     imageAlt: "VoiceAssist",
     hidden: true,
     modal: {
       title: "VoiceAssist",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/voiceCareAssist.webp", alt: "VoiceAssist" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/voiceCareAssist.webp", alt: "VoiceAssist" },
         { kind: 'heading', text: "Description" },
         { kind: 'paragraph', text: "The AI-Powered Patient Screening & Intake System is a web-based platform designed to streamline patient screening and intake processes for healthcare providers. By leveraging AI-driven voice interactions, speech-to-text conversion, and automated screening reports, this system reduces the time spent on information gathering and improves patient care efficiency." },
         { kind: 'heading', text: "Features" },
@@ -154,12 +156,12 @@ export const projects: Project[] = [
     title: "Cardinal LCA Website",
     description: "Revamped the existing website where I improved the design, functionality, responsiveness and the accessibility of the website.",
     href: "https://cardinal-lca.github.io/website/",
-    image: "/assets/images/projects/cardinal_lca.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/cardinal_lca.webp",
     imageAlt: "Cardinal LCA",
     modal: {
       title: "Cardinal LCA",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/cardinal_lca.webp", alt: "Cardinal LCA" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/cardinal_lca.webp", alt: "Cardinal LCA" },
         { kind: 'list', items: [
           "Revamped the existing website where I improved the design, functionality, responsiveness and the accessibility of the website",
           "Developed an API for integrating the Rhino Plugin and the central database having the data about the parameters required for LCA calculations.",
@@ -176,12 +178,12 @@ export const projects: Project[] = [
     title: "LearnCarbon",
     description: "We developed a tool which would predict the Global Warming Potential from abstract designs of buildings.",
     href: "https://learncarbon.github.io/",
-    image: "/assets/images/projects/learn_carbon.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/learn_carbon.webp",
     imageAlt: "LearnCarbon",
     modal: {
       title: "LearnCarbon",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/learn_carbon.webp", alt: "LearnCarbon" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/learn_carbon.webp", alt: "LearnCarbon" },
         { kind: 'list', items: [
           "We developed a tool which would predict the Global Warming Potential from abstract designs of buildings.",
           "We developed a Rhino Plugin which had an integration of ML models, one regression, another classification. The first model would take input parameters considered in the construction of a building and would predict the CO2 emissions and the later one, would take an additional parameter, i.e., the target CO2 emissions and would predict the class of the construction type.",
@@ -201,12 +203,12 @@ export const projects: Project[] = [
     title: "Assembly Performance Analyzer Tool",
     description: "Developed a web application which integrated a database and a Machine Learning model for Assembly Performance Analyzation which was presented in Harvard Office for Sustainability.",
     href: "https://assemblyperformance.pythonanywhere.com/",
-    image: "/assets/images/projects/harvard_assembly.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/harvard_assembly.webp",
     imageAlt: "Harvard Assembly Performance Analyzer Tool",
     modal: {
       title: "Assembly Performance Analyzer Tool",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/harvard_assembly.webp", alt: "Harvard Assembly Performance Analyzer Tool" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/harvard_assembly.webp", alt: "Harvard Assembly Performance Analyzer Tool" },
         { kind: 'list', items: [
           "Developed a web application which integrated a database and a Machine Learning model for Assembly Performance Analyzation which was presented in Harvard Office for Sustainability.",
           "This research focuses on the collection of the industry data, its detailed analysis, and prediction of construction assembly performance on operational and embodied carbon by replacing the corresponding cross-sectional materials and varying the thickness.",
@@ -222,12 +224,12 @@ export const projects: Project[] = [
     title: "Portfolio Analytics Dashboard",
     description: "Developed an analytics dashboard that visualizes real-time and historical traffic to my personal portfolio website, focusing on visitor behavior and geographic distribution.",
     href: "https://anirudhbelwadiportfolio.pythonanywhere.com/",
-    image: "/assets/images/projects/analytics_dashboard.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/analytics_dashboard.webp",
     imageAlt: "Portfolio Analytics Dashboard",
     modal: {
       title: "Portfolio Analytics Dashboard",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/analytics_dashboard.webp", alt: "Portfolio Analytics Dashboard" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/analytics_dashboard.webp", alt: "Portfolio Analytics Dashboard" },
         { kind: 'list', items: [
           "Developed an analytics dashboard that visualizes real-time and historical traffic to my personal portfolio website, focusing on visitor behavior and geographic distribution.",
           "The dashboard displays key metrics such as total visitors, today's activity, traffic sources, top countries, and time-based trends, with interactive charts and dynamic filtering.",
@@ -245,12 +247,12 @@ export const projects: Project[] = [
     title: "Team FullStack Website",
     description: "Trained over 200+ students in different domains like Full Stack Development, Graphic Designing and Digital Marketing. Provided digital services like product research, design, website development, application development, collaterals' design and digital marketing to 7 clients.",
     href: "https://teamfullstack.in/",
-    image: "/assets/images/projects/team_fullstack.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/team_fullstack.webp",
     imageAlt: "Team FullStack",
     modal: {
       title: "Team FullStack",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/team_fullstack.webp", alt: "Team FullStack" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/team_fullstack.webp", alt: "Team FullStack" },
         { kind: 'list', items: [
           "Founded and led an initiative of training 200+ students in web development and UI/UX while delivering real-world client projects for small and medium scale companies",
           "Supported the [National Skill Development Corporation of India (NSDC)](https://nsdcindia.org/) and [APLL](https://apll.info/) in managing CSR projects for global companies like [LTI](https://www.ltimindtree.com/) and [TCS](https://www.tcs.com/).",
@@ -269,12 +271,12 @@ export const projects: Project[] = [
     title: "Pittsburgh2Peers",
     description: "Developed a student resource platform using ReactJS and Flask to streamline relocation logistics, enabling airport cab-sharing and U-Haul coordination.",
     href: "https://pittsburgh2peers.vercel.app/",
-    image: "/assets/images/projects/p2p.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/p2p.webp",
     imageAlt: "P2P",
     modal: {
       title: "Pittsburgh2Peers Application",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/p2p.webp", alt: "Team FullStack" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/p2p.webp", alt: "Team FullStack" },
         { kind: 'heading', text: "Motivation" },
         { kind: 'paragraph', text: "Time context: Just before Fall 2024 semester started at CMU, and I was preparing to move to Pittsburgh, first time in the United States. We wanted to create something to sort out a lot of the logistics of getting settled in." },
         { kind: 'list', items: [
@@ -298,12 +300,12 @@ export const projects: Project[] = [
     title: "EHCC Hospital Website",
     description: "Developed an informative website for a Cancer Hospital, which also facilitates appointment booking for patients. The website also includes admin login interface for content and patient management.",
     href: "https://ehcctesting.pythonanywhere.com/",
-    image: "/assets/images/projects/ehcc.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/ehcc.webp",
     imageAlt: "EHCC Hospital Website",
     modal: {
       title: "EHCC Hospital Website",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/ehcc.webp", alt: "EHCC Hospital Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/ehcc.webp", alt: "EHCC Hospital Website" },
         { kind: 'list', items: [
           "Developed an informative website for a Cancer Hospital, which also facilitates appointment booking for patients. The website also includes admin login interface for content and patient management.",
           "Technology stack: HTML, CSS, JS, Bootstrap, Tailwind CSS, Slick jQuery plugin, Python, Flask, SQLite Database, WotNot ChatBot, Courier Email API.",
@@ -319,12 +321,12 @@ export const projects: Project[] = [
     title: "GSIS Inventory Management System",
     description: "Designed & Developed a web based inventory management system which focused on providing specific functionalities to 3 different types of users to handle the transactions of close to 25000+ line items in 18 different inventory locations.",
     href: "https://gsistesting.pythonanywhere.com/",
-    image: "/assets/images/projects/gsis_inventory.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/gsis_inventory.webp",
     imageAlt: "Gulf Services & Industrial Supplies, LLC - Inventory Management System",
     modal: {
       title: "Gulf Services & Industrial Supplies, LLC - Inventory Management System",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/gsis_inventory.webp", alt: "Gulf Services & Industrial Supplies, LLC - Inventory\n                        Management System" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/gsis_inventory.webp", alt: "Gulf Services & Industrial Supplies, LLC - Inventory\n                        Management System" },
         { kind: 'list', items: [
           "Designed & Developed a web based inventory management system which focused on providing specific functionalities to 3 different types of users to handle the transactions of close to 25000+ line items in 18 different inventory locations.",
           "This project has helped save close to 300 man hours in a year required to audit all the transactions done in the inventories with particular items.",
@@ -340,12 +342,12 @@ export const projects: Project[] = [
     title: "Covid 19 Android Application",
     description: "We, as a team of 3 full stack developers, developed an android application to assist the then ongoing pandemic situation. We developed features including, alert of a covid patient in vicinity, quick access to nearest testing centers and emergency contact centers and also a healthcare worker view where he/she could mark patients covid positive or negative, based on the RTPCR testing.",
     href: "https://github.com/covidtracker192/KASH",
-    image: "/assets/images/projects/covid_19_application.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/covid_19_application.webp",
     imageAlt: "Covid 19 Android Application",
     modal: {
       title: "Covid 19 Android Application",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/covid_19_application.webp", alt: "Covid 19 Android Application" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/covid_19_application.webp", alt: "Covid 19 Android Application" },
         { kind: 'list', items: [
           "We, as a team of 3 full Stack developers, developed an android application to assist the then ongoing Covid-19 pandemic situation.",
           "We developed features including, alert of a covid patient in vicinity, quick access to nearest testing centers and emergency contact centers and also a healthcare worker view where he/she could mark patients covid positive or negative, based on the RTPCR testing.",
@@ -361,12 +363,12 @@ export const projects: Project[] = [
     title: "EntreSpace Website",
     description: "Developed a web platform where Entrepreneurs can connect with investors with all necessary IT infrastructure, consultancy, branding, etc. Improved the existing reach the organization had through only social media space, by enhancing the SEO of the website.",
     href: "https://anirudhbelwadi.com/entrespace/",
-    image: "/assets/images/projects/entrespace.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/entrespace.webp",
     imageAlt: "EntreSpace Website",
     modal: {
       title: "EntreSpace Website",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/entrespace.webp", alt: "EntreSpace Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/entrespace.webp", alt: "EntreSpace Website" },
         { kind: 'list', items: [
           "Developed a web platform where Entrepreneurs can connect with investors with all necessary IT infrastructure, consultancy, branding, etc.",
           "Improved the existing reach the organization had through only social media space, by enhancing the SEO of the website.",
@@ -382,12 +384,12 @@ export const projects: Project[] = [
     title: "Milind Palav Portfolio",
     description: "Milind Palav is a digital design & execution professional, based in India for whom I developed this portfolio website.",
     href: "https://milindpalav.com/",
-    image: "/assets/images/projects/milind_palav.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/milind_palav.webp",
     imageAlt: "Milind Palav Portfolio",
     modal: {
       title: "Milind Palav Portfolio Website",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/milind_palav.webp", alt: "Milind Palav Portfolio Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/milind_palav.webp", alt: "Milind Palav Portfolio Website" },
         { kind: 'list', items: [
           "Milind Palav is a digital design & execution professional, based in India for whom I developed this portfolio website.",
           "Technologies used: HTML, CSS, JS, jQuery, Bootstrap",
@@ -403,12 +405,12 @@ export const projects: Project[] = [
     title: "Kshitij Shah Portfolio",
     description: "Kshitij Shah is an engineer turned designer based in Brooklyn, New York City for whom I developed this portfolio website.",
     href: "https://shahkshitij.com/",
-    image: "/assets/images/projects/kshitij_shah.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/kshitij_shah.webp",
     imageAlt: "Kshitij Shah Portfolio",
     modal: {
       title: "Kshitij Shah Portfolio Website",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/kshitij_shah.webp", alt: "Kshitij Shah Portfolio Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/kshitij_shah.webp", alt: "Kshitij Shah Portfolio Website" },
         { kind: 'list', items: [
           "Kshitij Shah is an engineer turned designer based in Brooklyn, New York City for whom I developed this portfolio website.",
           "Technologies used: HTML, CSS, JS, jQuery, Bootstrap",
@@ -424,12 +426,12 @@ export const projects: Project[] = [
     title: "Jessica Chen Portfolio Website",
     description: "Jessica Chen is a computational designer based in the US for whom I developed this portfolio website.",
     href: "https://anirudhbelwadi.com/jessica_chen_portfolio/",
-    image: "/assets/images/projects/jessica_portfolio.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/jessica_portfolio.webp",
     imageAlt: "Jessica Chen Portfolio Website",
     modal: {
       title: "Jessica Chen Portfolio",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/jessica_portfolio.webp", alt: "Jessica Chen Portfolio" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/jessica_portfolio.webp", alt: "Jessica Chen Portfolio" },
         { kind: 'list', items: [
           "Jessica Chen is a computational designer based in the US for whom I developed this portfolio website.",
           "Technologies used: HTML, CSS, JS, jQuery, Bootstrap",
@@ -445,12 +447,12 @@ export const projects: Project[] = [
     title: "Google Search Landing Page Clone",
     description: "A mini project developed with the goal of understanding industry level approach in developing a landing page which includes, responsiveness, functionalities and code quality.",
     href: "https://anirudhbelwadi.com/Google-Landing-Page/",
-    image: "/assets/images/projects/google_landing_clone.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/google_landing_clone.webp",
     imageAlt: "Google Search Landing Page Clone",
     modal: {
       title: "Google Search Landing Page Clone",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/google_landing_clone.webp", alt: "Google Search Landing Page Clone" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/google_landing_clone.webp", alt: "Google Search Landing Page Clone" },
         { kind: 'list', items: [
           "A mini project developed with the goal of understanding industry level approach in developing a landing page which includes, responsiveness, functionalities and code quality.",
           "Technologies used: Technologies used: HTML, CSS and JavaScript",
@@ -466,12 +468,12 @@ export const projects: Project[] = [
     title: "InternXpo Website",
     description: "Developed a portal for InternXpo'21, an internship fair of SIES GST, where students could register and also apply for internships.",
     href: "https://anirudhbelwadi.com/intrnxpo-2021-website/",
-    image: "/assets/images/projects/internxpo.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/internxpo.webp",
     imageAlt: "InternXpo Website",
     modal: {
       title: "InternXpo Website",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/internxpo.webp", alt: "InternXpo Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/internxpo.webp", alt: "InternXpo Website" },
         { kind: 'list', items: [
           "Developed a portal for InternXpo'21, an internship fair of SIES GST, where students could register and also apply for internships.",
         ] },
@@ -485,12 +487,12 @@ export const projects: Project[] = [
     title: "Gist. Social Media Website",
     description: "A mini project developed as a part of the undergraduate program. Focused on developing a user-trusted and reliable social media portal, with features revolving around user sharing thoughts, pictures with friends and family.",
     href: "https://anirudhbelwadi.pythonanywhere.com/",
-    image: "/assets/images/projects/gist.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/gist.webp",
     imageAlt: "Gist. Social Media Website",
     modal: {
       title: "Gist. Social Media Website",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/gist.webp", alt: "Gist. Social Media Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/gist.webp", alt: "Gist. Social Media Website" },
         { kind: 'list', items: [
           "A mini project developed as a part of the undergraduate program.",
           "Focused on developing a user-trusted and reliable social media portal, with features revolving around user sharing thoughts, pictures with friends and family",
@@ -508,12 +510,12 @@ export const projects: Project[] = [
     title: "Aaradhya Services Website",
     description: "Developed a website which kick started the organization's digital presence and digital reach to customers looking for Car rentals, sale, finance, Loan, Insurance, RTO work and labor service.",
     href: "https://aaradhya-services.github.io/website",
-    image: "/assets/images/projects/aaradhya_services.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/aaradhya_services.webp",
     imageAlt: "Aaradhya Services Website",
     modal: {
       title: "Aaradhya Services",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/aaradhya_services.webp", alt: "Aaradhya Services Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/aaradhya_services.webp", alt: "Aaradhya Services Website" },
         { kind: 'list', items: [
           "Developed a website which kick started the organization's digital presence and digital reach to customers looking for Car rentals, sale, finance, Loan, Insurance, RTO work and labor service.",
           "Technologies used: Technologies used: HTML, CSS, JS, jQuery",
@@ -529,12 +531,12 @@ export const projects: Project[] = [
     title: "Ideation Website",
     description: "Developed a portal for Ideation 2020, a National Level Idea Presentation Competition conducted by IETE student chapter of SIES GST.",
     href: "https://anirudhbelwadi.com/ideation-2020/",
-    image: "/assets/images/projects/ideation.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/ideation.webp",
     imageAlt: "Ideation Website",
     modal: {
       title: "Ideation Website",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/ideation.webp", alt: "Ideation Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/ideation.webp", alt: "Ideation Website" },
         { kind: 'list', items: [
           "Developed a portal for Ideation 2020, a National Level Idea Presentation Competition conducted by IETE student chapter of SIES GST.",
           "Technologies used: HTML, CSS, JS, Bootstrap",
@@ -550,12 +552,12 @@ export const projects: Project[] = [
     title: "Soundlogy - Genre Detection Application",
     description: "Focused on preparing the dataset for training, generation of spectrograms, extracting features of MFCCs, developing classification algorithms and a web interface to interact with the ML model. We developed MLP, RNN and CNN classification models, where we got the highest accuracy in CNN, which was 70% and the web interface took an audio file in .au format and the instructions to convert the widely used .mp3 format to the .au format were provided.",
     href: "https://github.com/anirudhbelwadi/music-application-using-machine-learning",
-    image: "/assets/images/projects/soundlogy.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/soundlogy.webp",
     imageAlt: "Soundlogy - Genre Detection Application",
     modal: {
       title: "Soundlogy - Genre Detection Application",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/soundlogy.webp", alt: "Soundlogy - Genre Detection Application" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/soundlogy.webp", alt: "Soundlogy - Genre Detection Application" },
         { kind: 'list', items: [
           "Focused on preparing the dataset for training, generation of spectrograms, extracting features of MFCCs, developing classification algorithms and a web interface to interact with the ML model.",
           "We developed MLP, RNN and CNN classification models, where we got the highest accuracy in CNN, which was 70% and the web interface took an audio file in.au format and the instructions to convert the widely used.mp3 format to the.au format were provided.",
@@ -571,12 +573,12 @@ export const projects: Project[] = [
     title: "HaleAI Website",
     description: "Developed web applications for Covid, Brain Tumor, Tuberculosis, Diabetic Retinopathy and Fatal Brain Diseases which led to the transformation of the present system of diagnosis and treatment in the healthcare system. Developed the informative webpage.",
     href: "https://www.instagram.com/haleai03/",
-    image: "/assets/images/projects/haleai.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/haleai.webp",
     imageAlt: "HaleAI Website",
     modal: {
       title: "HaleAI Website",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/haleai.webp", alt: "HaleAI Website" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/haleai.webp", alt: "HaleAI Website" },
         { kind: 'list', items: [
           "Developed web applications for Covid, Brain Tumor, Tuberculosis, Diabetic Retinopathy and Fatal Brain Diseases which led to the transformation of the present system of diagnosis and treatment in the healthcare system.",
           "Developed the informative webpage.",
@@ -595,12 +597,12 @@ export const projects: Project[] = [
     title: "Advanced Python Math Library",
     description: "This is a project for developing a math library in python wherein we try to include functions not supported by the official Math module of Python.",
     href: "https://github.com/snehil03july/mathpy",
-    image: "/assets/images/projects/math_python.webp",
+    image: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/math_python.webp",
     imageAlt: "Advanced Python Math Library",
     modal: {
       title: "Advanced Python Math Library",
       blocks: [
-        { kind: 'image', src: "/assets/images/projects/math_python.webp", alt: "Advanced Python Math Library" },
+        { kind: 'image', src: "https://anirudhbelwadiportfolio.pythonanywhere.com/content/images/projects/math_python.webp", alt: "Advanced Python Math Library" },
         { kind: 'list', items: [
           "This is a project for developing a math library in python wherein we try to include functions not supported by the official Math module of Python.",
         ] },

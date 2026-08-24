@@ -228,7 +228,7 @@ def main() -> int:
     dry_run = os.environ.get("PA_DRY_RUN", "").lower() in {"1", "true", "yes"}
 
     if os.environ.get("PA_MODE", "").lower() == "images":
-        source = Path(os.environ.get("PA_IMAGE_DIR", "public/assets/images")).resolve()
+        source = Path(os.environ.get("PA_IMAGE_DIR", "backend-service/image_seed")).resolve()
         if not source.is_dir():
             raise DeployError(f"Image directory not found: {source}")
         if dry_run:

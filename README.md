@@ -131,27 +131,38 @@ Two things to know about it:
 
 ### Images
 
-Content images are served from the backend at `/content/images/<path>` so they
-can be added without a frontend redeploy.
+Project and recommendation images are served **only** by the backend, at
+`/content/images/<path>`. The frontend carries no copy of them: `public/assets/`
+holds just the admit logos, profile photos, and UI chrome.
 
-The database stores frontend-relative paths (`/assets/images/...`), not absolute
-URLs, and they are rewritten on the way out — but **only for images that are
-actually present on the backend**. An image that has not been copied across
-keeps its original path and carries on being served by GitHub Pages, so the two
-can be migrated in any order with no window of broken images.
+The database stores frontend-relative paths (`/assets/images/...`) rather than
+absolute URLs, and the backend turns them into absolute URLs on read — but only
+for images actually present on the backend. That keeps the stored data
+host-independent, so moving images elsewhere is a config change rather than a
+data migration, and a partially migrated library never yields broken images.
 
-`npm run sync-content` rewrites backend URLs back to paths when refreshing the
-snapshot. That is deliberate: the snapshot is what renders when the backend is
-unreachable, so it must not point at the backend.
+Because of this, the two sync scripts translate in opposite directions:
 
-Copy the image library across:
+| Script | Direction | Image URLs |
+| --- | --- | --- |
+| `npm run sync-content` | API → snapshot | keeps absolute backend URLs |
+| `npm run export-content` | snapshot → seed | strips the host back to paths |
+
+**Trade-off to be aware of:** if the backend is down, the frontend still renders
+all text from its snapshot, but project and recommendation images will be
+broken. There is no frontend copy to fall back to. Admit logos and profile
+photos are unaffected — they are still served by GitHub Pages.
+
+`backend-service/image_seed/` is the tracked master copy, and the only backup of
+these images outside the PythonAnywhere account. Copy them across with:
 
 ```bash
 gh workflow run deploy-backend.yml -f mode=images
 ```
 
-Uploads at runtime are disabled unless `CONTENT_UPLOAD_TOKEN` is set in the
-PythonAnywhere environment. Once set:
+Runtime uploads land in `backend-service/content_images/` on the server, which
+is gitignored and not overwritten by deploys. They are refused unless
+`CONTENT_UPLOAD_TOKEN` is set in the PythonAnywhere environment:
 
 ```bash
 curl -X POST https://<host>/content/images \
@@ -162,6 +173,10 @@ curl -X POST https://<host>/content/images \
 Only `.webp`, `.png`, `.jpg`, `.jpeg` and `.gif` are accepted, at 5MB each. SVG
 is excluded because it can carry script and these are served from the same
 origin as the analytics dashboard.
+
+**Anything uploaded at runtime exists only on PythonAnywhere.** Pull a copy into
+`image_seed/` if you want it backed up.
+
 
 ### Required settings
 

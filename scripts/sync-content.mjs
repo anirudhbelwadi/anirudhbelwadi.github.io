@@ -12,18 +12,16 @@ const API = process.env.CONTENT_API ?? 'https://anirudhbelwadiportfolio.pythonan
 const q = (value) => JSON.stringify(value);
 
 /**
- * The API serves images from the backend host. The snapshot must not: it is
- * what renders when that host is unreachable, so it keeps frontend-relative
- * paths and is served by the frontend's own CDN.
+ * Project and recommendation images live only on the backend now, so the
+ * snapshot keeps the absolute URLs the API returns. The trade-off is that a
+ * backend outage leaves those images broken while the text still renders from
+ * the snapshot — the frontend no longer holds a copy to fall back to.
  */
-const toLocalPath = (url) =>
-  typeof url === 'string'
-    ? url.replace(/^https?:\/\/[^/]+\/content\/images\//, '/assets/images/')
-    : url;
+const imageUrl = (url) => url;
 
 const blockSource = (block) => {
   if (block.kind === 'image') {
-    return `{ kind: 'image', src: ${q(toLocalPath(block.src))}${block.alt ? `, alt: ${q(block.alt)}` : ''} }`;
+    return `{ kind: 'image', src: ${q(imageUrl(block.src))}${block.alt ? `, alt: ${q(block.alt)}` : ''} }`;
   }
   if (block.kind === 'heading') return `{ kind: 'heading', text: ${q(block.text)} }`;
   if (block.kind === 'list') {
@@ -78,7 +76,7 @@ await writeFile(
           `    title: ${q(p.title)},`,
           `    description: ${q(p.description)},`,
           p.href ? `    href: ${q(p.href)},` : null,
-          `    image: ${q(toLocalPath(p.image))},`,
+          `    image: ${q(imageUrl(p.image))},`,
           p.imageAlt ? `    imageAlt: ${q(p.imageAlt)},` : null,
           p.hidden ? '    hidden: true,' : null,
           `    modal: ${modalSource(p.modal, 4)},`,
@@ -102,7 +100,7 @@ await writeFile(
           `    id: ${q(r.id)},`,
           `    name: ${q(r.name)},`,
           `    role: ${q(r.role)},`,
-          `    avatar: ${q(toLocalPath(r.avatar))},`,
+          `    avatar: ${q(imageUrl(r.avatar))},`,
           `    excerpt: ${q(r.excerpt)},`,
           `    modal: ${modalSource(r.modal, 4)},`,
           '  },',

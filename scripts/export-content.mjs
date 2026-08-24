@@ -28,7 +28,30 @@ try {
     pathToFileURL(join(outDir, 'recommendations.js')).href
   );
 
-  const payload = { projects, recommendations };
+  // The database stores host-independent paths; the backend turns them into
+  // absolute URLs on read. The snapshot this is generated from holds those
+  // absolute URLs, so strip the host back off before seeding.
+  const toStoredPath = (url) =>
+    typeof url === 'string'
+      ? url.replace(/^https?:\/\/[^/]+\/content\/images\//, '/assets/images/')
+      : url;
+
+  const normalise = (item) => ({
+    ...item,
+    ...(item.image ? { image: toStoredPath(item.image) } : {}),
+    ...(item.avatar ? { avatar: toStoredPath(item.avatar) } : {}),
+    modal: {
+      ...item.modal,
+      blocks: item.modal.blocks.map((block) =>
+        block.kind === 'image' ? { ...block, src: toStoredPath(block.src) } : block
+      ),
+    },
+  });
+
+  const payload = {
+    projects: projects.map(normalise),
+    recommendations: recommendations.map(normalise),
+  };
   const target = process.argv[2] ?? 'backend-service/content_seed.json';
   await writeFile(target, JSON.stringify(payload, null, 2) + '\n');
 
