@@ -8,6 +8,8 @@ on:
       - 'backend-service/**'
       - '.github/scripts/deploy_pythonanywhere.py'
       - '.github/workflows/deploy-backend.yml'
+      - '.github/scripts/renew_pythonanywhere.py'
+      - '.github/workflows/renew-pythonanywhere.yml'
       - 'README.md'
   workflow_dispatch:
 
