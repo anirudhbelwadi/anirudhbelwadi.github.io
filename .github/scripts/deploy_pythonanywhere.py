@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import os
 import sys
+import time
 from pathlib import Path
 
 import requests
@@ -124,6 +125,35 @@ def reload_webapp(session: requests.Session, api_root: str, domain: str) -> None
         )
 
 
+def verify_live(domain: str, attempts: int = 6, delay: int = 5) -> None:
+    """Confirm the web app actually serves traffic after the reload.
+
+    A reload that returns 200 from the API can still leave a broken app (import
+    error, bad template), so the deploy is not considered successful until the
+    site answers.
+    """
+    url = f"https://{domain}/"
+    last = ""
+    for attempt in range(1, attempts + 1):
+        try:
+            response = requests.get(url, timeout=20)
+            if response.status_code == 200:
+                print(f"  healthy ({response.status_code}) after {attempt} attempt(s)")
+                return
+            last = f"HTTP {response.status_code}"
+        except requests.RequestException as error:
+            last = str(error)
+        print(f"  attempt {attempt}/{attempts}: {last}")
+        if attempt < attempts:
+            time.sleep(delay)
+
+    raise DeployError(
+        f"Files uploaded and reloaded, but {url} is not healthy ({last}).\n"
+        "The application directory has already been updated — check the "
+        "PythonAnywhere error log and roll back if needed."
+    )
+
+
 def main() -> int:
     dry_run = os.environ.get("PA_DRY_RUN", "").lower() in {"1", "true", "yes"}
 
@@ -163,13 +193,30 @@ def main() -> int:
     session.headers["Authorization"] = f"Token {token}"
 
     print(f"\nUploading to {host}:{remote_dir}")
-    for relative in manifest:
-        outcome = upload(session, api_root, remote_dir, source_root, relative)
-        print(f"  {outcome:<8} {relative.as_posix()}")
+    completed: list[Path] = []
+    try:
+        for relative in manifest:
+            outcome = upload(session, api_root, remote_dir, source_root, relative)
+            completed.append(relative)
+            print(f"  {outcome:<8} {relative.as_posix()}")
+    except DeployError:
+        # Uploads are not transactional, so say exactly how far we got.
+        print(
+            f"\nUpload aborted after {len(completed)}/{len(manifest)} files. "
+            "The app directory is in a mixed state and was NOT reloaded.",
+            file=sys.stderr,
+        )
+        for relative in completed:
+            print(f"  already uploaded: {relative.as_posix()}", file=sys.stderr)
+        raise
 
     print(f"\nReloading {domain}")
     reload_webapp(session, api_root, domain)
-    print("Done.")
+
+    print(f"\nVerifying https://{domain}/")
+    verify_live(domain)
+
+    print("\nDone.")
     return 0
 
 

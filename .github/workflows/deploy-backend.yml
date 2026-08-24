@@ -22,6 +22,12 @@ concurrency:
   group: pythonanywhere
   cancel-in-progress: false
 
+defaults:
+  run:
+    # -u catches typo'd variable names, -o pipefail stops a failure mid-pipeline
+    # from being masked by a successful tail command.
+    shell: bash -euo pipefail {0}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -31,6 +37,7 @@ jobs:
       PA_DOMAIN: ${{ vars.PA_DOMAIN }}
       PA_REMOTE_DIR: ${{ vars.PA_REMOTE_DIR }}
       PA_HOST: ${{ vars.PA_HOST || 'www.pythonanywhere.com' }}
+      DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -48,21 +55,28 @@ jobs:
           PA_DRY_RUN: 'true'
         run: python .github/scripts/deploy_pythonanywhere.py
 
-      - name: Check configuration
-        id: config
+      # A deploy that cannot run is a failure, not a warning: a silently skipped
+      # deploy is indistinguishable from a successful one in the Actions list.
+      - name: Require configuration
+        if: ${{ env.DRY_RUN != 'true' }}
         run: |
-          missing=
-          [ -n "$PA_API_TOKEN" ]  || missing="$missing PA_API_TOKEN(secret)"
-          [ -n "$PA_USERNAME" ]   || missing="$missing PA_USERNAME(variable)"
-          [ -n "$PA_DOMAIN" ]     || missing="$missing PA_DOMAIN(variable)"
-          [ -n "$PA_REMOTE_DIR" ] || missing="$missing PA_REMOTE_DIR(variable)"
-          if [ -n "$missing" ]; then
-            echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::warning title=Backend deploy skipped::Not configured yet. Missing:$missing"
-          else
-            echo "ready=true" >> "$GITHUB_OUTPUT"
+          missing=()
+          [ -n "${PA_API_TOKEN:-}" ]  || missing+=("PA_API_TOKEN (repository secret)")
+          [ -n "${PA_USERNAME:-}" ]   || missing+=("PA_USERNAME (repository variable)")
+          [ -n "${PA_DOMAIN:-}" ]     || missing+=("PA_DOMAIN (repository variable)")
+          [ -n "${PA_REMOTE_DIR:-}" ] || missing+=("PA_REMOTE_DIR (repository variable)")
+
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error title=Backend deploy not configured::Missing ${#missing[@]} setting(s)"
+            printf 'Missing required setting: %s\n' "${missing[@]}" >&2
+            echo >&2
+            echo "Set them with:" >&2
+            echo "  gh secret set PA_API_TOKEN" >&2
+            echo "  gh variable set PA_REMOTE_DIR --body /home/<user>/<app-dir>" >&2
+            exit 1
           fi
+          echo "All required settings present."
 
       - name: Upload and reload
-        if: ${{ steps.config.outputs.ready == 'true' && github.event.inputs.dry_run != 'true' }}
+        if: ${{ env.DRY_RUN != 'true' }}
         run: python .github/scripts/deploy_pythonanywhere.py
