@@ -132,36 +132,28 @@ Two things to know about it:
 ### Images
 
 Project and recommendation images are served **only** by the backend, at
-`/content/images/<path>`. The frontend carries no copy of them: `public/assets/`
-holds just the admit logos, profile photos, and UI chrome.
+`/content/images/<path>`. The frontend carries no copy: `public/assets/` holds
+just the admit logos, profile photos and UI chrome.
 
 The database stores frontend-relative paths (`/assets/images/...`) rather than
 absolute URLs, and the backend turns them into absolute URLs on read — but only
 for images actually present on the backend. That keeps the stored data
 host-independent, so moving images elsewhere is a config change rather than a
-data migration, and a partially migrated library never yields broken images.
+data migration.
 
-Because of this, the two sync scripts translate in opposite directions:
+The two sync scripts therefore translate in opposite directions:
 
 | Script | Direction | Image URLs |
 | --- | --- | --- |
 | `npm run sync-content` | API → snapshot | keeps absolute backend URLs |
 | `npm run export-content` | snapshot → seed | strips the host back to paths |
 
-**Trade-off to be aware of:** if the backend is down, the frontend still renders
-all text from its snapshot, but project and recommendation images will be
-broken. There is no frontend copy to fall back to. Admit logos and profile
-photos are unaffected — they are still served by GitHub Pages.
+> **The PythonAnywhere account is the only copy of these images.**
+> They are not in git and there is no restore path. Losing the account loses
+> them permanently, and the site will show broken project and recommendation
+> images with no way to recover. Keep your own copies of anything you upload.
 
-`backend-service/image_seed/` is the tracked master copy, and the only backup of
-these images outside the PythonAnywhere account. Copy them across with:
-
-```bash
-gh workflow run deploy-backend.yml -f mode=images
-```
-
-Runtime uploads land in `backend-service/content_images/` on the server, which
-is gitignored and not overwritten by deploys. They are refused unless
+Adding an image means uploading it to the backend. Uploads are refused unless
 `CONTENT_UPLOAD_TOKEN` is set in the PythonAnywhere environment:
 
 ```bash
@@ -174,8 +166,19 @@ Only `.webp`, `.png`, `.jpg`, `.jpeg` and `.gif` are accepted, at 5MB each. SVG
 is excluded because it can carry script and these are served from the same
 origin as the analytics dashboard.
 
-**Anything uploaded at runtime exists only on PythonAnywhere.** Pull a copy into
-`image_seed/` if you want it backed up.
+Delete images that are no longer referenced:
+
+```bash
+gh workflow run deploy-backend.yml -f mode=prune-images \
+  -f prune_list="projects/old.webp,projects/older.webp"
+```
+
+It refuses to delete anything the content API still references, but it cannot
+undo a delete — there is no second copy.
+
+**A second consequence:** if the backend is down, the frontend still renders all
+text from its snapshot, but project and recommendation images will be broken.
+Admit logos and profile photos are unaffected, being served by GitHub Pages.
 
 
 ### Required settings

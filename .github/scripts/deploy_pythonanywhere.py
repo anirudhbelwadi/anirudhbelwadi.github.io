@@ -159,41 +159,6 @@ def verify_live(domain: str, attempts: int = 6, delay: int = 5) -> None:
     )
 
 
-def upload_images(session: requests.Session, api_root: str, remote_dir: str,
-                  source_root: Path, dry_run: bool) -> None:
-    """Copy the frontend's image tree into the backend's content_images/.
-
-    Separate from the application manifest: these are large, they rarely change,
-    and re-sending 7MB on every code deploy would be wasteful. The backend only
-    rewrites an image URL once the file is actually present, so running this
-    late is safe.
-    """
-    files = sorted(p for p in source_root.rglob("*") if p.is_file())
-    files = [p for p in files if p.suffix.lower() in {".webp", ".png", ".jpg", ".jpeg", ".gif"}]
-    if not files:
-        raise DeployError(f"No images found under {source_root}")
-
-    total = sum(p.stat().st_size for p in files)
-    print(f"{len(files)} images, {total / 1024 / 1024:.1f} MB from {source_root}")
-    if dry_run:
-        for path in files:
-            print(f"  {path.relative_to(source_root).as_posix()}")
-        print("\nPA_DRY_RUN set — nothing was uploaded.")
-        return
-
-    # A steady trickle keeps the run under the API's rate limit; the retry
-    # handles the cases where it still pushes back.
-    for index, path in enumerate(files, start=1):
-        relative = Path("content_images") / path.relative_to(source_root)
-        outcome = _upload_absolute(session, api_root, remote_dir, path, relative)
-        print(f"  [{index}/{len(files)}] {outcome:<8} {relative.as_posix()}")
-        if index < len(files):
-            time.sleep(1.5)
-
-
-# PythonAnywhere throttles the API and reports how long to wait in the body.
-THROTTLE_HINT = re.compile(r"available in (\d+) seconds")
-
 
 def _upload_absolute(session: requests.Session, api_root: str, remote_dir: str,
                      local: Path, relative: Path, attempts: int = 6) -> str:
@@ -227,27 +192,38 @@ def _upload_absolute(session: requests.Session, api_root: str, remote_dir: str,
 def prune_images(dry_run: bool) -> int:
     """Delete named images from the backend.
 
-    Deliberately driven by an explicit list rather than by diffing against
-    image_seed/: images uploaded at runtime through the dashboard exist only on
-    the server, and a diff-based prune would delete every one of them.
+    Driven by an explicit list. The server is the only place images live, so
+    there is nothing to diff against and no way to undo a wrong delete — the
+    caller names exactly what goes, and anything the content API still
+    references is refused.
     """
     raw = os.environ.get("PA_PRUNE_LIST", "")
     wanted = [line.strip() for line in raw.replace(",", "\n").splitlines() if line.strip()]
     if not wanted:
         raise DeployError("PA_PRUNE_LIST is empty — nothing to prune")
 
-    seed_root = Path("backend-service/image_seed")
-    protected = {
-        str(path.relative_to(seed_root))
-        for path in seed_root.rglob("*")
-        if path.is_file()
-    } if seed_root.is_dir() else set()
+    # The server is the only home for images now, so "in use" is decided by the
+    # content API rather than by anything in the repo.
+    in_use = set()
+    base = os.environ.get("PA_PUBLIC_URL", "").rstrip("/")
+    if base:
+        for path, key in (("/content/projects", "projects"), ("/content/recommendations", "recommendations")):
+            reply = requests.get(f"{base}{path}", timeout=30)
+            reply.raise_for_status()
+            for item in reply.json()[key]:
+                for field in ("image", "avatar"):
+                    if item.get(field):
+                        in_use.add(item[field].rsplit("/content/images/", 1)[-1])
+                for block in item.get("modal", {}).get("blocks", []):
+                    if block.get("kind") == "image":
+                        in_use.add(block["src"].rsplit("/content/images/", 1)[-1])
+    else:
+        raise DeployError("PA_PUBLIC_URL is required so the prune can tell what is in use")
 
-    # Never delete something the content actually needs.
-    collisions = sorted(set(wanted) & protected)
+    collisions = sorted(set(wanted) & in_use)
     if collisions:
         raise DeployError(
-            "Refusing to prune — these are still in image_seed/ and in use:\n  "
+            "Refusing to prune — these are still referenced by the content API:\n  "
             + "\n  ".join(collisions)
         )
 
@@ -293,22 +269,6 @@ def main() -> int:
     if os.environ.get("PA_MODE", "").lower() == "prune-images":
         return prune_images(dry_run)
 
-    if os.environ.get("PA_MODE", "").lower() == "images":
-        source = Path(os.environ.get("PA_IMAGE_DIR", "backend-service/image_seed")).resolve()
-        if not source.is_dir():
-            raise DeployError(f"Image directory not found: {source}")
-        if dry_run:
-            upload_images(None, "", "", source, True)
-            return 0
-        token = require_env("PA_API_TOKEN")
-        username = require_env("PA_USERNAME")
-        remote_dir = require_env("PA_REMOTE_DIR")
-        host = os.environ.get("PA_HOST", "www.pythonanywhere.com").strip()
-        session = requests.Session()
-        session.headers["Authorization"] = f"Token {token}"
-        upload_images(session, f"https://{host}/api/v0/user/{username}", remote_dir, source, False)
-        print("\nDone.")
-        return 0
 
     source_root = Path(os.environ.get("PA_SOURCE_DIR", "backend-service")).resolve()
     if not source_root.is_dir():

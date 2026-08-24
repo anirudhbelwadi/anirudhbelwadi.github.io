@@ -14,9 +14,9 @@ on:
         type: boolean
         default: false
       mode:
-        description: 'app = code and templates; images = copy the library across; prune-images = delete the listed images'
+        description: 'app = code and templates; prune-images = delete the listed images'
         type: choice
-        options: [app, images, prune-images]
+        options: [app, prune-images]
         default: app
       prune_list:
         description: 'prune-images only: comma-separated paths relative to content_images/'
@@ -49,6 +49,7 @@ jobs:
       DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
       PA_MODE: ${{ github.event.inputs.mode || 'app' }}
       PA_PRUNE_LIST: ${{ github.event.inputs.prune_list || '' }}
+      PA_PUBLIC_URL: https://${{ vars.PA_DOMAIN }}
 
     steps:
       - uses: actions/checkout@v4
