@@ -224,8 +224,74 @@ def _upload_absolute(session: requests.Session, api_root: str, remote_dir: str,
     raise DeployError(f"Gave up on {relative} after {attempts} throttled attempts")
 
 
+def prune_images(dry_run: bool) -> int:
+    """Delete named images from the backend.
+
+    Deliberately driven by an explicit list rather than by diffing against
+    image_seed/: images uploaded at runtime through the dashboard exist only on
+    the server, and a diff-based prune would delete every one of them.
+    """
+    raw = os.environ.get("PA_PRUNE_LIST", "")
+    wanted = [line.strip() for line in raw.replace(",", "\n").splitlines() if line.strip()]
+    if not wanted:
+        raise DeployError("PA_PRUNE_LIST is empty — nothing to prune")
+
+    seed_root = Path("backend-service/image_seed")
+    protected = {
+        str(path.relative_to(seed_root))
+        for path in seed_root.rglob("*")
+        if path.is_file()
+    } if seed_root.is_dir() else set()
+
+    # Never delete something the content actually needs.
+    collisions = sorted(set(wanted) & protected)
+    if collisions:
+        raise DeployError(
+            "Refusing to prune — these are still in image_seed/ and in use:\n  "
+            + "\n  ".join(collisions)
+        )
+
+    print(f"Pruning {len(wanted)} images")
+    for relative in wanted:
+        print(f"  {relative}")
+
+    if dry_run:
+        print("\nPA_DRY_RUN set — nothing was deleted.")
+        return 0
+
+    token = require_env("PA_API_TOKEN")
+    username = require_env("PA_USERNAME")
+    remote_dir = require_env("PA_REMOTE_DIR")
+    host = os.environ.get("PA_HOST", "www.pythonanywhere.com").strip()
+
+    session = requests.Session()
+    session.headers["Authorization"] = f"Token {token}"
+    api_root = f"https://{host}/api/v0/user/{username}"
+
+    for index, relative in enumerate(wanted, start=1):
+        remote_path = f"{remote_dir.rstrip('/')}/content_images/{relative}"
+        response = session.delete(f"{api_root}/files/path{remote_path}")
+        if response.status_code in (204, 200):
+            print(f"  [{index}/{len(wanted)}] deleted  {relative}")
+        elif response.status_code == 404:
+            print(f"  [{index}/{len(wanted)}] absent   {relative}")
+        else:
+            raise DeployError(
+                f"Delete failed for {relative} (HTTP {response.status_code}): "
+                f"{response.text[:200]}"
+            )
+        if index < len(wanted):
+            time.sleep(1.5)
+
+    print("\nDone.")
+    return 0
+
+
 def main() -> int:
     dry_run = os.environ.get("PA_DRY_RUN", "").lower() in {"1", "true", "yes"}
+
+    if os.environ.get("PA_MODE", "").lower() == "prune-images":
+        return prune_images(dry_run)
 
     if os.environ.get("PA_MODE", "").lower() == "images":
         source = Path(os.environ.get("PA_IMAGE_DIR", "backend-service/image_seed")).resolve()

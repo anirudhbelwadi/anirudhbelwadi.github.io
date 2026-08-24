@@ -14,10 +14,14 @@ on:
         type: boolean
         default: false
       mode:
-        description: 'app = code and templates; images = copy the image library across'
+        description: 'app = code and templates; images = copy the library across; prune-images = delete the listed images'
         type: choice
-        options: [app, images]
+        options: [app, images, prune-images]
         default: app
+      prune_list:
+        description: 'prune-images only: comma-separated paths relative to content_images/'
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -44,6 +48,7 @@ jobs:
       PA_HOST: ${{ vars.PA_HOST || 'www.pythonanywhere.com' }}
       DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
       PA_MODE: ${{ github.event.inputs.mode || 'app' }}
+      PA_PRUNE_LIST: ${{ github.event.inputs.prune_list || '' }}
 
     steps:
       - uses: actions/checkout@v4
