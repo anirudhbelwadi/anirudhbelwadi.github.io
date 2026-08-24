@@ -2,17 +2,8 @@
 // Edit this file to add or change content — no JSX changes needed.
 import type { Project, ProjectCategory } from '../types';
 
-export const projectCategories: ProjectCategory[] = [
-  { id: "all", label: "All projects" },
-  { id: "professional", label: "Professional" },
-  { id: "portfolios", label: "Portfolios" },
-  { id: "research", label: "Research" },
-  { id: "client", label: "Client" },
-  { id: "internships", label: "Internships" },
-  { id: "hackathons", label: "Hackathons" },
-  { id: "student", label: "Student Clubs" },
-  { id: "mini", label: "Mini Projects" },
-];
+export { projectCategories } from './projectCategories';
+export type { ProjectCategory };
 
 export const projects: Project[] = [
   {

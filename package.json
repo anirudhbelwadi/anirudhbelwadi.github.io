@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "sync-content": "node scripts/sync-content.mjs",
+    "export-content": "node scripts/export-content.mjs"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",

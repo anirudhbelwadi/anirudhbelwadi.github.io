@@ -1,11 +1,15 @@
 import { useMemo, useState } from 'react';
-import { projectCategories, projects } from '../data/projects';
-import type { ModalContent } from '../types';
+import { projectCategories } from '../data/projects';
+import type { ModalContent, Project } from '../types';
 import { InfoModal } from './InfoModal';
 
 const ALL = 'all';
 
-export function Projects() {
+interface ProjectsProps {
+  projects: Project[];
+}
+
+export function Projects({ projects }: ProjectsProps) {
   const [activeCategory, setActiveCategory] = useState<string>(ALL);
   const [openModal, setOpenModal] = useState<ModalContent | null>(null);
 
@@ -14,7 +18,7 @@ export function Projects() {
       projects.filter(
         (project) => !project.hidden && (activeCategory === ALL || project.category === activeCategory)
       ),
-    [activeCategory]
+    [activeCategory, projects]
   );
 
   // Matches the pre-React behaviour: re-clicking the active chip is a no-op;

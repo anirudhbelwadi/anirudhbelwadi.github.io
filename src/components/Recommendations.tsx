@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { recommendations } from "../data/recommendations";
 import { useGlider } from "../hooks/useGlider";
-import type { ModalContent } from "../types";
+import type { ModalContent, Recommendation } from "../types";
 import { InfoModal } from "./InfoModal";
 
 const GLIDER_OPTIONS = {
@@ -15,7 +14,11 @@ const GLIDER_OPTIONS = {
   ],
 };
 
-export function Recommendations() {
+interface RecommendationsProps {
+  recommendations: Recommendation[];
+}
+
+export function Recommendations({ recommendations }: RecommendationsProps) {
   const { trackRef, dotsRef } = useGlider(GLIDER_OPTIONS);
   const [openModal, setOpenModal] = useState<ModalContent | null>(null);
 

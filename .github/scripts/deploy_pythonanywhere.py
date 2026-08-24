@@ -26,9 +26,12 @@ import requests
 # Individual files, relative to backend-service/.
 FILES = [
     "flask_app.py",
+    "content.py",
     "country_code.py",
     "fetch_gist.py",
     "requirements.txt",
+    # Seeds the content tables on first run only; never overwrites live rows.
+    "content_seed.json",
 ]
 
 # Directories deployed in full, relative to backend-service/.

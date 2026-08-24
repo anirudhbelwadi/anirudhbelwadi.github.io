@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 from country_code import clean_row_country
 import json
 from fetch_gist import fetch_gist_json
+import content
 
 current_timezone = pytz.timezone('America/New_York')
 app = Flask(__name__)
@@ -24,6 +25,24 @@ def source_config_batch():
             continue
         resolved[source] = resolveSourceFromConfig(config_data, source)
     return jsonify({"mapping": resolved})
+
+@app.route('/content/projects', methods=["GET"])
+def content_projects():
+    response = jsonify({"projects": content.get_projects()})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    # The frontend keeps a bundled copy as a fallback, so a short cache is safe
+    # and keeps the page fast without making edits wait long to appear.
+    response.headers.add('Cache-Control', 'public, max-age=300')
+    return response
+
+
+@app.route('/content/recommendations', methods=["GET"])
+def content_recommendations():
+    response = jsonify({"recommendations": content.get_recommendations()})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Cache-Control', 'public, max-age=300')
+    return response
+
 
 @app.route('/')
 def analytics_readme():

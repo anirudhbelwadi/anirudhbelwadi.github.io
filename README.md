@@ -45,13 +45,40 @@ Content lives in `src/data/` as typed data, not in JSX. To add or change a
 project, recommendation, or admit, edit the relevant file — no component changes
 needed:
 
-| File | Contents |
+| Where | Contents |
 | --- | --- |
-| `src/data/projects.ts` | Project cards, their categories, and modal bodies |
-| `src/data/recommendations.ts` | Carousel slides and their modal bodies |
+| **Backend** `projects` table | Project cards and modal bodies |
+| **Backend** `recommendations` table | Carousel slides and modal bodies |
 | `src/data/admits.ts` | Admit logos and links |
 | `src/data/profile.ts` | Name, tagline, about text, social links |
+| `src/data/projectCategories.ts` | Filter chips (structural — the UI depends on the ids) |
 | `src/config.ts` | Third-party endpoints and keys |
+
+### Projects and recommendations come from the backend
+
+These two are served from `/content/projects` and `/content/recommendations` so
+they can change without a redeploy.
+
+The frontend renders the snapshot in `src/data/projects.ts` and
+`src/data/recommendations.ts` immediately, then swaps in the API response when it
+arrives. There is no spinner, no layout shift on a slow backend, and nothing
+blank if the backend is expired or down — which matters because the free tier
+expires monthly. In the normal case the two are identical and the swap is
+invisible.
+
+Editing `src/data/projects.ts` by hand therefore only changes what shows during
+an outage. Real edits go in the database.
+
+Refresh the snapshot from production before a deploy:
+
+```bash
+npm run sync-content
+```
+
+The backend creates and seeds its content tables on first request from
+`backend-service/content_seed.json`, and **only seeds a table that is empty** —
+so a redeploy carrying a stale seed will not overwrite live rows. Regenerate the
+seed from the current frontend snapshot with `npm run export-content`.
 
 Modal bodies are an ordered list of blocks (`image`, `heading`, `paragraph`,
 `list`). Text may embed links with markdown syntax: `[label](https://url)`.
