@@ -69,6 +69,50 @@ site and publishes `dist/` to GitHub Pages. The Pages source must be set to
 
 `public/CNAME` keeps the custom domain attached on every deploy.
 
+## Backend deployment
+
+Pushing changes under `backend-service/` triggers
+`.github/workflows/deploy-backend.yml`, which uploads the application files over
+the PythonAnywhere Files API and reloads the web app.
+
+The live SQLite database sits in the same directory as the code, so the deploy
+works from an explicit allowlist in `.github/scripts/deploy_pythonanywhere.py`
+and a second guard aborts the run if anything protected reaches the manifest.
+`database.db` and `source_config.json` are never uploaded.
+
+Preview what would deploy without uploading:
+
+```bash
+gh workflow run deploy-backend.yml -f dry_run=true
+```
+
+Uploading `requirements.txt` does not install anything. After a dependency
+change, run `pip install -r requirements.txt` in a PythonAnywhere console.
+
+### Keeping the web app alive
+
+Free-tier web apps expire every 30 days. PythonAnywhere has no API for renewal,
+so `.github/workflows/renew-pythonanywhere.yml` drives the web form weekly and
+opens an issue if it fails.
+
+Two things to know about it:
+
+- It needs the account password (`PA_PASSWORD`), not the scoped API token,
+  because the renewal form is behind session auth.
+- GitHub disables scheduled workflows after 60 days without repository activity.
+  If this repo goes quiet, the renewals stop and the web app will expire.
+
+### Required settings
+
+| Setting | Kind | Purpose |
+| --- | --- | --- |
+| `PA_API_TOKEN` | secret | Files API uploads and reload |
+| `PA_PASSWORD` | secret | Web-form login for renewal |
+| `PA_USERNAME` | variable | PythonAnywhere account name |
+| `PA_DOMAIN` | variable | `<user>.pythonanywhere.com` |
+| `PA_REMOTE_DIR` | variable | App directory, e.g. `/home/<user>/mysite` |
+| `PA_HOST` | variable | Optional; `eu.pythonanywhere.com` for EU accounts |
+
 ## Analytics Dashboard
 
 The analytics dashboard tracks visits, sources, geolocation, and repeat visitors.
