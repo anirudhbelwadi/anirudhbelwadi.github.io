@@ -13,6 +13,8 @@ import json
 import os
 import sqlite3
 
+import images
+
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(THIS_FOLDER, 'database.db')
 SEED_FILE = os.path.join(THIS_FOLDER, 'content_seed.json')
@@ -64,6 +66,14 @@ def recommendation_to_row(index, item):
     )
 
 
+def rewrite_modal_images(modal):
+    """Point any image blocks at the public image host."""
+    for block in modal.get('blocks', []):
+        if block.get('kind') == 'image':
+            block['src'] = images.to_public_url(block.get('src'))
+    return modal
+
+
 def row_to_project(row):
     """Rebuild the exact shape the frontend already expects."""
     project = {
@@ -71,8 +81,8 @@ def row_to_project(row):
         'category': row['category'],
         'title': row['title'],
         'description': row['description'],
-        'image': row['image'],
-        'modal': json.loads(row['modal_json']),
+        'image': images.to_public_url(row['image']),
+        'modal': rewrite_modal_images(json.loads(row['modal_json'])),
     }
     # Optional keys are omitted rather than sent as null, so the payload matches
     # the frontend's optional-property types.
@@ -90,9 +100,9 @@ def row_to_recommendation(row):
         'id': row['id'],
         'name': row['name'],
         'role': row['role'],
-        'avatar': row['avatar'],
+        'avatar': images.to_public_url(row['avatar']),
         'excerpt': row['excerpt'],
-        'modal': json.loads(row['modal_json']),
+        'modal': rewrite_modal_images(json.loads(row['modal_json'])),
     }
 
 

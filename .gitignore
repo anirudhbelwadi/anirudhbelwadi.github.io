@@ -10,3 +10,6 @@ dist/
 *.local
 .vite/
 *.tsbuildinfo
+
+# Server-side image storage; lives on PythonAnywhere, not in git
+backend-service/content_images/

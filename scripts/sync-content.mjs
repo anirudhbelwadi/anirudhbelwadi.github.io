@@ -11,9 +11,19 @@ const API = process.env.CONTENT_API ?? 'https://anirudhbelwadiportfolio.pythonan
 
 const q = (value) => JSON.stringify(value);
 
+/**
+ * The API serves images from the backend host. The snapshot must not: it is
+ * what renders when that host is unreachable, so it keeps frontend-relative
+ * paths and is served by the frontend's own CDN.
+ */
+const toLocalPath = (url) =>
+  typeof url === 'string'
+    ? url.replace(/^https?:\/\/[^/]+\/content\/images\//, '/assets/images/')
+    : url;
+
 const blockSource = (block) => {
   if (block.kind === 'image') {
-    return `{ kind: 'image', src: ${q(block.src)}${block.alt ? `, alt: ${q(block.alt)}` : ''} }`;
+    return `{ kind: 'image', src: ${q(toLocalPath(block.src))}${block.alt ? `, alt: ${q(block.alt)}` : ''} }`;
   }
   if (block.kind === 'heading') return `{ kind: 'heading', text: ${q(block.text)} }`;
   if (block.kind === 'list') {
@@ -68,7 +78,7 @@ await writeFile(
           `    title: ${q(p.title)},`,
           `    description: ${q(p.description)},`,
           p.href ? `    href: ${q(p.href)},` : null,
-          `    image: ${q(p.image)},`,
+          `    image: ${q(toLocalPath(p.image))},`,
           p.imageAlt ? `    imageAlt: ${q(p.imageAlt)},` : null,
           p.hidden ? '    hidden: true,' : null,
           `    modal: ${modalSource(p.modal, 4)},`,
@@ -92,7 +102,7 @@ await writeFile(
           `    id: ${q(r.id)},`,
           `    name: ${q(r.name)},`,
           `    role: ${q(r.role)},`,
-          `    avatar: ${q(r.avatar)},`,
+          `    avatar: ${q(toLocalPath(r.avatar))},`,
           `    excerpt: ${q(r.excerpt)},`,
           `    modal: ${modalSource(r.modal, 4)},`,
           '  },',

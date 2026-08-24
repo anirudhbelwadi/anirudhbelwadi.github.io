@@ -10,9 +10,14 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'List the files that would deploy, upload nothing'
+        description: 'List what would deploy, upload nothing'
         type: boolean
         default: false
+      mode:
+        description: 'app = code and templates; images = copy the image library across'
+        type: choice
+        options: [app, images]
+        default: app
 
 permissions:
   contents: read
@@ -38,6 +43,7 @@ jobs:
       PA_REMOTE_DIR: ${{ vars.PA_REMOTE_DIR }}
       PA_HOST: ${{ vars.PA_HOST || 'www.pythonanywhere.com' }}
       DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+      PA_MODE: ${{ github.event.inputs.mode || 'app' }}
 
     steps:
       - uses: actions/checkout@v4

@@ -129,6 +129,40 @@ Two things to know about it:
 - GitHub disables scheduled workflows after 60 days without repository activity.
   If this repo goes quiet, the renewals stop and the web app will expire.
 
+### Images
+
+Content images are served from the backend at `/content/images/<path>` so they
+can be added without a frontend redeploy.
+
+The database stores frontend-relative paths (`/assets/images/...`), not absolute
+URLs, and they are rewritten on the way out — but **only for images that are
+actually present on the backend**. An image that has not been copied across
+keeps its original path and carries on being served by GitHub Pages, so the two
+can be migrated in any order with no window of broken images.
+
+`npm run sync-content` rewrites backend URLs back to paths when refreshing the
+snapshot. That is deliberate: the snapshot is what renders when the backend is
+unreachable, so it must not point at the backend.
+
+Copy the image library across:
+
+```bash
+gh workflow run deploy-backend.yml -f mode=images
+```
+
+Uploads at runtime are disabled unless `CONTENT_UPLOAD_TOKEN` is set in the
+PythonAnywhere environment. Once set:
+
+```bash
+curl -X POST https://<host>/content/images \
+  -H "Authorization: Bearer $CONTENT_UPLOAD_TOKEN" \
+  -F file=@local.webp -F path=projects/local.webp
+```
+
+Only `.webp`, `.png`, `.jpg`, `.jpeg` and `.gif` are accepted, at 5MB each. SVG
+is excluded because it can carry script and these are served from the same
+origin as the analytics dashboard.
+
 ### Required settings
 
 | Setting | Kind | Purpose |

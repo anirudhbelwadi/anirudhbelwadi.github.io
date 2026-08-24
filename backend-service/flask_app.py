@@ -9,6 +9,7 @@ from country_code import clean_row_country
 import json
 from fetch_gist import fetch_gist_json
 import content
+import images
 
 current_timezone = pytz.timezone('America/New_York')
 app = Flask(__name__)
@@ -25,6 +26,42 @@ def source_config_batch():
             continue
         resolved[source] = resolveSourceFromConfig(config_data, source)
     return jsonify({"mapping": resolved})
+
+@app.route('/content/images/<path:relative>', methods=["GET"])
+def content_image(relative):
+    response = images.serve(relative)
+    if response is None:
+        return jsonify({"error": "Not found"}), 404
+    return response
+
+
+@app.route('/content/images', methods=["POST"])
+def content_image_upload():
+    """Accept an image for the content library.
+
+    Inert until CONTENT_UPLOAD_TOKEN is set in the environment, so the endpoint
+    cannot be used before it has been deliberately enabled.
+    """
+    expected = images.upload_token()
+    if not expected:
+        return jsonify({"error": "Uploads are not enabled"}), 503
+
+    provided = request.headers.get('Authorization', '')
+    if not provided.startswith('Bearer ') or provided[7:] != expected:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    uploaded = request.files.get('file')
+    target = request.form.get('path', '')
+    if uploaded is None or not target:
+        return jsonify({"error": "Send a 'file' part and a 'path' field"}), 400
+
+    try:
+        stored = images.store(target, uploaded)
+    except ValueError as error:
+        return jsonify({"error": str(error)}), 400
+
+    return jsonify({"path": stored, "url": images.to_public_url(stored)}), 201
+
 
 @app.route('/content/projects', methods=["GET"])
 def content_projects():

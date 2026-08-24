@@ -27,6 +27,7 @@ import requests
 FILES = [
     "flask_app.py",
     "content.py",
+    "images.py",
     "country_code.py",
     "fetch_gist.py",
     "requirements.txt",
@@ -157,8 +158,67 @@ def verify_live(domain: str, attempts: int = 6, delay: int = 5) -> None:
     )
 
 
+def upload_images(session: requests.Session, api_root: str, remote_dir: str,
+                  source_root: Path, dry_run: bool) -> None:
+    """Copy the frontend's image tree into the backend's content_images/.
+
+    Separate from the application manifest: these are large, they rarely change,
+    and re-sending 7MB on every code deploy would be wasteful. The backend only
+    rewrites an image URL once the file is actually present, so running this
+    late is safe.
+    """
+    files = sorted(p for p in source_root.rglob("*") if p.is_file())
+    files = [p for p in files if p.suffix.lower() in {".webp", ".png", ".jpg", ".jpeg", ".gif"}]
+    if not files:
+        raise DeployError(f"No images found under {source_root}")
+
+    total = sum(p.stat().st_size for p in files)
+    print(f"{len(files)} images, {total / 1024 / 1024:.1f} MB from {source_root}")
+    if dry_run:
+        for path in files:
+            print(f"  {path.relative_to(source_root).as_posix()}")
+        print("\nPA_DRY_RUN set — nothing was uploaded.")
+        return
+
+    for path in files:
+        relative = Path("content_images") / path.relative_to(source_root)
+        outcome = _upload_absolute(session, api_root, remote_dir, path, relative)
+        print(f"  {outcome:<8} {relative.as_posix()}")
+
+
+def _upload_absolute(session: requests.Session, api_root: str, remote_dir: str,
+                     local: Path, relative: Path) -> str:
+    remote_path = f"{remote_dir.rstrip('/')}/{relative.as_posix()}"
+    with local.open("rb") as handle:
+        response = session.post(f"{api_root}/files/path{remote_path}", files={"content": handle})
+    if response.status_code == 201:
+        return "created"
+    if response.status_code == 200:
+        return "updated"
+    raise DeployError(
+        f"Upload failed for {relative} (HTTP {response.status_code}): {response.text[:200]}"
+    )
+
+
 def main() -> int:
     dry_run = os.environ.get("PA_DRY_RUN", "").lower() in {"1", "true", "yes"}
+
+    if os.environ.get("PA_MODE", "").lower() == "images":
+        source = Path(os.environ.get("PA_IMAGE_DIR", "public/assets/images")).resolve()
+        if not source.is_dir():
+            raise DeployError(f"Image directory not found: {source}")
+        if dry_run:
+            upload_images(None, "", "", source, True)
+            return 0
+        token = require_env("PA_API_TOKEN")
+        username = require_env("PA_USERNAME")
+        remote_dir = require_env("PA_REMOTE_DIR")
+        host = os.environ.get("PA_HOST", "www.pythonanywhere.com").strip()
+        session = requests.Session()
+        session.headers["Authorization"] = f"Token {token}"
+        upload_images(session, f"https://{host}/api/v0/user/{username}", remote_dir, source, False)
+        print("\nDone.")
+        return 0
 
     source_root = Path(os.environ.get("PA_SOURCE_DIR", "backend-service")).resolve()
     if not source_root.is_dir():
