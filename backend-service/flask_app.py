@@ -1,6 +1,9 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, make_response, redirect, render_template, request, session, url_for
 import sqlite3
 import os
+import hmac
+import secrets
+from functools import wraps
 from datetime import datetime, timedelta
 import requests
 import pytz
@@ -13,6 +16,31 @@ import images
 
 current_timezone = pytz.timezone('America/New_York')
 app = Flask(__name__)
+# Signs the admin session cookie. Until SECRET_KEY and ADMIN_PASSWORD are both set,
+# nobody can log in and the gated pages stay locked.
+app.secret_key = os.environ.get('SECRET_KEY')
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+    PERMANENT_SESSION_LIFETIME=timedelta(days=7),
+)
+
+def adminLoginConfigured():
+    return bool(app.secret_key) and bool(os.environ.get('ADMIN_PASSWORD'))
+
+def requireAdminLogin(view):
+    """Send anyone without an admin session to the login page."""
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        if not adminLoginConfigured() or not session.get('is_admin'):
+            return redirect(url_for('adminLogin'))
+        response = make_response(view(*args, **kwargs))
+        # Visitor data must not linger in browser or proxy caches after logout.
+        response.headers['Cache-Control'] = 'no-store'
+        return response
+    return wrapped
+
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/source-config/batch', methods=['POST'])
@@ -412,7 +440,41 @@ def viewVisitors():
     database_connection.close()
     return render_template('index.html', count = count, visitors=visitors, analytics_data = analytics_data)
 
+@app.route('/admin/login/', methods=["GET", "POST"])
+def adminLogin():
+    if not adminLoginConfigured():
+        return render_template('admin_login.html', not_configured=True), 503
+    if session.get('is_admin'):
+        return redirect(url_for('allVisitors'))
+
+    error = None
+    status = 200
+    if request.method == "POST":
+        submitted_token = request.form.get('csrf_token', '').encode()
+        expected_token = session.get('csrf_token', '').encode()
+        submitted_password = request.form.get('password', '').encode()
+        if not expected_token or not hmac.compare_digest(submitted_token, expected_token):
+            error = "Your login form expired. Please try again."
+            status = 400
+        elif hmac.compare_digest(submitted_password, os.environ['ADMIN_PASSWORD'].encode()):
+            session.clear()
+            session.permanent = True
+            session['is_admin'] = True
+            return redirect(url_for('allVisitors'))
+        else:
+            error = "Incorrect password."
+            status = 401
+
+    session['csrf_token'] = secrets.token_urlsafe(32)
+    return render_template('admin_login.html', csrf_token=session['csrf_token'], error=error), status
+
+@app.route('/admin/logout/', methods=["POST"])
+def adminLogout():
+    session.clear()
+    return redirect(url_for('adminLogin'))
+
 @app.route('/admin/viewVisitors/allVisitors/')
+@requireAdminLogin
 def allVisitors():
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)

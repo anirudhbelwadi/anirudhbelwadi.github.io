@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex">
+	<title>Admin Login | Portfolio Analytics</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='images/anirudhbelwadi_square.webp') }}">
+	<style>
+		:root {
+			--background: hsl(222, 47%, 11%);
+			--foreground: hsl(210, 40%, 98%);
+			--card: hsl(222, 47%, 15%);
+			--border: hsl(217, 32%, 17%);
+			--primary: hsl(210, 40%, 98%);
+			--primary-foreground: hsl(222, 47%, 11%);
+			--secondary: hsl(217, 32%, 17%);
+			--muted-foreground: hsl(215, 20%, 65%);
+			--radius: 0.5rem;
+			--info: #3B82F6;
+			--danger: #F87171;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			background-color: var(--background);
+			color: var(--foreground);
+			line-height: 1.5;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 1.5rem;
+		}
+
+		.card {
+			width: 100%;
+			max-width: 380px;
+			background-color: var(--card);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 2rem;
+		}
+
+		.eyebrow {
+			font-size: 0.8rem;
+			font-weight: 600;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+			color: var(--muted-foreground);
+		}
+
+		h1 {
+			font-size: 1.5rem;
+			font-weight: 700;
+			margin: 0.25rem 0 1.5rem;
+		}
+
+		label {
+			display: block;
+			font-size: 0.9rem;
+			font-weight: 600;
+			margin-bottom: 0.4rem;
+		}
+
+		input[type="password"] {
+			width: 100%;
+			background: var(--secondary);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			padding: 0.65rem 0.8rem;
+			color: var(--foreground);
+			font: inherit;
+		}
+
+		input[type="password"]:focus {
+			outline: none;
+			border-color: var(--info);
+		}
+
+		button {
+			width: 100%;
+			margin-top: 1.25rem;
+			border: none;
+			border-radius: var(--radius);
+			padding: 0.65rem 0.9rem;
+			background: var(--primary);
+			color: var(--primary-foreground);
+			font: inherit;
+			font-weight: 600;
+			cursor: pointer;
+		}
+
+		button:hover {
+			opacity: 0.9;
+		}
+
+		.message {
+			font-size: 0.9rem;
+			margin-bottom: 1rem;
+		}
+
+		.error {
+			color: var(--danger);
+		}
+
+		.muted {
+			color: var(--muted-foreground);
+		}
+	</style>
+</head>
+
+<body>
+	<main class="card">
+		<div class="eyebrow">Portfolio Analytics</div>
+		<h1>Admin Login</h1>
+
+		{% if not_configured %}
+		<p class="message muted">Admin login has not been set up yet.</p>
+		{% else %}
+		{% if error %}
+		<p class="message error" role="alert">{{ error }}</p>
+		{% endif %}
+		<form method="POST" action="{{ url_for('adminLogin') }}">
+			<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password" autocomplete="current-password" required autofocus>
+			<button type="submit">Log in</button>
+		</form>
+		{% endif %}
+	</main>
+</body>
+
+</html>

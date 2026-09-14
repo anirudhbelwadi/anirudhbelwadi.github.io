@@ -99,6 +99,17 @@
 			border-color: var(--info);
 		}
 
+		.logout-form {
+			display: contents;
+		}
+
+		button.nav-link {
+			font-family: inherit;
+			line-height: inherit;
+			white-space: nowrap;
+			cursor: pointer;
+		}
+
 		.page {
 			padding: 1.5rem;
 			max-width: 1400px;
@@ -334,6 +345,9 @@
 			<nav class="nav-links">
 				<a class="nav-link" href="/">Readme</a>
 				<a class="nav-link" href="/admin/viewVisitors/">Dashboard</a>
+				<form class="logout-form" method="POST" action="/admin/logout/">
+					<button type="submit" class="nav-link">Log out</button>
+				</form>
 			</nav>
 		</div>
 	</header>
