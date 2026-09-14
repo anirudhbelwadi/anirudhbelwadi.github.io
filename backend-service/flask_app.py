@@ -417,7 +417,7 @@ def allVisitors():
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
-    visitors = database_cursor.execute("SELECT ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile, user_agent FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
+    visitors = database_cursor.execute("SELECT ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile, user_agent, org, is_webdriver, browser_timezone, browser_language FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
     database_connection.close()
     visitors_list = []
     for visitor in visitors:
@@ -433,7 +433,11 @@ def allVisitors():
             "visitor_name": visitor[8],
             "visitor_role": visitor[9],
             "is_mobile": visitor[10],
-            "user_agent": visitor[11]
+            "user_agent": visitor[11],
+            "org": visitor[12],
+            "is_webdriver": visitor[13],
+            "browser_timezone": visitor[14],
+            "browser_language": visitor[15]
         })
     return render_template('all_visitors.html', visitors=visitors_list)
 
@@ -500,9 +504,15 @@ def counterIncrease(ip):
             cleaned_country = clean_row_country(cleaned_country)
         # Capped so a junk header cannot bloat the table; real browsers stay well under this.
         user_agent = (request.headers.get('User-Agent') or "")[:512] or None
+        # Reported by the page itself. Cached copies of the older site send none of these,
+        # so a missing value stays NULL instead of reading as "not automated".
+        webdriver_param = request.args.get('webdriver', default="", type=str).lower()
+        is_webdriver_flag = "Y" if webdriver_param == "true" else "N" if webdriver_param == "false" else None
+        browser_timezone = request.args.get('timezone', default="", type=str)[:64] or None
+        browser_language = request.args.get('language', default="", type=str)[:64] or None
         database_cursor.execute(
-            "INSERT into visitors (ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile, user_agent) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-            (ip, now, location_response.get("city"), location_response.get("region"), cleaned_country, web_source, is_repeat_visitor_last_24h, location_response.get("postal"), None, None, is_mobile_flag, user_agent)
+            "INSERT into visitors (ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile, user_agent, org, is_webdriver, browser_timezone, browser_language) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (ip, now, location_response.get("city"), location_response.get("region"), cleaned_country, web_source, is_repeat_visitor_last_24h, location_response.get("postal"), None, None, is_mobile_flag, user_agent, location_response.get("org"), is_webdriver_flag, browser_timezone, browser_language)
         )
         visit_id = database_cursor.lastrowid
     except Exception as e:

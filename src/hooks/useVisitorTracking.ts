@@ -54,6 +54,11 @@ export function useVisitorTracking(isMobile: boolean): VisitorTracking {
         url.searchParams.set('domain', visitorDomainParam());
         url.searchParams.set('source', document.referrer);
         url.searchParams.set('is_mobile', String(isMobile));
+        // Signals for spotting automated visits: webdriver is true when a script drives the
+        // browser, and a timezone that disagrees with the IP's location often means a VPN.
+        url.searchParams.set('webdriver', String(navigator.webdriver));
+        url.searchParams.set('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+        url.searchParams.set('language', navigator.language || '');
 
         const counterResponse = await fetch(url.toString());
         const data = (await counterResponse.json()) as CounterResponse;
