@@ -303,6 +303,14 @@
 			color: var(--muted-foreground);
 		}
 
+		.ua-cell {
+			min-width: 18rem;
+			font-family: monospace;
+			font-size: 0.75rem;
+			color: var(--muted-foreground);
+			word-break: break-word;
+		}
+
 		@media (max-width: 768px) {
 			.table-content {
 				padding: 0 1rem 1rem;
@@ -360,6 +368,7 @@
 							<th class="nowrap">Repeat?</th>
 							<th class="nowrap">Device</th>
 							<th class="nowrap">Postal</th>
+							<th class="nowrap">User Agent</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -374,6 +383,7 @@
 							<td class="nowrap">{{ 'Yes' if v.is_repeat_visitor == 'Y' else 'No' }}</td>
 							<td class="nowrap">{{ 'Mobile' if v.is_mobile == 'Y' else 'Web' if v.is_mobile == 'N' else '-' }}</td>
 							<td class="nowrap">{{ v.postal or '-' }}</td>
+							<td class="ua-cell">{{ v.user_agent or '-' }}</td>
 						</tr>
 						{% endfor %}
 					</tbody>

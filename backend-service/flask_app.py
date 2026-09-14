@@ -417,7 +417,7 @@ def allVisitors():
     database_location = os.path.join(THIS_FOLDER, 'database.db')
     database_connection = sqlite3.connect(database_location)
     database_cursor = database_connection.cursor()
-    visitors = database_cursor.execute("SELECT ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
+    visitors = database_cursor.execute("SELECT ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile, user_agent FROM visitors ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || substr(timestamp, 4, 2) || '-' ||  substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC;").fetchall()
     database_connection.close()
     visitors_list = []
     for visitor in visitors:
@@ -432,7 +432,8 @@ def allVisitors():
             "postal": visitor[7],
             "visitor_name": visitor[8],
             "visitor_role": visitor[9],
-            "is_mobile": visitor[10]
+            "is_mobile": visitor[10],
+            "user_agent": visitor[11]
         })
     return render_template('all_visitors.html', visitors=visitors_list)
 
@@ -497,9 +498,11 @@ def counterIncrease(ip):
         cleaned_country = location_response.get("country")
         if cleaned_country is not None:
             cleaned_country = clean_row_country(cleaned_country)
+        # Capped so a junk header cannot bloat the table; real browsers stay well under this.
+        user_agent = (request.headers.get('User-Agent') or "")[:512] or None
         database_cursor.execute(
-            "INSERT into visitors (ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-            (ip, now, location_response.get("city"), location_response.get("region"), cleaned_country, web_source, is_repeat_visitor_last_24h, location_response.get("postal"), None, None, is_mobile_flag)
+            "INSERT into visitors (ip, timestamp, city, region, country_name, source, is_repeat_visitor, postal, visitor_name, visitor_role, is_mobile, user_agent) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            (ip, now, location_response.get("city"), location_response.get("region"), cleaned_country, web_source, is_repeat_visitor_last_24h, location_response.get("postal"), None, None, is_mobile_flag, user_agent)
         )
         visit_id = database_cursor.lastrowid
     except Exception as e:
