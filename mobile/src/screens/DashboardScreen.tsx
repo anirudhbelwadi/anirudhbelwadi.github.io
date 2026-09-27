@@ -13,11 +13,13 @@ import { RankedBars } from '../components/RankedBars';
 import { DeviceSplitBar } from '../components/DeviceSplit';
 import { TimeSeriesChart } from '../components/TimeSeriesChart';
 
+// Short labels so all four sit on one line at phone width; the full wording
+// goes to screen readers.
 const RANGES = [
-  { key: 'week', label: '7 days' },
-  { key: 'month', label: '30 days' },
-  { key: 'year', label: '12 months' },
-  { key: 'fiveYears', label: '5 years' },
+  { key: 'week', label: '7D', full: '7 days' },
+  { key: 'month', label: '30D', full: '30 days' },
+  { key: 'year', label: '12M', full: '12 months' },
+  { key: 'fiveYears', label: '5Y', full: '5 years' },
 ] as const;
 
 type RangeKey = (typeof RANGES)[number]['key'];
@@ -107,11 +109,12 @@ export function DashboardScreen() {
                   onPress={() => setRange(option.key)}
                   style={[styles.range, selected && styles.rangeOn]}
                   accessibilityRole="button"
+                  accessibilityLabel={option.full}
                   accessibilityState={{ selected }}
                 >
                   <Text style={[styles.rangeText, selected && styles.rangeTextOn]} numberOfLines={1}>
-                  {option.label}
-                </Text>
+                    {option.label}
+                  </Text>
                 </Pressable>
               );
             })}
@@ -155,19 +158,20 @@ const styles = StyleSheet.create({
   heading: { ...theme.text.display, color: theme.color.textPrimary },
   sub: { ...theme.text.body, fontSize: 12, color: theme.color.textMuted },
   tiles: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space(2.5) },
-  ranges: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space(2) },
+  ranges: { flexDirection: 'row', gap: theme.space(2) },
   range: {
-    paddingHorizontal: theme.space(3),
+    // Equal shares of one row, so the set reads as a single control and no
+    // label has to be cut to fit.
+    flex: 1,
     paddingVertical: theme.space(2),
     borderRadius: 999,
     borderWidth: 1,
     borderColor: theme.color.border,
-    // Without this the chips compress instead of wrapping, and the last label
-    // truncates: four of them need more width than a phone gives the card.
-    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   rangeOn: { backgroundColor: theme.color.series1, borderColor: theme.color.series1 },
-  rangeText: { fontSize: 13, fontWeight: '600', color: theme.color.textSecondary },
+  rangeText: { fontSize: 13, fontWeight: '600', letterSpacing: 0.3, color: theme.color.textSecondary },
   rangeTextOn: { color: '#0b1a2e' },
   errorTitle: { ...theme.text.title, color: theme.color.textPrimary },
   errorBody: { ...theme.text.body, color: theme.color.textSecondary, textAlign: 'center' },
