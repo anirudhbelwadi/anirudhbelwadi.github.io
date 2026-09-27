@@ -10,7 +10,7 @@ import pytz
 from dateutil.relativedelta import relativedelta
 from country_code import clean_row_country
 import json
-from fetch_gist import fetch_gist_json
+from tasks.fetch_gist import fetch_gist_json
 import content
 import api
 import images

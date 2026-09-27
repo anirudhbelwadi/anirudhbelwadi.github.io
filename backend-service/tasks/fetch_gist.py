@@ -7,7 +7,10 @@ GIST_ID = "364c7cc98dacc6fa7d1f59dd7862e856"
 GIST_FILENAME = "source_config.json"
 GIST_API_URL = f"https://api.github.com/gists/{GIST_ID}"
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-LOCAL_FILE_PATH = os.path.join(THIS_FOLDER, 'source_config.json')
+# The app reads this fallback from the backend root, one level up from tasks/,
+# so the file stays where flask_app.fetchLocalSourceConfig looks for it.
+BACKEND_ROOT = os.path.dirname(THIS_FOLDER)
+LOCAL_FILE_PATH = os.path.join(BACKEND_ROOT, 'source_config.json')
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 

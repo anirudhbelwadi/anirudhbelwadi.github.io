@@ -31,7 +31,6 @@ FILES = [
     "api.py",
     "images.py",
     "country_code.py",
-    "fetch_gist.py",
     "requirements.txt",
     # Seeds the content tables on first run only; never overwrites live rows.
     "content_seed.json",
@@ -41,6 +40,8 @@ FILES = [
 DIRECTORIES = [
     "templates",
     "static",
+    # Scripts run by PythonAnywhere scheduled tasks, imported by the app too.
+    "tasks",
 ]
 
 # --- what must never be deployed --------------------------------------------
