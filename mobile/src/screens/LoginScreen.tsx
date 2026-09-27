@@ -3,6 +3,7 @@ import {
   View, Text, TextInput, Pressable, StyleSheet, ActivityIndicator,
   KeyboardAvoidingView, Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { login, ApiError } from '../api';
 import { theme } from '../theme';
 
@@ -24,7 +25,8 @@ export function LoginScreen({ onAuthenticated }: { onAuthenticated: (token: stri
   };
 
   return (
-    <KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <SafeAreaView style={styles.screen} edges={['top']}>
+      <KeyboardAvoidingView style={styles.inner} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <View style={styles.box}>
         <Text style={styles.eyebrow}>ANIRUDHBELWADI.COM</Text>
         <Text style={styles.title}>Portfolio analytics</Text>
@@ -55,13 +57,15 @@ export function LoginScreen({ onAuthenticated }: { onAuthenticated: (token: stri
         >
           {busy ? <ActivityIndicator color="#0b1a2e" /> : <Text style={styles.buttonText}>Sign in</Text>}
         </Pressable>
-      </View>
-    </KeyboardAvoidingView>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: theme.color.background, justifyContent: 'center', padding: theme.space(6) },
+  screen: { flex: 1, backgroundColor: theme.color.background },
+  inner: { flex: 1, justifyContent: 'center', padding: theme.space(6) },
   box: { gap: theme.space(3) },
   eyebrow: { ...theme.text.label, color: theme.color.series1 },
   title: { ...theme.text.display, color: theme.color.textPrimary },

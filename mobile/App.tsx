@@ -3,7 +3,8 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DarkTheme, type Theme as NavTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { loadToken, saveToken, clearToken } from './src/auth';
 import { SessionContext } from './src/session';
@@ -25,6 +26,49 @@ const navigationTheme: NavTheme = {
     primary: theme.color.series1,
   },
 };
+
+/**
+ * Separate from App so the inset hook runs inside SafeAreaProvider — the app
+ * draws edge to edge, so the tab bar has to lift clear of the gesture bar
+ * itself.
+ */
+function SignedInTabs() {
+  const insets = useSafeAreaInsets();
+  return (
+    <NavigationContainer theme={navigationTheme}>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: theme.color.series1,
+          tabBarInactiveTintColor: theme.color.textMuted,
+          tabBarStyle: {
+            backgroundColor: theme.color.surface,
+            borderTopColor: theme.color.border,
+            height: 58 + insets.bottom,
+            paddingBottom: insets.bottom + 4,
+            paddingTop: 6,
+          },
+          tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
+        }}
+      >
+        <Tab.Screen
+          name="Overview"
+          component={DashboardScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => <Ionicons name="stats-chart" color={color} size={size} />,
+          }}
+        />
+        <Tab.Screen
+          name="Visitors"
+          component={VisitorsScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => <Ionicons name="people" color={color} size={size} />,
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default function App() {
   const [token, setToken] = useState<string | null>(null);
@@ -58,20 +102,7 @@ export default function App() {
         <LoginScreen onAuthenticated={signIn} />
       ) : (
         <SessionContext.Provider value={{ token, signOut }}>
-          <NavigationContainer theme={navigationTheme}>
-            <Tab.Navigator
-              screenOptions={{
-                headerShown: false,
-                tabBarActiveTintColor: theme.color.series1,
-                tabBarInactiveTintColor: theme.color.textMuted,
-                tabBarStyle: { backgroundColor: theme.color.surface, borderTopColor: theme.color.border },
-                tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
-              }}
-            >
-              <Tab.Screen name="Overview" component={DashboardScreen} />
-              <Tab.Screen name="Visitors" component={VisitorsScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
+          <SignedInTabs />
         </SessionContext.Provider>
       )}
     </SafeAreaProvider>

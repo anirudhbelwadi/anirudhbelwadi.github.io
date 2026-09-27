@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View, Text, FlatList, TextInput, StyleSheet, ActivityIndicator, RefreshControl,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { fetchVisitors, ApiError } from '../api';
 import { useSession } from '../session';
 import { theme } from '../theme';
@@ -44,7 +44,6 @@ function Chip({ text, accent }: { text: string; accent?: boolean }) {
 
 export function VisitorsScreen() {
   const { token, signOut } = useSession();
-  const insets = useSafeAreaInsets();
   const [items, setItems] = useState<Visitor[]>([]);
   const [total, setTotal] = useState(0);
   const [query, setQuery] = useState('');
@@ -97,7 +96,7 @@ export function VisitorsScreen() {
   };
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen} edges={['top']}>
       <View style={styles.header}>
         <Text style={styles.heading}>Visitors</Text>
         <Text style={styles.sub}>
@@ -123,7 +122,7 @@ export function VisitorsScreen() {
         data={items}
         keyExtractor={(item, index) => `${item.ip}-${item.timestamp}-${index}`}
         renderItem={({ item }) => <VisitorRow visitor={item} />}
-        contentContainerStyle={[styles.list, { paddingBottom: insets.bottom + theme.space(8) }]}
+        contentContainerStyle={styles.list}
         onEndReached={loadMore}
         onEndReachedThreshold={0.6}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={theme.color.series1} />}
@@ -137,7 +136,7 @@ export function VisitorsScreen() {
         ListFooterComponent={loadingMore ? <ActivityIndicator color={theme.color.series1} style={styles.spinner} /> : null}
         keyboardDismissMode="on-drag"
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -157,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: theme.space(1),
   },
-  list: { paddingHorizontal: theme.space(4), gap: theme.space(2.5) },
+  list: { paddingHorizontal: theme.space(4), paddingBottom: theme.space(8), gap: theme.space(2.5) },
   row: {
     backgroundColor: theme.color.surface,
     borderRadius: theme.radius.md,

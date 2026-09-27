@@ -36,10 +36,10 @@ export function RankedBars({ data, unit, emptyMessage = 'No data yet.' }: Ranked
 
   return (
     <View style={styles.list} onLayout={(e) => setTrackWidth(e.nativeEvent.layout.width)}>
-      {data.map((point) => {
+      {data.map((point, index) => {
         const width = trackWidth > 0 ? Math.max((point.value / max) * trackWidth, point.value > 0 ? 3 : 0) : 0;
         return (
-          <View key={point.label} style={styles.row}>
+          <View key={`${point.label}-${index}`} style={styles.row}>
             <View style={styles.rowHead}>
               <Text style={styles.name} numberOfLines={1}>{point.label || 'Direct'}</Text>
               <Text style={styles.value}>

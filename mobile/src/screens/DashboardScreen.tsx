@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   View, Text, ScrollView, StyleSheet, RefreshControl, Pressable, ActivityIndicator,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { fetchAnalytics, ApiError } from '../api';
 import { useSession } from '../session';
 import { theme } from '../theme';
@@ -24,7 +24,6 @@ type RangeKey = (typeof RANGES)[number]['key'];
 
 export function DashboardScreen() {
   const { token, signOut } = useSession();
-  const insets = useSafeAreaInsets();
   const [data, setData] = useState<Analytics | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -50,7 +49,7 @@ export function DashboardScreen() {
 
   if (!data) {
     return (
-      <View style={styles.centre}>
+      <SafeAreaView style={styles.centre} edges={['top']}>
         {error ? (
           <>
             <Text style={styles.errorTitle}>Can't load analytics</Text>
@@ -62,7 +61,7 @@ export function DashboardScreen() {
         ) : (
           <ActivityIndicator color={theme.color.series1} />
         )}
-      </View>
+      </SafeAreaView>
     );
   }
 
@@ -70,81 +69,84 @@ export function DashboardScreen() {
   const updated = new Date(data.generatedAt);
 
   return (
-    <ScrollView
-      style={styles.screen}
-      contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + theme.space(8) }]}
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={theme.color.series1} />}
-    >
-      <View style={styles.header}>
-        <View style={styles.headerText}>
-          <Text style={styles.heading}>Overview</Text>
-          <Text style={styles.sub}>
-            {data.total.toLocaleString()} visits all time · updated{' '}
-            {updated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          </Text>
+    <SafeAreaView style={styles.screen} edges={['top']}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={theme.color.series1} />
+        }
+      >
+        <View style={styles.header}>
+          <View style={styles.headerText}>
+            <Text style={styles.heading}>Overview</Text>
+            <Text style={styles.sub}>
+              {data.total.toLocaleString()} visits all time · updated{' '}
+              {updated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </Text>
+          </View>
         </View>
-      </View>
 
-      {error ? <Text style={styles.inlineError}>{error}</Text> : null}
+        {error ? <Text style={styles.inlineError}>{error}</Text> : null}
 
-      <View style={styles.tiles}>
-        <KpiTile label="Today" value={kpis.todays_visitors} />
-        <KpiTile label="This week" value={kpis.visits_this_week} />
-        <KpiTile label="This month" value={kpis.visits_this_month} />
-        <KpiTile label="Avg / day" value={kpis.avg_per_day} note={`${kpis.avg_per_week} per week`} />
-        <KpiTile label="Busiest day" value={kpis.peak_day_count} note={kpis.peak_day} />
-        <KpiTile label="Repeat / day" value={kpis.repeat_visitors_per_day} note={`${kpis.repeat_visitors_last_24h} in last 24h`} />
-      </View>
-
-      <Card title="Visits over time">
-        <View style={styles.ranges}>
-          {RANGES.map((option) => {
-            const selected = option.key === range;
-            return (
-              <Pressable
-                key={option.key}
-                onPress={() => setRange(option.key)}
-                style={[styles.range, selected && styles.rangeOn]}
-                accessibilityRole="button"
-                accessibilityState={{ selected }}
-              >
-                <Text style={[styles.rangeText, selected && styles.rangeTextOn]}>{option.label}</Text>
-              </Pressable>
-            );
-          })}
+        <View style={styles.tiles}>
+          <KpiTile label="Today" value={kpis.todays_visitors} />
+          <KpiTile label="This week" value={kpis.visits_this_week} />
+          <KpiTile label="This month" value={kpis.visits_this_month} />
+          <KpiTile label="Avg / day" value={kpis.avg_per_day} note={`${kpis.avg_per_week} per week`} />
+          <KpiTile label="Busiest day" value={kpis.peak_day_count} note={kpis.peak_day} />
+          <KpiTile label="Repeat / day" value={kpis.repeat_visitors_per_day} note={`${kpis.repeat_visitors_last_24h} in last 24h`} />
         </View>
-        <TimeSeriesChart data={data.series[range]} />
-      </Card>
 
-      <Card title="Top countries" subtitle={`Leading: ${kpis.top_country}`}>
-        <RankedBars data={data.countries} unit="visits" />
-      </Card>
+        <Card title="Visits over time">
+          <View style={styles.ranges}>
+            {RANGES.map((option) => {
+              const selected = option.key === range;
+              return (
+                <Pressable
+                  key={option.key}
+                  onPress={() => setRange(option.key)}
+                  style={[styles.range, selected && styles.rangeOn]}
+                  accessibilityRole="button"
+                  accessibilityState={{ selected }}
+                >
+                  <Text style={[styles.rangeText, selected && styles.rangeTextOn]}>{option.label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <TimeSeriesChart data={data.series[range]} />
+        </Card>
 
-      <Card title="Top sources" subtitle={`Leading: ${kpis.top_source}`}>
-        <RankedBars data={data.sources} unit="visits" />
-      </Card>
+        <Card title="Top countries" subtitle={`Leading: ${kpis.top_country}`}>
+          <RankedBars data={data.countries} unit="visits" />
+        </Card>
 
-      <Card title="Mobile vs desktop">
-        <DeviceSplitBar split={kpis.device_split} />
-      </Card>
+        <Card title="Top sources" subtitle={`Leading: ${kpis.top_source}`}>
+          <RankedBars data={data.sources} unit="visits" />
+        </Card>
 
-      <Card title="Top cities">
-        <RankedBars
-          data={kpis.top_locations.map((location) => ({ label: location.city, value: location.count }))}
-          unit="visits"
-        />
-      </Card>
+        <Card title="Mobile vs desktop">
+          <DeviceSplitBar split={kpis.device_split} />
+        </Card>
 
-      <Pressable onPress={signOut} style={styles.signOut} accessibilityRole="button">
-        <Text style={styles.signOutText}>Sign out</Text>
-      </Pressable>
-    </ScrollView>
+        <Card title="Top cities">
+          <RankedBars
+            data={kpis.top_locations.map((location) => ({ label: location.city, value: location.count }))}
+            unit="visits"
+          />
+        </Card>
+
+        <Pressable onPress={signOut} style={styles.signOut} accessibilityRole="button">
+          <Text style={styles.signOutText}>Sign out</Text>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: theme.color.background },
-  content: { padding: theme.space(4), gap: theme.space(4) },
+  content: { padding: theme.space(4), paddingBottom: theme.space(8), gap: theme.space(4) },
   centre: { flex: 1, backgroundColor: theme.color.background, alignItems: 'center', justifyContent: 'center', padding: theme.space(6), gap: theme.space(3) },
   header: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' },
   headerText: { gap: 2, flexShrink: 1 },
