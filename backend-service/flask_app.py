@@ -475,6 +475,33 @@ def _apiAnalytics():
 
     kpis = dict(data["kpis"])
     kpis["top_locations"] = [{"city": row[0], "count": row[1]} for row in kpis.get("top_locations", [])]
+
+    # The web dashboard builds these two charts in the browser from every visitor
+    # row it is sent. Aggregating here instead keeps the payload small enough for
+    # a phone.
+    database_connection = sqlite3.connect(os.path.join(THIS_FOLDER, 'database.db'))
+    database_cursor = database_connection.cursor()
+    try:
+        countries = database_cursor.execute("""
+            SELECT country_name, COUNT(*) AS visits FROM visitors
+            WHERE country_name IS NOT NULL AND TRIM(country_name) != ''
+            GROUP BY country_name ORDER BY visits DESC LIMIT 10
+        """).fetchall()
+        sources = database_cursor.execute("""
+            SELECT source, COUNT(*) AS visits FROM visitors
+            GROUP BY source ORDER BY visits DESC LIMIT 5
+        """).fetchall()
+    finally:
+        database_connection.close()
+
+    # Referrers are stored raw; resolve them through the same config the web
+    # dashboard uses, fetching it once rather than per row.
+    try:
+        source_config = fetchRemoteSourceConfig()
+        sources = [(resolveSourceFromConfig(source_config, row[0]), row[1]) for row in sources]
+    except Exception as error:
+        app.logger.warning("Could not resolve source names: %s", error)
+        sources = [(row[0] or "Direct", row[1]) for row in sources]
     return _apiCors(jsonify({
         "total": total,
         "kpis": kpis,
@@ -484,6 +511,8 @@ def _apiAnalytics():
             "year": api.pairs_to_series(data["year_data"]),
             "fiveYears": api.pairs_to_series(data["five_years_data"]),
         },
+        "countries": api.pairs_to_series(countries),
+        "sources": api.pairs_to_series(sources),
         "generatedAt": datetime.now(current_timezone).isoformat(),
     }))
 
