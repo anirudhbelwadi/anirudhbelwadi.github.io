@@ -109,7 +109,9 @@ export function DashboardScreen() {
                   accessibilityRole="button"
                   accessibilityState={{ selected }}
                 >
-                  <Text style={[styles.rangeText, selected && styles.rangeTextOn]}>{option.label}</Text>
+                  <Text style={[styles.rangeText, selected && styles.rangeTextOn]} numberOfLines={1}>
+                  {option.label}
+                </Text>
                 </Pressable>
               );
             })}
@@ -160,10 +162,13 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     borderWidth: 1,
     borderColor: theme.color.border,
+    // Without this the chips compress instead of wrapping, and the last label
+    // truncates: four of them need more width than a phone gives the card.
+    flexShrink: 0,
   },
   rangeOn: { backgroundColor: theme.color.series1, borderColor: theme.color.series1 },
-  rangeText: { fontSize: 13, color: theme.color.textSecondary },
-  rangeTextOn: { color: '#0b1a2e', fontWeight: '700' },
+  rangeText: { fontSize: 13, fontWeight: '600', color: theme.color.textSecondary },
+  rangeTextOn: { color: '#0b1a2e' },
   errorTitle: { ...theme.text.title, color: theme.color.textPrimary },
   errorBody: { ...theme.text.body, color: theme.color.textSecondary, textAlign: 'center' },
   inlineError: { ...theme.text.body, color: theme.color.danger },

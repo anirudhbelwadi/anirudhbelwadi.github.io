@@ -26,6 +26,11 @@
     "plugins": [
       "expo-secure-store"
     ],
-    "backgroundColor": "#121211"
+    "backgroundColor": "#121211",
+    "extra": {
+      "eas": {
+        "projectId": "111d6488-b59f-41b4-bdb4-ab07285a545c"
+      }
+    }
   }
 }
