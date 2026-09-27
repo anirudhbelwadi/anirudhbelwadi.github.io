@@ -12,6 +12,7 @@ from country_code import clean_row_country
 import json
 from fetch_gist import fetch_gist_json
 import content
+import api
 import images
 
 current_timezone = pytz.timezone('America/New_York')
@@ -424,6 +425,115 @@ def getData(database_cursor):
             },
         }
     }
+
+@app.route('/api/login', methods=["POST", "OPTIONS"])
+def apiLogin():
+    if request.method == "OPTIONS":
+        return _apiCors(make_response("", 204))
+    if not app.secret_key or not api.admin_password():
+        return _apiCors(jsonify({"error": "not_configured",
+                                 "message": "Admin login is not configured on the server."})), 503
+    if api.is_locked_out():
+        return _apiCors(jsonify({"error": "locked_out",
+                                 "message": "Too many attempts. Try again in 15 minutes."})), 429
+
+    payload = request.get_json(silent=True) or {}
+    submitted = str(payload.get("password", "")).encode()
+    if not hmac.compare_digest(submitted, api.admin_password().encode()):
+        api.note_failure()
+        return _apiCors(jsonify({"error": "invalid_password",
+                                 "message": "Incorrect password."})), 401
+
+    api.clear_failures()
+    return _apiCors(jsonify({"token": api.issue_token(app.secret_key),
+                             "expiresIn": api.TOKEN_MAX_AGE}))
+
+
+@app.route('/api/analytics', methods=["GET", "OPTIONS"])
+def apiAnalytics():
+    if request.method == "OPTIONS":
+        return _apiCors(make_response("", 204))
+    return _apiAnalytics()
+
+
+@app.route('/api/visitors', methods=["GET", "OPTIONS"])
+def apiVisitors():
+    if request.method == "OPTIONS":
+        return _apiCors(make_response("", 204))
+    return _apiVisitors()
+
+
+@api.require_api_token(lambda: app.secret_key)
+def _apiAnalytics():
+    database_connection = sqlite3.connect(os.path.join(THIS_FOLDER, 'database.db'))
+    database_cursor = database_connection.cursor()
+    try:
+        total = int(database_cursor.execute("SELECT COUNT(*) FROM visitors").fetchone()[0])
+        data = getData(database_cursor)
+    finally:
+        database_connection.close()
+
+    kpis = dict(data["kpis"])
+    kpis["top_locations"] = [{"city": row[0], "count": row[1]} for row in kpis.get("top_locations", [])]
+    return _apiCors(jsonify({
+        "total": total,
+        "kpis": kpis,
+        "series": {
+            "week": api.pairs_to_series(data["week_data"]),
+            "month": api.pairs_to_series(data["month_data"]),
+            "year": api.pairs_to_series(data["year_data"]),
+            "fiveYears": api.pairs_to_series(data["five_years_data"]),
+        },
+        "generatedAt": datetime.now(current_timezone).isoformat(),
+    }))
+
+
+@api.require_api_token(lambda: app.secret_key)
+def _apiVisitors():
+    try:
+        limit = max(1, min(200, int(request.args.get("limit", 50))))
+        offset = max(0, int(request.args.get("offset", 0)))
+    except ValueError:
+        return _apiCors(jsonify({"error": "bad_request",
+                                 "message": "limit and offset must be whole numbers."})), 400
+    search = (request.args.get("q") or "").strip()
+
+    # The stored timestamp is DD/MM/YYYY, so it has to be rebuilt to sort by time.
+    order_by = ("strftime('%Y-%m-%d %H:%M:%S', substr(timestamp, 7, 4) || '-' || "
+                "substr(timestamp, 4, 2) || '-' || substr(timestamp, 1, 2) || ' ' || substr(timestamp, 12)) DESC")
+    where, params = "", []
+    if search:
+        like = f"%{search}%"
+        where = ("WHERE city LIKE ? OR country_name LIKE ? OR source LIKE ? "
+                 "OR visitor_name LIKE ? OR visitor_role LIKE ? OR ip LIKE ?")
+        params = [like] * 6
+
+    database_connection = sqlite3.connect(os.path.join(THIS_FOLDER, 'database.db'))
+    database_cursor = database_connection.cursor()
+    try:
+        matched = int(database_cursor.execute(f"SELECT COUNT(*) FROM visitors {where}", params).fetchone()[0])
+        rows = database_cursor.execute(
+            f"SELECT * FROM visitors {where} ORDER BY {order_by} LIMIT ? OFFSET ?",
+            params + [limit, offset],
+        ).fetchall()
+    finally:
+        database_connection.close()
+
+    return _apiCors(jsonify({
+        "total": matched,
+        "limit": limit,
+        "offset": offset,
+        "items": [api.visitor_to_json(row) for row in rows],
+    }))
+
+
+def _apiCors(response):
+    """The app sends a bearer token, never a cookie, so no credentials ride along."""
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    return response
+
 
 @app.route('/admin/viewVisitors/')
 def viewVisitors():
