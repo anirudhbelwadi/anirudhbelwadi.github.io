@@ -487,9 +487,11 @@ def _apiAnalytics():
             WHERE country_name IS NOT NULL AND TRIM(country_name) != ''
             GROUP BY country_name ORDER BY visits DESC LIMIT 10
         """).fetchall()
+        # Pulled wide, because several raw referrers can resolve to one name and
+        # the merge below has to happen before the top five is taken.
         sources = database_cursor.execute("""
             SELECT source, COUNT(*) AS visits FROM visitors
-            GROUP BY source ORDER BY visits DESC LIMIT 5
+            GROUP BY source ORDER BY visits DESC LIMIT 40
         """).fetchall()
     finally:
         database_connection.close()
@@ -498,10 +500,21 @@ def _apiAnalytics():
     # dashboard uses, fetching it once rather than per row.
     try:
         source_config = fetchRemoteSourceConfig()
-        sources = [(resolveSourceFromConfig(source_config, row[0]), row[1]) for row in sources]
+        # A direct visit stores no referrer, and the resolver assumes a string.
+        resolve = lambda raw: (resolveSourceFromConfig(source_config, raw) if raw else None) or "Direct"
     except Exception as error:
         app.logger.warning("Could not resolve source names: %s", error)
-        sources = [(row[0] or "Direct", row[1]) for row in sources]
+        resolve = lambda raw: raw or "Direct"
+
+    # Merged case-insensitively: referrers arrive in whatever case the browser
+    # sent, and "Direct" beside "direct" reads as two different things.
+    merged = {}
+    for raw, visits in sources:
+        name = resolve(raw)
+        key = name.strip().casefold()
+        label, count = merged.get(key, (name, 0))
+        merged[key] = (label, count + visits)
+    sources = sorted(merged.values(), key=lambda item: item[1], reverse=True)[:5]
     return _apiCors(jsonify({
         "total": total,
         "kpis": kpis,
