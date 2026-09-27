@@ -1,4 +1,4 @@
-name: Renew PythonAnywhere web app
+name: Renew PythonAnywhere web app and scheduled tasks
 
 on:
   schedule:
@@ -52,6 +52,16 @@ jobs:
           PA_DOMAIN: ${{ vars.PA_DOMAIN }}
           PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
         run: python .github/scripts/renew_pythonanywhere.py
+
+      # Scheduled tasks expire on their own four-week cycle, separate from the
+      # web app, and an expired one stops running until it is re-enabled.
+      - name: Extend scheduled tasks
+        env:
+          PA_USERNAME: ${{ vars.PA_USERNAME }}
+          PA_PASSWORD: ${{ secrets.PA_PASSWORD }}
+          PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
+          PA_TASK_COMMAND: ${{ vars.PA_TASK_COMMAND }}
+        run: python .github/scripts/renew_pythonanywhere_task.py
 
       - name: Confirm the site is serving
         env:

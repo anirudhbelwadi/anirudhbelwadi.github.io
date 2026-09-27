@@ -9,6 +9,7 @@ on:
       - '.github/scripts/deploy_pythonanywhere.py'
       - '.github/workflows/deploy-backend.yml'
       - '.github/scripts/renew_pythonanywhere.py'
+      - '.github/scripts/renew_pythonanywhere_task.py'
       - '.github/workflows/renew-pythonanywhere.yml'
       - 'mobile/**'
       - 'README.md'
