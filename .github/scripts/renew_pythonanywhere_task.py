@@ -227,8 +227,10 @@ def main() -> int:
     username = require_env("PA_USERNAME")
     api_token = require_env("PA_API_TOKEN")
     password = os.environ.get("PA_PASSWORD", "").strip()
-    # Optional substring filter, so one account with several tasks can renew one.
-    wanted = os.environ.get("PA_TASK_COMMAND", "").strip()
+    # Optional filter: comma or newline separated substrings, so an account with
+    # several tasks can renew a chosen few. Unset renews every task.
+    raw_filter = os.environ.get("PA_TASK_COMMAND", "")
+    wanted = [part.strip() for part in raw_filter.replace("\n", ",").split(",") if part.strip()]
 
     tasks = list_tasks(username, api_token)
     if not tasks:
@@ -242,12 +244,24 @@ def main() -> int:
         print(f"  {describe(task)}")
 
     if wanted:
-        tasks = [t for t in tasks if wanted in str(t.get("command", ""))]
-        if not tasks:
+        # A pattern that matches nothing is almost always a typo, and silently
+        # renewing fewer tasks than asked for would expire one without warning.
+        unmatched = [
+            pattern for pattern in wanted
+            if not any(pattern in str(task.get("command", "")) for task in tasks)
+        ]
+        if unmatched:
             raise RenewError(
-                f"No scheduled task matches PA_TASK_COMMAND={wanted!r}. "
-                "Check the command above for a typo."
+                "PA_TASK_COMMAND has entries that match no scheduled task: "
+                + ", ".join(repr(pattern) for pattern in unmatched)
+                + "\nCompare them against the commands listed above."
             )
+        # One task can match several patterns; renew it once.
+        tasks = [
+            task for task in tasks
+            if any(pattern in str(task.get("command", "")) for pattern in wanted)
+        ]
+        print(f"\nPA_TASK_COMMAND selected {len(tasks)} of them")
 
     session: requests.Session | None = None
     failures: list[str] = []
