@@ -28,6 +28,7 @@ import requests
 FILES = [
     "flask_app.py",
     "content.py",
+    "api.py",
     "images.py",
     "country_code.py",
     "fetch_gist.py",
