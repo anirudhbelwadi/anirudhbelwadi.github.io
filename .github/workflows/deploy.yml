@@ -10,6 +10,7 @@ on:
       - '.github/workflows/deploy-backend.yml'
       - '.github/scripts/renew_pythonanywhere.py'
       - '.github/workflows/renew-pythonanywhere.yml'
+      - 'mobile/**'
       - 'README.md'
   workflow_dispatch:
 
